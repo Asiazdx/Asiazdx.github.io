@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #AFDBE3; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #AFDBE3, 0 0 5px     #AFDBE3; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #AFDBE3;    /*上边框颜色*/
+        border-left-color: #AFDBE3;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言：在去年这个时候就已经开始使用git来管理代码了。但仅仅只会平时开发中经常遇到的几个git命令，对于其中具体的工作原理并不是很清楚。所以当遇到问题时，解决思路经常是模糊的。所以就抽时间认真的学习了一遍。俗话说的好，最好的学就是教。这一系列文章是参考了前辈们的教程根据自己的理解写的一个git学习总结，有出错的地方希望大家多多纠正。">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习笔记一（版本控制系统概述）">
+<meta property="og:url" content="http://www.github.com/Snowyzdx/版本控制工具/git学习笔记一（版本控制系统概述）/index.html">
+<meta property="og:site_name" content="Snowy&#39;blog">
+<meta property="og:description" content="前言：在去年这个时候就已经开始使用git来管理代码了。但仅仅只会平时开发中经常遇到的几个git命令，对于其中具体的工作原理并不是很清楚。所以当遇到问题时，解决思路经常是模糊的。所以就抽时间认真的学习了一遍。俗话说的好，最好的学就是教。这一系列文章是参考了前辈们的教程根据自己的理解写的一个git学习总结，有出错的地方希望大家多多纠正。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/image/gitgit.jpg">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gita01.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gita02.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gita03.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gita04.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gita05.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gita06.png">
+<meta property="og:updated_time" content="2018-04-17T13:47:15.097Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git学习笔记一（版本控制系统概述）">
+<meta name="twitter:description" content="前言：在去年这个时候就已经开始使用git来管理代码了。但仅仅只会平时开发中经常遇到的几个git命令，对于其中具体的工作原理并不是很清楚。所以当遇到问题时，解决思路经常是模糊的。所以就抽时间认真的学习了一遍。俗话说的好，最好的学就是教。这一系列文章是参考了前辈们的教程根据自己的理解写的一个git学习总结，有出错的地方希望大家多多纠正。">
+<meta name="twitter:image" content="http://p6nfblqvu.bkt.clouddn.com/image/gitgit.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.github.com/Snowyzdx/版本控制工具/git学习笔记一（版本控制系统概述）/"/>
+
+
+
+
+
+  <title>Git学习笔记一（版本控制系统概述） | Snowy'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Asiazdx"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Snowy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Stay Hungry. Stay Foolish</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-comments">
+          <a href="/comments/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-laboratory">
+          <a href="/laboratory/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-other_note">
+          <a href="/other_note/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            书影音
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.github.com/Snowyzdx/版本控制工具/git学习笔记一（版本控制系统概述）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="稻香Snowy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/toux.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Snowy'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Git学习笔记一（版本控制系统概述）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T11:02:18+08:00">
+                2017-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/版本控制工具/" itemprop="url" rel="index">
+                    <span itemprop="name">版本控制工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://p6nfblqvu.bkt.clouddn.com/image/gitgit.jpg" width="600" alt="git"></p>
+<p>前言：在去年这个时候就已经开始使用git来管理代码了。但仅仅只会平时开发中经常遇到的几个git命令，对于其中具体的工作原理并不是很清楚。所以当遇到问题时，解决思路经常是模糊的。所以就抽时间认真的学习了一遍。俗话说的好，最好的学就是教。这一系列文章是参考了前辈们的教程根据自己的理解写的一个git学习总结，有出错的地方希望大家多多纠正。<br><a id="more"></a></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="/版本控制工具/git学习笔记一（版本控制系统概述）/" title="git学习笔记一（版本控制系统概述）">git学习笔记一（版本控制系统概述）</a></li>
+<li><a href="/版本控制工具/git学习笔记二（文件基本操作）/" title="git学习笔记二（文件基本操作）">git学习笔记二（文件基本操作）</a></li>
+<li></li>
+<li><a href="/版本控制工具/git学习笔记四（远程仓库）/" title="git学习笔记四（远程仓库）">git学习笔记四（远程仓库）</a></li>
+<li></li>
+<li></li>
+<li><a href="/版本控制工具/git学习笔记七（Github实现多人协同提交代码并且权限分组管理）/" title="Github实现多人协同提交代码并且权限分组管理">Github实现多人协同提交代码并且权限分组管理</a>
+</li>
+</ol>
+<h2 id="一、关于版本控制系统"><a href="#一、关于版本控制系统" class="headerlink" title="一、关于版本控制系统"></a>一、关于版本控制系统</h2><p>在介绍Git之前我们需要先了解一下什么是版本控制系统（VCS）。   </p>
+<blockquote>
+<p>版本控制系统（VCS）最基本的功能就是版本控制。所谓的版本控制，就是在文件的修改历史历程中保留修改历史，让你可以方便的查看或者撤销之前对文件的修改操作。</p>
+</blockquote>
+<p>因为我们在开发过程中时常会出错，比方说你发现现在你写的代码出了点问题（或者某一部分的整个思路是错误的），你想让代码回到之前未进行修改的样子，因为改动的地方可能有很多处，你肯定记不住的。那么这个时候你就需要一个VCS来帮助你将代码恢复到之前的样子。   </p>
+<p>用过Photoshop的都知道，我们可以通过Ctrl+z（或者ctrl+alt+z）将工作区回退到某个历史操作中的样子。VCS的功能和Photoshop的回退的功能类似，只不过Photoshop是软件自动记录我们的操作，而VCS需要我们主动提交要记录的修改。<br>VCS根据不同的工作需求可以分为以下几类：   </p>
+<h3 id="1-本地版本控制系统"><a href="#1-本地版本控制系统" class="headerlink" title="1.本地版本控制系统"></a>1.本地版本控制系统</h3><p>许多人习惯用复制整个项目目录的方式来保存不同的版本，给每个版本的项目文件的名字备注上时间加以区分。这么做唯一的好处就是操作很简单。但是也会有很多的问题，比如说有时候会混淆所在的工作目录，一旦弄错了文件恢复这些丢失的数据就很麻烦了。<br>为了解决这个问题，很早以前就开发了很多<strong>本地版本控制系统</strong>，其中最流行的一种叫做RCS。这系统都是采用某种简单的数据来记录文件的历次更新差异。<br><img src="http://p6nfblqvu.bkt.clouddn.com/gita01.png" alt="gita01"><br>本地版本控制系统适合与个人开发，对于多人协作开发就不合适了。   </p>
+<h3 id="2、集中式版本控制系统"><a href="#2、集中式版本控制系统" class="headerlink" title="2、集中式版本控制系统"></a>2、集中式版本控制系统</h3><p>大多数情况下开发一个项目需要多人共同完成，那么本地版本控制系统就不适合了。我们可能会选择集中版本控制系统（Centralized VCS）。   </p>
+<h4 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h4><p>假设你在一个团队开发一个软件（或者系统），并且你们决定使用集中式版本控制系统来管理你们的项目。于是：   </p>
+<ol>
+<li>作为项目的主工程师，首先你一个人话=花了两天的时间搭建了项目框架；</li>
+<li>然后，你在公司的服务器（这个服务器可以是公司内的设备，也可以是你们买的云服务器）上<strong>创建了一个中央仓库，并把你的代码提交到了中央仓库上</strong>。</li>
+<li>你的两个队友<strong>从中央仓库中取到你的初始代码</strong>，从此刻开始你们三个人开始<strong>并行开发</strong>。</li>
+<li>在之后的开发过程中，你们三个人为了工作方便，总是每个人独立负责开发一个功能，在这个功能开发完成后，这个人就把他的这些<strong>新代码提交到中央仓库</strong>中。   </li>
+<li>每次有人把代码提交到中央仓库的时候，另外两个人就可以选择<strong>把这些代码同步到自己的机器上</strong>，保持自己的本地代码总是最新的。   </li>
+</ol>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gita02.png" alt="gita02"></p>
+<p>这样，你们三个人在各自电脑上同步开发一个项目，互相不受影响。只需通过中央服务器进行交流。<br>当然，实际开发工作中不会这么简单的，因为你们时常需要处理代码冲突，查看版本历史，回退代码版本等等。<br>另外，由于集中式版本控制系统的最新代码是存储在中央服务器的，如果中央服务器出现了故障，那么最新版本的数据就很有可能丢失。<br>其次，这种工作模式需要在联网的情况下工作，因为你每次需要最新版本的代码时都需要从中央服务器中下载下来。   </p>
+<p>SVN就是集中版本控制系统的典型代表。   </p>
+<h3 id="3、分布式版本控制系统"><a href="#3、分布式版本控制系统" class="headerlink" title="3、分布式版本控制系统"></a>3、分布式版本控制系统</h3><p>分布式管理系统（Distributed VCS/DVCS）和集中式版本控制系统的区别在于，分布式版本控制系统没有真正的中央仓库，每个电脑都是一个节点，每个节点都保存着所有版本历史。每个人在自己的机器上就可以提交代码，查看历史，而无需联网和中央服务器进行交互。因为每台电脑上都会有一个本地仓库。如果有人修改了项目中的某一部分代码，它可以将修改的部分推送给其他队员。   </p>
+<p>大部分情况下为了管理和协调团队的交流，分布式版本控制系统会设立一个“中转站”（其实就是一个代码托管平台，比如github）。   </p>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gita03.png" alt="gita03">  </p>
+<h4 id="工作模式-1"><a href="#工作模式-1" class="headerlink" title="工作模式"></a>工作模式</h4><p>依然以三人团队为例：  </p>
+<ol>
+<li>首先，你作为主工程师，独立搭建了项目架构，<strong>并把这些代码提交到了本地仓库</strong></li>
+<li>然后，你在服务器（或者代码托管平台）上创建了一个中央仓库，并把1中的提交<strong>从本地仓库推送到了服务器中的仓库</strong></li>
+<li>其他同事把<strong>中央仓库的所有内容克隆到本地，拥有各自的本地仓库</strong>，从此刻开始，你们三人开始并行开发。</li>
+<li>在之后的开发过程中，你们三个人总是每人独立负责开发一个功能，在这个功能开发过程中，<strong>一个人会把他的一些重要的代码改动提交到本地仓库中</strong>。注意：由于本地提交无需立即上传到中央仓库，所以每一步提交不必是一个完整的功能，往往是提交你改动的那一部分。</li>
+<li>当一个人把他负责的功能开发完成之后，他就可以把这个功能相关的所有提交<strong>从本地仓库推送到中央仓库</strong>。</li>
+<li>每次当有人把新的提交推送到中央仓库的时候，另外两个人就可以<strong>把提交同步到自己的机器上，并把它们和自己本地的代码合并</strong>。</li>
+</ol>
+<p>当然，其中还有很多具体的步骤没有提到，实际开发中还会涉及到很多，比如代码冲突，分支合并以及pull Request等等。这几步是DVCS的总体上的工作模式。<br>使用分布式版本控制系统，多数的操作可以在本地进行，所以无需在联网的情况下就可以提交代码，查看历史。<br>但是每台电脑都有完整的本地仓库，所以初次获得项目时会比较耗时。而且每台电脑都有完整的本地仓库，所以本地占用的空间比较大。   </p>
+<p>Git就是分布式版本控制系统的典型代表。   </p>
+<h2 id="二、Git的工作原理"><a href="#二、Git的工作原理" class="headerlink" title="二、Git的工作原理"></a>二、Git的工作原理</h2><h3 id="1-Git的工作区域"><a href="#1-Git的工作区域" class="headerlink" title="1. Git的工作区域"></a>1. Git的工作区域</h3><ul>
+<li><strong>本地仓库区（History）</strong>：本地仓库区中存储着你提交的所有版本的数据，你初次从中央服务器中克隆下的代码就存储在这里，同时你提交的新代码也会存储在这里。</li>
+<li><strong>暂存区（Index/Stage）</strong>:用于临时存放你将要提交的新数据。</li>
+<li><strong>工作区（WorkSpace）</strong>：就是你平时存放项目代码的地方，你是在工作区进行代码编辑，修改的。</li>
+<li><strong>远程仓库（Remote Directory）</strong>：就是放在托管代码服务器上的仓库。你可以与其进行数据交换</li>
+</ul>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gita04.png" alt="gita04"></p>
+<h3 id="2-Git整体工作流程"><a href="#2-Git整体工作流程" class="headerlink" title="2. Git整体工作流程"></a>2. Git整体工作流程</h3><p>针对不同的操作，git工作流程可能会有一些差异，这节先说一下整体的主工作流程，具体操作对应的工作流程后面会介绍。   </p>
+<p>请看下图（可以暂时先忽略图中的git操作命令）<br><img src="http://p6nfblqvu.bkt.clouddn.com/gita05.png" alt="gita05"><br>整体的工作流程是这样的：</p>
+<ol>
+<li>程序员在本地的项目目录中对项目进行增，删，改等操作</li>
+<li>可以将需要进行版本管理的文件放入暂存区，也可以将其直接提交到本地仓库中</li>
+<li>将暂存区中的文件提交到本地仓库中</li>
+<li>最后将本地仓库中的文件推送到远程仓库</li>
+</ol>
+<p>处于不同阶段的代码文件会有不同的状态：   </p>
+<ul>
+<li><strong>Untracked</strong>：未跟踪状态，表示该文件在工作区中，但是还没有进行任何相关的版本控制相关操作。（没有进行提交，也还未添加到暂存区中）</li>
+<li><strong>Staged</strong>：暂存状态，文件已经加入到暂存区中，但是还没有提交到仓库中</li>
+<li><strong>Unmodified</strong>：未修改状态，已经提交到仓库中了，但是在工作区中还未进行任何修改的文件，即版本库中的文件快照对应的内容与工作区中的内容完全一致</li>
+<li><strong>Modified</strong>：已修改状态，自上次提交之后，文件进行修改了，但是还没有进行任何其他操作。</li>
+</ul>
+<h2 id="三、Git的安装和配置"><a href="#三、Git的安装和配置" class="headerlink" title="三、Git的安装和配置"></a>三、Git的安装和配置</h2><h3 id="1-下载安装Git"><a href="#1-下载安装Git" class="headerlink" title="1.下载安装Git"></a>1.下载安装Git</h3><p>中找到适合自己电脑系统的Git进行下载。下载后安装就一直按照默认的安装步骤操作即可。如果需要特殊配置仔细阅读配置选项。关于Git的安装这里不多介绍了，相信都会完成的。   </p>
+<h3 id="2-Git配置"><a href="#2-Git配置" class="headerlink" title="2.Git配置"></a>2.Git配置</h3><p>使用git config -l可以查看现在的git环境详细配置。（下面的git命令都是在windows系统下的命令）。<br><img src="http://p6nfblqvu.bkt.clouddn.com/gita06.png" alt="gita06">  </p>
+<p>查看不同级别的配置文件：   </p>
+<ul>
+<li>查看系统的配置信息：git config –system –list</li>
+<li>查看当前用户的配置信息：git config –global –list</li>
+<li>查看当前仓库的的配置信息:git config –local –list</li>
+</ul>
+<h4 id="git相关的三个配置文件"><a href="#git相关的三个配置文件" class="headerlink" title="git相关的三个配置文件"></a>git相关的三个配置文件</h4><ol>
+<li>/ect/gitconfig:包含了适用于系统所有用户和所有项目的值,–system系统级的（C:\Program Files\Git\mingw64\ect\gitconfig）</li>
+<li>~/.gitconfig:只适用于当前登录用户的配置。（Win:C:\Users\Administrator.gitconfig） –global全局</li>
+<li>位于git项目目录中的.git/config：适用于特定的git项目目录。（Win:C:\gitProject）,–local当前项目。</li>
+</ol>
+<p>注意：对于同一项配置，三个配置文件的优先级别是1&gt;2&gt;3</p>
+<h3 id="3、设置用户名与邮箱（用户标识，必要）"><a href="#3、设置用户名与邮箱（用户标识，必要）" class="headerlink" title="3、设置用户名与邮箱（用户标识，必要）"></a>3、设置用户名与邮箱（用户标识，必要）</h3><p>当你安装Git后首先要做的事情是设置你的用户名称和e-mail地址。这是非常重要的，因为每次Git提交都会使用该信息。它会被永远的嵌入到你的提交中：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"xxxxxx"</span>    <span class="comment">//用户名</span></span><br><span class="line">$ git config --global user.email xxxxxxx  <span class="comment">//邮箱</span></span><br></pre></td></tr></table></figure>
+<p>只需要做一次这个设置，你就可以传递了–global选项，因为Git将总是会使用该信息来处理你在系统中所做的一切操作。如果你希望在一个特定的项目中使用不同的名称和e-mail地址，你可以在该项目中运行命令而不要–global选项。总之–global为全局配置，不加则为某个项目的特定配置。   </p>
+<h3 id="4、添加或删除配置项"><a href="#4、添加或删除配置项" class="headerlink" title="4、添加或删除配置项"></a>4、添加或删除配置项</h3><p><strong>添加配置项：git config [–local|–global|–system] section.key value</strong><br>其中[–local|–global|–system]是可选的，对本地，全局，系统不同级别的设置<br>section.key是区域下的键<br>value是对应的键值<br>例如我们要在student区域下添加一个名称为height值为198的配置项：<br>git config –system student.height 198    </p>
+<p><strong>删除配置项：git config [–local|–global|–system] –unset section.key</strong><br>比如将系统级的height配置项移除：<br>git config –system –unset student.height<br>还有其他更多的配置项，可以通过git config –list来查看。   </p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这篇文章主要介绍了版本控制系统的一些概念，还有git系统中的一些理论知识，希望大家可以对版本控制系统有一个简单的认识。后面我们将会介绍 <a href="/版本控制工具/git学习笔记二（文件基本操作）/" title="git学习笔记二（文件基本操作）">git学习笔记二（文件基本操作）</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="稻香Snowy wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="稻香Snowy 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/版本控制工具/git学习笔记七（Github实现多人协同提交代码并且权限分组管理）/" rel="next" title="git学习笔记七（Github实现多人协同提交代码并且权限分组管理）">
+                <i class="fa fa-chevron-left"></i> git学习笔记七（Github实现多人协同提交代码并且权限分组管理）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/版本控制工具/git学习笔记三（git中的分支）/" rel="prev" title="git学习笔记三（git中的分支）">
+                git学习笔记三（git中的分支） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/toux.jpg"
+                alt="稻香Snowy" />
+            
+              <p class="site-author-name" itemprop="name">稻香Snowy</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry.Stay Foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Asiazdx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/fb5f478b1a94" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59638598f265da6c4523c761" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5541828133/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-Weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、关于版本控制系统"><span class="nav-number">2.</span> <span class="nav-text">一、关于版本控制系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-本地版本控制系统"><span class="nav-number">2.1.</span> <span class="nav-text">1.本地版本控制系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、集中式版本控制系统"><span class="nav-number">2.2.</span> <span class="nav-text">2、集中式版本控制系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作模式"><span class="nav-number">2.2.1.</span> <span class="nav-text">工作模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、分布式版本控制系统"><span class="nav-number">2.3.</span> <span class="nav-text">3、分布式版本控制系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作模式-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">工作模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Git的工作原理"><span class="nav-number">3.</span> <span class="nav-text">二、Git的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Git的工作区域"><span class="nav-number">3.1.</span> <span class="nav-text">1. Git的工作区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Git整体工作流程"><span class="nav-number">3.2.</span> <span class="nav-text">2. Git整体工作流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Git的安装和配置"><span class="nav-number">4.</span> <span class="nav-text">三、Git的安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下载安装Git"><span class="nav-number">4.1.</span> <span class="nav-text">1.下载安装Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Git配置"><span class="nav-number">4.2.</span> <span class="nav-text">2.Git配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#git相关的三个配置文件"><span class="nav-number">4.2.1.</span> <span class="nav-text">git相关的三个配置文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、设置用户名与邮箱（用户标识，必要）"><span class="nav-number">4.3.</span> <span class="nav-text">3、设置用户名与邮箱（用户标识，必要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、添加或删除配置项"><span class="nav-number">4.4.</span> <span class="nav-text">4、添加或删除配置项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">稻香Snowy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var cw = canvas.width = window.innerWidth,
+  cx = cw / 2;
+var ch = canvas.height = window.innerHeight,
+  cy = ch / 2;
+
+ctx.fillStyle = "#999";
+var linesNum = 16;
+var linesRy = [];
+var requestId = null;
+
+function Line(flag) {
+  this.flag = flag;
+  this.a = {};
+  this.b = {};
+  if (flag == "v") {
+    this.a.y = 0;
+    this.b.y = ch;
+    this.a.x = randomIntFromInterval(0, ch);
+    this.b.x = randomIntFromInterval(0, ch);
+  } else if (flag == "h") {
+    this.a.x = 0;
+    this.b.x = cw;
+    this.a.y = randomIntFromInterval(0, cw);
+    this.b.y = randomIntFromInterval(0, cw);
+  }
+  this.va = randomIntFromInterval(25, 100) / 100;
+  this.vb = randomIntFromInterval(25, 100) / 100;
+
+  this.draw = function() {
+    ctx.strokeStyle = "#ccc";
+    ctx.beginPath();
+    ctx.moveTo(this.a.x, this.a.y);
+    ctx.lineTo(this.b.x, this.b.y);
+    ctx.stroke();
+  }
+
+  this.update = function() {
+    if (this.flag == "v") {
+      this.a.x += this.va;
+      this.b.x += this.vb;
+    } else if (flag == "h") {
+      this.a.y += this.va;
+      this.b.y += this.vb;
+    }
+
+    this.edges();
+  }
+
+  this.edges = function() {
+    if (this.flag == "v") {
+      if (this.a.x < 0 || this.a.x > cw) {
+        this.va *= -1;
+      }
+      if (this.b.x < 0 || this.b.x > cw) {
+        this.vb *= -1;
+      }
+    } else if (flag == "h") {
+      if (this.a.y < 0 || this.a.y > ch) {
+        this.va *= -1;
+      }
+      if (this.b.y < 0 || this.b.y > ch) {
+        this.vb *= -1;
+      }
+    }
+  }
+
+}
+
+for (var i = 0; i < linesNum; i++) {
+  var flag = i % 2 == 0 ? "h" : "v";
+  var l = new Line(flag);
+  linesRy.push(l);
+}
+
+function Draw() {
+  requestId = window.requestAnimationFrame(Draw);
+  ctx.clearRect(0, 0, cw, ch);
+
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    l.draw();
+    l.update();
+  }
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    for (var j = i + 1; j < linesRy.length; j++) {
+      var l1 = linesRy[j]
+      Intersect2lines(l, l1);
+    }
+  }
+}
+
+function Init() {
+  linesRy.length = 0;
+  for (var i = 0; i < linesNum; i++) {
+    var flag = i % 2 == 0 ? "h" : "v";
+    var l = new Line(flag);
+    linesRy.push(l);
+  }
+
+  if (requestId) {
+    window.cancelAnimationFrame(requestId);
+    requestId = null;
+  }
+
+  cw = canvas.width = window.innerWidth,
+    cx = cw / 2;
+  ch = canvas.height = window.innerHeight,
+    cy = ch / 2;
+
+  Draw();
+};
+
+setTimeout(function() {
+  Init();
+
+  addEventListener('resize', Init, false);
+}, 15);
+
+function Intersect2lines(l1, l2) {
+  var p1 = l1.a,
+    p2 = l1.b,
+    p3 = l2.a,
+    p4 = l2.b;
+  var denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+  var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+  var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+  var x = p1.x + ua * (p2.x - p1.x);
+  var y = p1.y + ua * (p2.y - p1.y);
+  if (ua > 0 && ub > 0) {
+    markPoint({
+      x: x,
+      y: y
+    })
+  }
+}
+
+function markPoint(p) {
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+function randomIntFromInterval(mn, mx) {
+  return ~~(Math.random() * (mx - mn + 1) + mn);
+}
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</script>
+</html>

@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #AFDBE3; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #AFDBE3, 0 0 5px     #AFDBE3; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #AFDBE3;    /*上边框颜色*/
+        border-left-color: #AFDBE3;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript初探," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="JavaScript初探">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS初探十二（ES6相关介绍）">
+<meta property="og:url" content="http://www.github.com/Snowyzdx/JavaScript/JS初探十二（ES6相关介绍）/index.html">
+<meta property="og:site_name" content="Snowy&#39;blog">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/jsJichujsa12.png">
+<meta property="og:updated_time" content="2018-05-02T10:45:02.962Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS初探十二（ES6相关介绍）">
+<meta name="twitter:image" content="http://p6nfblqvu.bkt.clouddn.com/jsJichujsa12.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.github.com/Snowyzdx/JavaScript/JS初探十二（ES6相关介绍）/"/>
+
+
+
+
+
+  <title>JS初探十二（ES6相关介绍） | Snowy'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Asiazdx"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Snowy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Stay Hungry. Stay Foolish</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-comments">
+          <a href="/comments/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-laboratory">
+          <a href="/laboratory/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-other_note">
+          <a href="/other_note/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            书影音
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.github.com/Snowyzdx/JavaScript/JS初探十二（ES6相关介绍）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="稻香Snowy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/toux.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Snowy'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JS初探十二（ES6相关介绍）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-13T22:44:46+08:00">
+                2016-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://p6nfblqvu.bkt.clouddn.com/jsJichujsa12.png" width="600" alt="jsa12"><br><a id="more"></a><br>ES6简介</p>
+<ol>
+<li>变量的解构赋值</li>
+<li>set和map数据结构</li>
+<li>模块</li>
+<li>class语法和class继承<br><a href="http://es6.ruanyifeng.com/#docs/intro" target="_blank" rel="noopener">原文地址</a><br>在这之前的几篇文章中我们都有说到相关ES6中扩展的内容。本文将介绍之前没有说到部分。    <h1 id="ES6简介"><a href="#ES6简介" class="headerlink" title="ES6简介"></a>ES6简介</h1><h2 id="一、ECMScript和javascript的关系"><a href="#一、ECMScript和javascript的关系" class="headerlink" title="一、ECMScript和javascript的关系"></a>一、ECMScript和javascript的关系</h2>ECMScript和javascript的关系的关系是，前者是后者的规格，后者是前者的一种实现（另外的ECMScript语言还有Jscript和ActionScript）。日常场合，这两个词是可以互换的。   <h2 id="二、ES6与ECAMScript-2015的关系"><a href="#二、ES6与ECAMScript-2015的关系" class="headerlink" title="二、ES6与ECAMScript 2015的关系"></a>二、ES6与ECAMScript 2015的关系</h2>ES6即是一个历史名词，也是一个泛指，含义是5.1版以后的Javascript的下一代标准，涵盖了ES2015、ES2016、ES2017 等等，而ES2015则是正式名称，特指发布的正式版本的语言标准。   </li>
+</ol>
+<h2 id="三、进度部署"><a href="#三、进度部署" class="headerlink" title="三、进度部署"></a>三、进度部署</h2><p>各大浏览器的最新版本，对ES6的支持可以查看<a href="http://kangax.github.io/compat-table/es6/" target="_blank" rel="noopener">这里</a>。随着时间的推移，支持度已经越来越高了，超过90%的ES6语法特性都实现了。<br>Node是Javascript的服务器运行环境（runtime）。它对 ES6 的支持度更高。除了那些默认打开的功能，还有一些语法功能已经实现了，但是默认没有打开。使用下面的命令，可以查看Node已经实现的ES6特性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node --v8-options|grep harmony</span><br></pre></td></tr></table></figure></p>
+<p>上面命令的输出结果，会因为版本的不同而所不同。<br>我写了一个工具ES-Checker，用来检查各种运行环境对 ES6 的支持情况。访问ruanyf.github.io/es-checker，可以看到您的浏览器支持ES6的程度。运行下面的命令，可以查看你正在使用的Node环境对ES6的支持程度。    </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ nmp install -g es-checker</span><br><span class="line">$ es-checker</span><br></pre></td></tr></table></figure>
+<h2 id="六、Babel转码器"><a href="#六、Babel转码器" class="headerlink" title="六、Babel转码器"></a>六、Babel转码器</h2><p>Babel是广泛使用的ES6转码器，可以将ES6代码转化为ES5代码，从而在现有的环境中执行。这意味着，你可以用ES6的方式编写程序，又不用担心现有环境是否支持。下面是一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//转码前</span></span><br><span class="line">input.map(<span class="function"><span class="params">item</span>=&gt;</span>item+<span class="number">1</span>);</span><br><span class="line"><span class="comment">//转码后</span></span><br><span class="line">input.map(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> item+<span class="number">1</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>上面的原始代码使用了箭头函数，Babel将其转化为普通函数，就能在不支持箭头函数的javascript环境中执行了。   </p>
+<h3 id="1-配置文件-babelrc"><a href="#1-配置文件-babelrc" class="headerlink" title="1.配置文件.babelrc"></a>1.配置文件.babelrc</h3><p>Babel的配置文件是.babelrc,存放在项目的根目录下。使用Babel的第一步就是配置这个文件。该文件用来设置转码规则和插件，基本格式如下。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"presets"</span>:[],</span><br><span class="line">  <span class="string">"pulgins"</span>:[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>presets字段设定转码规则，官方提供以下的规则集，你可以根据需要安装。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最新转码规则</span></span><br><span class="line">$ npm install --save-dev babel-preset-lastest</span><br><span class="line"></span><br><span class="line"><span class="comment">//react转码规则</span></span><br><span class="line">$ npm install --save-dev babel-preset-react</span><br><span class="line"></span><br><span class="line"><span class="comment">//不同阶段语法提案的转码规则（共有4个），选装一个</span></span><br><span class="line">$ npm install --save-dev babel-preset-stage<span class="number">-0</span></span><br><span class="line">$ npm install --save-dev babel-preset-stage<span class="number">-1</span></span><br><span class="line">$ npm install --save-dev babel-preset-stage<span class="number">-2</span></span><br><span class="line">$ npm install --save-dev babel-preset-stage<span class="number">-3</span></span><br></pre></td></tr></table></figure></p>
+<p>然后将这些规则加入.babelrc<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"presets"</span>:[</span><br><span class="line">    <span class="string">"lastest"</span>,</span><br><span class="line">    <span class="string">"react"</span>,</span><br><span class="line">    <span class="string">"stage-2"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"pulgins"</span>:[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意，以下所有Babel工具和模块的使用，都必须先写好.babelrc。</p>
+<h3 id="2-命令转码babel-cli"><a href="#2-命令转码babel-cli" class="headerlink" title="2.命令转码babel-cli"></a>2.命令转码babel-cli</h3><p>Babel提供babel-cli工具，用于命令转码。<br>它的安装命令如下：   </p>
+<blockquote>
+<p>$ npm install –global babel-cli</p>
+</blockquote>
+<p>基本用法如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//转码结果输出到标准输出</span></span><br><span class="line">$ babel example.js</span><br><span class="line"></span><br><span class="line"><span class="comment">//转码结果写入一个文件</span></span><br><span class="line"><span class="comment">//---out-file或-o参数指定输出文件</span></span><br><span class="line">$ babel example.js --out-file complied.js</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line">$ babel example.js -o complied.js</span><br><span class="line"></span><br><span class="line"><span class="comment">//整个目录转码</span></span><br><span class="line"><span class="comment">//--out-dir或-d参数指定输出结果</span></span><br><span class="line">$ babel src --out-dir lib</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line">$ babel src -d lib</span><br><span class="line"></span><br><span class="line"><span class="comment">//-s 参数生成source map文件</span></span><br><span class="line">$ babel src -d lib -s</span><br></pre></td></tr></table></figure></p>
+<p>上面代码是在全局环境下，进行 Babel 转码。这意味着，如果项目要运行，全局环境必须有 Babel，也就是说项目产生了对环境的依赖。另一方面，这样做也无法支持不同项目使用不同版本的 Babel。   </p>
+<p>一个解决办法是将babel-cli安装在项目之中。</p>
+<blockquote>
+<p>$ npm install –save-dev babel-cli</p>
+</blockquote>
+<p>然后改写package.json<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="string">"devDependencies"</span>:&#123;</span><br><span class="line">       <span class="string">"babel-cli"</span>:<span class="string">"^6.0.0"</span></span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="string">"scripts"</span>:&#123;</span><br><span class="line">     <span class="string">"build"</span>:<span class="string">"babel src -d lib"</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>转码的时候，就执行下面的命令：   </p>
+<blockquote>
+<p>$ npm run build</p>
+</blockquote>
+<h3 id="3-babel-node"><a href="#3-babel-node" class="headerlink" title="3.babel-node"></a>3.babel-node</h3><p>balbel-node工具自带一个babel-node命令,提供一个支持ES6的REPL环境。它支持Node的REPL环境所有的功能，而且可以直接运行ES6代码。<br>它不用单独安装，而是随babel-cli一起安装。然后，执行babel-node就进入REPL环境。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ babel-node</span><br><span class="line">&gt; (<span class="function"><span class="params">x</span>=&gt;</span>x*<span class="number">2</span>)(<span class="number">1</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p>balbel-node也可以安装在项目中。   </p>
+<blockquote>
+<p>$ npm install –save-dev babel-cli</p>
+</blockquote>
+<p>然后改写package.json<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"scripts"</span>:&#123;</span><br><span class="line">    <span class="string">"script-name"</span>:<span class="string">"babel-node script.js"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码中使用babel-node代替node，script.js本身就不用做任何转码处理了。   </p>
+<h3 id="4-babel-register"><a href="#4-babel-register" class="headerlink" title="4.babel-register"></a>4.babel-register</h3><p>babel-register模块改写require命令，为它加上一个钩子。每当使用require加载.js,.jsx,.es和.es6后缀名的文件，就会先用Babel进行转码。    </p>
+<blockquote>
+<p>$ npm install –save-dev babel-register</p>
+</blockquote>
+<p>使用时，必须首先加载babel-register<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'babel-register'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./index.js'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>然后就不需要手动对index.js转码了。<br>需要注意的是，babel-register只会对require命令加载的文件转码，而不会对当前文件转码，另外，由于它是实时转码，所以只适合在开发环境中使用。   </p>
+<h3 id="5-babel-core"><a href="#5-babel-core" class="headerlink" title="5. babel-core"></a>5. babel-core</h3><p>如果某些代码需要调用Babel的API进行转码，就要使用babel-core模块。<br>安装命令如下：   </p>
+<blockquote>
+<p>$ npm install babel-core –save</p>
+</blockquote>
+<p>然后，在项目中就可以调用babel-core<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> babel=<span class="built_in">require</span>(<span class="string">'babel-core'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//字符串转码</span></span><br><span class="line">babel.transform(<span class="string">'code();'</span>,options);</span><br><span class="line"><span class="comment">//=&gt;&#123;code,map,ast&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//文件转码（异步）</span></span><br><span class="line">babel.transformFile(<span class="string">'filename.js'</span>,options,<span class="function"><span class="keyword">function</span>(<span class="params">err,result</span>)</span>&#123;</span><br><span class="line">    result;<span class="comment">//=&gt;&#123;code,map,ast&#125;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//文件转码（同步）</span></span><br><span class="line"></span><br><span class="line">babel.transformFileSync(<span class="string">'filename.js'</span>,options);</span><br><span class="line"><span class="comment">//=&gt;&#123;code,map,ast&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="6-babel-polyfill"><a href="#6-babel-polyfill" class="headerlink" title="6.babel-polyfill"></a>6.babel-polyfill</h3><p>Babel默认只转换新的javascript语法（syntax），而不转换新的API，比如Iterator，Generator，Set，Maps，Proxy，Reflect，Symbol，Promise等全局对象，以及在全局对象上的方法（比如Object.assign）都不会转码。<br>举例来说，ES6在Array对象上，新增了Array.form方法。Babel就不会转码这个方法。如果让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。    </p>
+<blockquote>
+<p>$ npm install –save-dev babel-polyfill</p>
+</blockquote>
+<p>然后，在脚本头部，加入如下一行代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'babel-polyfill'</span>;</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'babel-polyfill'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>Babel默认不转码的API非常多，详细清单可以查看babel-plugin-transform-runtime模块的<a href="https://github.com/babel/babel/blob/master/packages/babel-plugin-transform-runtime/src/definitions.js" target="_blank" rel="noopener">definitions.js</a></p>
+<h3 id="7-浏览器环境"><a href="#7-浏览器环境" class="headerlink" title="7.浏览器环境"></a>7.浏览器环境</h3><p>Babel也可以用于浏览器环境。但是，从Babel6.0开始，不再直接提供浏览器版本，而是用构建工具构建出来。如果你没有或不想使用构建工具，可以使用<a href="https://github.com/babel/babel-standalone" target="_blank" rel="noopener">babel-standalone</a>模块提供的浏览器版本，将其插入网页中。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://csdn.cloudflare.com/ajax/libs/babel-standalone/6.4.4/babel.min.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line">    <span class="comment">//yours ES6 code</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>注意：网页实时将ES6代码转为ES5，对其性能会有影响，生产环境需要加载已经转码完的脚本。   </p>
+<h3 id="8-与其他工具配合"><a href="#8-与其他工具配合" class="headerlink" title="8.与其他工具配合"></a>8.与其他工具配合</h3><p>许多工具需要Babel进行前置转码，这里举两个例子：ESLint和Mocha。<br>ESLint用于静态检查代码的语法风格，安装命令如下：</p>
+<blockquote>
+<p>$ npm install –save-dev eslint babel-eslint</p>
+</blockquote>
+<p>然后，在项目根目录下，新建一个配置文件.eslintrc,在其中加入parser字段。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"parser"</span>:<span class="string">"babel-eslint"</span>,</span><br><span class="line">  <span class="string">"rules"</span>:&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再在package.json中，加入相应的scripts脚本。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>:<span class="string">"my-modules"</span>,</span><br><span class="line">    <span class="string">"scripts"</span>:&#123;</span><br><span class="line">        <span class="string">"lint"</span>:<span class="string">"eslint my-files.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>:&#123;</span><br><span class="line">        <span class="string">"babel-eslint"</span>:<span class="string">"..."</span>,</span><br><span class="line">        <span class="string">"eslint"</span>:<span class="string">'...'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Mocha则是一个测试框架，如果需要执行使用ES6语法的测试脚本，可以修改package.json的script.test。   </p>
+<h2 id="将ES6转化成ES5除了使用Babel还可以使用其他转码器比如Traceur转码器，这里就不详细介绍了。大家可以去官网查看使用方法。"><a href="#将ES6转化成ES5除了使用Babel还可以使用其他转码器比如Traceur转码器，这里就不详细介绍了。大家可以去官网查看使用方法。" class="headerlink" title="将ES6转化成ES5除了使用Babel还可以使用其他转码器比如Traceur转码器，这里就不详细介绍了。大家可以去官网查看使用方法。   "></a>将ES6转化成ES5除了使用Babel还可以使用其他转码器比如Traceur转码器，这里就不详细介绍了。大家可以去官网查看使用方法。   </h2><h1 id="变量的解构赋值"><a href="#变量的解构赋值" class="headerlink" title="变量的解构赋值"></a>变量的解构赋值</h1><h2 id="一、数组的解构赋值"><a href="#一、数组的解构赋值" class="headerlink" title="一、数组的解构赋值"></a>一、数组的解构赋值</h2><h3 id="1-基本用法"><a href="#1-基本用法" class="headerlink" title="1.基本用法"></a>1.基本用法</h3><p>ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构。以前，为变量赋值，只能直接指定值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b=<span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> c=<span class="number">3</span>;</span><br></pre></td></tr></table></figure></p>
+<p>ES6允许写成下面这样。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [a,b,c]=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br></pre></td></tr></table></figure></p>
+<p>上面代码表示，可以从数组中提取，按照对应位置，对变量赋值。<br>本质上，这种写法属于“模式匹配”，只有等号两边的模式相同，左边的变量就会被赋予对应的值。下面是一些使用嵌套数组进行解构的例子。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [foo,[[bar],baz]]=[<span class="number">1</span>[[<span class="number">2</span>],<span class="number">3</span>]];</span><br><span class="line">foo<span class="comment">//1</span></span><br><span class="line">bar<span class="comment">//2</span></span><br><span class="line">baz<span class="comment">//3</span></span><br><span class="line"><span class="keyword">let</span> [,,thrid]=[<span class="string">'foo'</span>,<span class="string">'bar'</span>,<span class="string">'baz'</span>];</span><br><span class="line">thrid <span class="comment">//'baz'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x,,y]=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">x <span class="comment">//1</span></span><br><span class="line">y <span class="comment">//3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [head,...tail]=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">head <span class="comment">//1</span></span><br><span class="line">tail <span class="comment">//[2,3,4]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x,y,...z]=[<span class="string">'a'</span>]</span><br><span class="line">x<span class="comment">//'a'</span></span><br><span class="line">y <span class="comment">//undefined</span></span><br><span class="line">z <span class="comment">//[]</span></span><br></pre></td></tr></table></figure></p>
+<p>如果解构不成功，变量的值就等于undefined。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [foo]=[];</span><br><span class="line"><span class="keyword">let</span> [bar,foo]=[<span class="number">1</span>];</span><br></pre></td></tr></table></figure></p>
+<p>以上两种情况都属于解构不成功，foo的值都会等于undefined。<br>另一种情况是 <strong>不完全解构</strong>，即等号左边的模式，只匹配一部分的等号右边的数组。这种情况下，解构依然可以成功。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [x,y]=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">x <span class="comment">//1</span></span><br><span class="line">y <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [a,[b],d]=[<span class="number">1</span>,[<span class="number">2</span>,<span class="number">3</span>],<span class="number">4</span>];</span><br><span class="line">a<span class="comment">//1</span></span><br><span class="line">b<span class="comment">//2</span></span><br><span class="line">d<span class="comment">//4</span></span><br></pre></td></tr></table></figure></p>
+<p>上面两个例子，都属于不完全解构，但是可以成功。<br>如果等号的右边不是数组（或者严格地说，不是可遍历的结构），那么将会报错。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//报错</span></span><br><span class="line"><span class="keyword">let</span> [foo]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> [foo]=fasle;</span><br><span class="line"><span class="keyword">let</span> [foo]=<span class="literal">NaN</span>;</span><br><span class="line"><span class="keyword">let</span> [foo]=<span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">let</span> [foo]=<span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> [foo]=&#123;&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上面的语句都会报错，因为等号右边的值，要么转为对象以后不具备 Iterator 接口（前五个表达式），要么本身就不具备 Iterator 接口（最后一个表达式）。<br>对于 Set 结构，也可以使用数组的解构赋值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [x,y,z]=<span class="keyword">new</span> <span class="built_in">Set</span>([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>]);</span><br><span class="line">x <span class="comment">//'a'</span></span><br></pre></td></tr></table></figure></p>
+<p>实时上，只要某种数据结构具有Iterator接口，都可以采用数组形式的解构赋值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fibs</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> b=<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">yield</span> a;</span><br><span class="line">    [a,b]=[b,a+b];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> [first,second,thrid,fourth,fifth,sixth]=fibs();</span><br><span class="line">sixth<span class="comment">//5</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，fibs是一个Generator函数,原生具有 Iterator 接口。解构赋值会依次从这个接口获取值。   </p>
+<h3 id="2-默认值"><a href="#2-默认值" class="headerlink" title="2.默认值"></a>2.默认值</h3><p>解构赋值允许指定默认值。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [foo=<span class="literal">true</span>]=[];</span><br><span class="line">foo <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x,y=<span class="string">'b'</span>]=[<span class="string">'a'</span>];<span class="comment">//x='a',y='b'</span></span><br><span class="line"><span class="keyword">let</span> [x,y=<span class="string">'b'</span>]=[<span class="string">'a'</span>,<span class="literal">undefined</span>];<span class="comment">//x='a',y='b'</span></span><br></pre></td></tr></table></figure>
+<p>注意，ES6内部使用严格相应运算符(===),判断一个值是否有值。所以，如果一个数组成员不严格等于undefined，默认是不会生效的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [x=<span class="number">1</span>]=[<span class="literal">undefined</span>];</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [y=<span class="number">1</span>]=[<span class="literal">null</span>];</span><br><span class="line"><span class="built_in">console</span>.log(y);<span class="comment">//null</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，如果一个数组成员是null，默认值就不会生效，因为null不严格等于undefined。<strong>如果默认值是一个表达式，那么这个表达式是惰性求值的</strong>，即只有在用的时候，才会求值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x=f()]=[<span class="number">1</span>];</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，因为x能取到值，所以函数f根本就不会执行。上面的代码其实等价于下面的代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x;</span><br><span class="line"><span class="keyword">if</span>([<span class="number">1</span>][<span class="number">0</span>]===<span class="literal">undefined</span>)&#123;</span><br><span class="line">  x=f();</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  x=[<span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>默认值可以引用解构赋值的其他变量，但是该变量必须已经声明。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [x=<span class="number">1</span>,y=x]=[];<span class="comment">//x=1,y=1</span></span><br><span class="line"><span class="keyword">let</span> [x=<span class="number">1</span>,y=x]=[<span class="number">2</span>];<span class="comment">//x=2,y=2</span></span><br><span class="line"><span class="keyword">let</span> [x=<span class="number">1</span>,y=x]=[<span class="number">1</span>,<span class="number">2</span>];<span class="comment">//x=1,y=2</span></span><br><span class="line"><span class="keyword">let</span> [x=y,y=<span class="number">1</span>]=[];<span class="comment">//ReferenceError</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中最后一个表达式会报错，是因为x用到默认值y时，y还没有声明。   </p>
+<h2 id="二、对象的解构赋值"><a href="#二、对象的解构赋值" class="headerlink" title="二、对象的解构赋值"></a>二、对象的解构赋值</h2><p>解构不仅可以用于数组，还可以用于对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;foo,bar&#125;=&#123;<span class="attr">foo</span>:<span class="string">'aa'</span>,<span class="attr">bar</span>:<span class="string">'bb'</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(foo);<span class="comment">//aa</span></span><br><span class="line"><span class="built_in">console</span>.log(bar);<span class="comment">//bb</span></span><br></pre></td></tr></table></figure></p>
+<p>对象的解构与数组有一个重要的不同。数组的元素是按次序排序的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;baz&#125;=&#123;<span class="attr">foo</span>:<span class="string">'aaa'</span>,<span class="attr">bar</span>:<span class="string">'bbb'</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(baz);<span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中因为变量没有对应的同名属性，导致取不到值，最后等于undefined。如果变量名与属性名不一致，必须写成下面这样。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">foo</span>:baz&#125;=&#123;<span class="attr">foo</span>:<span class="string">'aaa'</span>,<span class="attr">bar</span>:<span class="string">'bbb'</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(baz);<span class="comment">//aaa</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj=&#123;<span class="attr">first</span>:<span class="string">'heloo'</span>,<span class="attr">last</span>:<span class="string">'world'</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123;<span class="attr">first</span>:f,<span class="attr">last</span>:l&#125;=obj;</span><br><span class="line"><span class="built_in">console</span>.log(f);<span class="comment">//hello</span></span><br><span class="line"><span class="built_in">console</span>.log(l);<span class="comment">//world</span></span><br></pre></td></tr></table></figure></p>
+<p>这实际上，对象的解构赋值时下面形式的简写。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">foo</span>:foo,<span class="attr">bar</span>:bar&#125;=&#123;<span class="attr">foo</span>:<span class="string">'aaa'</span>,<span class="attr">bar</span>:<span class="string">'bbb'</span>&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋值给对应的变量，真正被赋值的是后者，而不是前者</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">foo</span>:baz&#125;=&#123;<span class="attr">foo</span>:<span class="string">'aaa'</span>,<span class="attr">bar</span>:<span class="string">'bbb'</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(baz);<span class="comment">//aaa</span></span><br><span class="line"><span class="built_in">console</span>.log(foo);<span class="comment">//error:foo is not defined</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，foo是匹配的模式，baz才是变量。真正被赋值的是变量baz，而不是模式foo。<br>与数组一样，解构也可以用于嵌套结构的对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span><br><span class="line">  p:[</span><br><span class="line">    <span class="string">'hello'</span>,</span><br><span class="line">    &#123;<span class="attr">y</span>:<span class="string">'world'</span>&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123;<span class="attr">p</span>:[x,&#123;y&#125;]&#125;=obj;</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//hello</span></span><br><span class="line"><span class="built_in">console</span>.log(y);<span class="comment">//world</span></span><br></pre></td></tr></table></figure></p>
+<p>下面是另一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> node=&#123;</span><br><span class="line">  loc:&#123;</span><br><span class="line">    start:&#123;</span><br><span class="line">      line:<span class="number">1</span>,</span><br><span class="line">      column:<span class="number">5</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123;loc,<span class="attr">loc</span>:&#123;start&#125;,<span class="attr">loc</span>:&#123;<span class="attr">start</span>:&#123;line&#125;&#125;&#125;=node;</span><br><span class="line"><span class="built_in">console</span>.log(line);<span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(loc);<span class="comment">//Object&#123;satrt:Object&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(start);<span class="comment">//Object&#123;line:1,column:5&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>对象的解构也可以指定默认值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> &#123;x=<span class="number">3</span>&#125;=&#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;x,y=<span class="number">5</span>&#125;=&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(y);<span class="comment">//5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;<span class="attr">x</span>:y=<span class="number">3</span>&#125;=&#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(y);<span class="comment">//3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;<span class="attr">x</span>:y=<span class="number">3</span>&#125;=&#123;<span class="attr">x</span>:<span class="number">5</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(y);<span class="comment">//5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;<span class="attr">message</span>:msg=<span class="string">"Something went wrong"</span>&#125;=&#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(msg);<span class="comment">//Something went wrong</span></span><br></pre></td></tr></table></figure>
+<p>默认值生效的条件是，对象的属性值严格等于undefined。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> &#123;x=<span class="number">3</span>&#125;=&#123;<span class="attr">x</span>:<span class="literal">undefined</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;x=<span class="number">3</span>&#125;=&#123;<span class="attr">x</span>:<span class="literal">null</span>&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//null</span></span><br></pre></td></tr></table></figure></p>
+<p>如果解构失败，变量的值等于undefined。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">foo</span>:&#123;bar&#125;&#125;=&#123;<span class="attr">bar</span>:<span class="string">'baz'</span>&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，等号左边对象的foo属性，对应一个子对象。该子对象的bar属性，解构时会报错。原因很简单，因为foo这时等于undefined，再去子属性就会报错。<br><strong>如果将一个已经声明的变量用于解构赋值，必须非常小心</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//错误写法</span></span><br><span class="line"><span class="keyword">let</span> x;</span><br><span class="line">&#123;x&#125;=&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="comment">//SyntaxError:syntax error</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码的写法会报错，因为javascript引擎会将{x}理解成一个代码块，从而发生语法错误。有不将大括号写在首行，避免javascript将其解释为代码块，才能解决这个问题。解决方法就是将整个解构赋值语句，放在一个圆括号里面，就可以正确执行。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//正确写法</span></span><br><span class="line"><span class="keyword">let</span> x;</span><br><span class="line">(&#123;x&#125;=&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><strong>解构赋值允许等号左边的模式之中，不放置任何变量名。因此，可以写出非常古怪的赋值表达式</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(&#123;&#125;=[<span class="literal">true</span>,<span class="literal">false</span>]);</span><br><span class="line">(&#123;&#125;=<span class="string">'abc'</span>);</span><br><span class="line">(&#123;&#125;=[]);</span><br></pre></td></tr></table></figure></p>
+<p>上面的表达式虽然毫无意义，但是语法是合法的，可以执行的。<br><strong>对象的解构赋值，可以很方便的将现有对象的方法，赋值到某个变量</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;log,sin,cos&#125;=<span class="built_in">Math</span>;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码将Math对象的对数，正弦、余弦三个方法，赋值到对应的变量上，使用起来就会很方便。<br><strong>由于数组本质是特殊的对象，因此可以对数组进行对象属性的解构</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> &#123;<span class="number">0</span>:first,[arr.length<span class="number">-1</span>]:last&#125;=arr;</span><br><span class="line"><span class="built_in">console</span>.log(first);<span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(last);<span class="comment">//3</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码对数组进行对象解构。数组arr的0键对应的值是1，[arr.length-1]就是2键，对应的值是3。   </p>
+<h2 id="三、字符串的解构赋值"><a href="#三、字符串的解构赋值" class="headerlink" title="三、字符串的解构赋值"></a>三、字符串的解构赋值</h2><p>字符串也可以解构。这是因为此时，字符串被转换成了一个类似数组的对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a,b,c,d,e]=<span class="string">'hello'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);<span class="comment">//h</span></span><br><span class="line"><span class="built_in">console</span>.log(b);<span class="comment">//e</span></span><br><span class="line"><span class="built_in">console</span>.log(c);<span class="comment">//l</span></span><br><span class="line"><span class="built_in">console</span>.log(d);<span class="comment">//l</span></span><br><span class="line"><span class="built_in">console</span>.log(e);<span class="comment">//o</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>类似数组对象都有一个length属性，因此还可以对这个属性解构赋值</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">length</span>:len&#125;=<span class="string">'hello'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(len);<span class="comment">//5</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="四、数值和布尔值的解构赋值"><a href="#四、数值和布尔值的解构赋值" class="headerlink" title="四、数值和布尔值的解构赋值"></a>四、数值和布尔值的解构赋值</h2><p>解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。<br><strong>解构的规则是，只要等号右边的值不是对象或者数组，将先将其转为对象。由于undefined和null无法转为对象，所以它们进行解构赋值时，会报错</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;<span class="attr">toString</span>:s&#125;=<span class="number">123</span>;</span><br><span class="line"><span class="built_in">console</span>.log(s===<span class="built_in">Number</span>.prototype.toString);</span><br><span class="line"><span class="keyword">let</span> &#123;<span class="attr">toString</span>:h&#125;=<span class="literal">true</span>;</span><br><span class="line"><span class="built_in">console</span>.log(h===<span class="built_in">Boolean</span>.prototype.toSrting);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，因为数值和布尔值的包装对象都有toString属性，因此变量s和h都能取到值。   </p>
+<h2 id="五、函数参数的解构赋值"><a href="#五、函数参数的解构赋值" class="headerlink" title="五、函数参数的解构赋值"></a>五、函数参数的解构赋值</h2><p>函数的参数也可以使用解构赋值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">[x,y]</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line">add([<span class="number">1</span>,<span class="number">2</span>]);<span class="comment">//3</span></span><br></pre></td></tr></table></figure></p>
+<p>另一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>]].map(<span class="function">(<span class="params">[a,b]</span>)=&gt;</span>&#123;</span><br><span class="line">  a+b</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//结果:[3,7]</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>函数参数的解构也可以使用默认值</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">move</span>(<span class="params">&#123;x=<span class="number">0</span>,y=<span class="number">0</span>&#125;=&#123;&#125;</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [x,y]</span><br><span class="line">&#125;</span><br><span class="line">move(&#123;<span class="attr">x</span>:<span class="number">3</span>,<span class="attr">y</span>:<span class="number">8</span>&#125;);<span class="comment">//[3,8]</span></span><br><span class="line">move(&#123;<span class="attr">x</span>:<span class="number">3</span>&#125;);<span class="comment">//[3,0]</span></span><br><span class="line">move(&#123;&#125;);<span class="comment">//[0.0]</span></span><br><span class="line">move();<span class="comment">//[0,0]</span></span><br></pre></td></tr></table></figure></p>
+<p>==注意==：下面的写法会得到不一样的结果<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">move</span>(<span class="params">&#123;x,y&#125;=&#123;x:<span class="number">0</span>,y:<span class="number">0</span>&#125;</span>)</span>&#123;</span><br><span class="line">  retrun [x,y]</span><br><span class="line">&#125;</span><br><span class="line">move(&#123;<span class="attr">x</span>:<span class="number">3</span>,<span class="attr">y</span>:<span class="number">8</span>&#125;);<span class="comment">//[3,8]</span></span><br><span class="line">move(&#123;<span class="attr">x</span>:<span class="number">3</span>&#125;);<span class="comment">//[3,undefined]</span></span><br><span class="line">move(&#123;&#125;);<span class="comment">//[undefined,undefined]</span></span><br><span class="line">move();<span class="comment">//[0,0]</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码是为函数move的参数指定默认值，而不是 为变量x和y指定的默认值，所以会得到与前一种写法不同的结果。<br>undefined就会触发函数参数的默认值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="literal">undefined</span>,<span class="number">3</span>].map=<span class="function">(<span class="params">(x=<span class="string">'yes'</span></span>)=&gt;</span>x);</span><br><span class="line"><span class="comment">//[1,'yes',3]</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="六、圆括号问题"><a href="#六、圆括号问题" class="headerlink" title="六、圆括号问题"></a>六、圆括号问题</h2><p>解构赋值问题虽然很方便，但是解析起来并不容易。对于编译器来说，一个式子到底是模式，还是表达式，没有办法从一开始就知道，必须解析到（或解析不到）等号才能知道。<br>由此带来的问题是，如果模式中出现圆括号怎么处理。ES6的规则是，只要有可能导致解构的歧义，就不得使用圆括号。<br>但是，这条规则实际上不那么容易辨别，处理起来相当麻烦。因此，建议只要有可能，就不要在模式中放置圆括号。   </p>
+<h3 id="1-不能使用圆括号的情况"><a href="#1-不能使用圆括号的情况" class="headerlink" title="1.不能使用圆括号的情况"></a>1.不能使用圆括号的情况</h3><p>以下三种解构赋值不得使用圆括号。   </p>
+<h4 id="（1）、变量声明语句"><a href="#（1）、变量声明语句" class="headerlink" title="（1）、变量声明语句"></a>（1）、变量声明语句</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [(a)]=[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">let</span> &#123;<span class="attr">x</span>:(c)&#125;=&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> (&#123;<span class="attr">x</span>:c&#125;)=&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123;(x:c)&#125;=&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123;(x):c&#125;=&#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123;<span class="attr">o</span>:(&#123;<span class="attr">p</span>:p&#125;)&#125;=&#123;<span class="attr">o</span>:&#123;<span class="attr">p</span>:<span class="number">2</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面6个语句都会报错，因为它们都是变量声明语句，模式不能使用圆括号。    </p>
+<h4 id="（2）、函数参数"><a href="#（2）、函数参数" class="headerlink" title="（2）、函数参数"></a>（2）、函数参数</h4><p>函数参数也属于变量声明，因此不能带有圆括号。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//报错</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">[(z</span>)])</span>&#123;<span class="keyword">return</span> z&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//报错</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">[z,(x</span>)])</span>&#123;<span class="keyword">return</span> x&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="（3）、赋值语句的模式"><a href="#（3）、赋值语句的模式" class="headerlink" title="（3）、赋值语句的模式"></a>（3）、赋值语句的模式</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全报错</span></span><br><span class="line">(&#123;<span class="attr">p</span>:a&#125;)=&#123;<span class="attr">p</span>:<span class="number">42</span>&#125;;</span><br><span class="line">([a])=[<span class="number">5</span>];</span><br></pre></td></tr></table></figure>
+<p>上面代码将整个模式放在圆括号之中，导致报错。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//报错</span></span><br><span class="line">[(&#123;<span class="attr">p</span>:a&#125;),&#123;<span class="attr">x</span>:c&#125;]=[&#123;&#125;,&#123;&#125;]</span><br></pre></td></tr></table></figure></p>
+<p>上面代码将一部分模式放在圆括号之中，导致报错。   </p>
+<h3 id="2、可以使用圆括号的情况"><a href="#2、可以使用圆括号的情况" class="headerlink" title="2、可以使用圆括号的情况"></a>2、可以使用圆括号的情况</h3><p>可以使用圆括号的情况只有一种：赋值语句的非模式部分，可以使用圆括号。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[(b)]=[<span class="number">3</span>];<span class="comment">//正确</span></span><br><span class="line">(&#123;<span class="attr">p</span>:(d)&#125;=&#123;&#125;);<span class="comment">//正确</span></span><br><span class="line">[(<span class="built_in">parseInt</span>.prop)]=[<span class="number">3</span>];<span class="comment">//正确</span></span><br></pre></td></tr></table></figure></p>
+<p>上面三行语句都可以正确执行，因为首先它们都是赋值语句，而不是声明语句；其次它们的圆括号都不属于模式的一部分。第一行语句中，模式是取数组的第一个成员，跟圆括号无关；第二行语句中，模式是p，而不是d；第三行语句与第一行语句的性质一致。   </p>
+<h2 id="七、用途"><a href="#七、用途" class="headerlink" title="七、用途"></a>七、用途</h2><p>变量的解构赋值用途很多。   </p>
+<h3 id="1-交换变量的值"><a href="#1-交换变量的值" class="headerlink" title="1.交换变量的值"></a>1.交换变量的值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> y=<span class="number">2</span>;</span><br><span class="line">[x,y]=[y,x];</span><br></pre></td></tr></table></figure>
+<p>上面代码交换变量x和y的值，这样的写法不仅简单，而且易读，语义非常清晰。    </p>
+<h3 id="2、从函数返回多个值"><a href="#2、从函数返回多个值" class="headerlink" title="2、从函数返回多个值"></a>2、从函数返回多个值</h3><p>函数只能返回一个值，如果要返回多个值，只能将它们放在数组或对象里返回。有了解构赋值，取出这些值就方便了。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回一个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">example1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> [a,b,c]=example1();</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回一个对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">example2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        foo:<span class="number">1</span>,</span><br><span class="line">        bar:<span class="number">2</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> &#123;foo,bar&#125;=example2();</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、函数参数的定义"><a href="#3、函数参数的定义" class="headerlink" title="3、函数参数的定义"></a>3、函数参数的定义</h3><p>解构赋值可以方便地将一组参数与变量名对应起来。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数是一组有序的值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">[x,y,z]</span>)</span>&#123;...&#125;</span><br><span class="line">f([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</span><br><span class="line"><span class="comment">//参数是一组无序的值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">&#123;x,y,z&#125;</span>)</span>&#123;...&#125;</span><br><span class="line">f(&#123;<span class="attr">z</span>:<span class="number">3</span>,<span class="attr">y</span>:<span class="number">2</span>,<span class="attr">x</span>:<span class="number">1</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-提取JSON数据"><a href="#4-提取JSON数据" class="headerlink" title="4.提取JSON数据"></a>4.提取JSON数据</h3><p>解构赋值对提取JSON对象中的数据，尤其有用。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> jsonData=&#123;</span><br><span class="line">    id:<span class="number">42</span>,</span><br><span class="line">    status:<span class="string">'OK'</span>,</span><br><span class="line">    data:[<span class="number">867</span>,<span class="number">5309</span>]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> &#123;id,status,<span class="attr">data</span>:number&#125;=jsonData;</span><br><span class="line"><span class="built_in">console</span>.log(id,status,number);</span><br><span class="line"><span class="comment">//42,"ok",[867,5309]</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码可以快速提取JSON数据的值。   </p>
+<h3 id="5-函数参数的默认值"><a href="#5-函数参数的默认值" class="headerlink" title="5.函数参数的默认值"></a>5.函数参数的默认值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jQuery.ajax=<span class="function"><span class="keyword">function</span>(<span class="params">url,&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">  async=true,</span></span></span><br><span class="line"><span class="function"><span class="params">  beforeSend=function(</span>)</span>&#123;&#125;,</span><br><span class="line">  cache=<span class="literal">true</span>,</span><br><span class="line">  complete=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">  crossDomain=<span class="literal">false</span>,</span><br><span class="line">  global=<span class="literal">true</span>,</span><br><span class="line">  <span class="comment">//....more config</span></span><br><span class="line">&#125;)&#123;</span><br><span class="line">  <span class="comment">//...do stuff</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>指定参数的默认值，就避免了再函数体内部再写var foo=config.foo||’defalut foo’;这样的语句。    </p>
+<h3 id="6-遍历Map结构"><a href="#6-遍历Map结构" class="headerlink" title="6. 遍历Map结构"></a>6. 遍历Map结构</h3><p>任何部署的Iterator接口的对象，都可以用for…of循环遍历。Map结构原生支持Iterator接口，配合变量的解构赋值，获取键名和键值就非常方便。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map=<span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">map.set(<span class="string">'first'</span>,<span class="string">'hello'</span>);</span><br><span class="line">map.set(<span class="string">'second'</span>,<span class="string">'world'</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key,value] <span class="keyword">of</span> map)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key+<span class="string">' is '</span>+value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// first is hello</span></span><br><span class="line"><span class="comment">//second is world</span></span><br></pre></td></tr></table></figure></p>
+<p>如果只想获取键名，或者只想获取键值，可以写成下面这样。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取键名</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key] <span class="keyword">of</span> map)&#123;</span><br><span class="line">    <span class="comment">//....</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取键值</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [,value] <span class="keyword">of</span> map)&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="7-输入模块的指定方法"><a href="#7-输入模块的指定方法" class="headerlink" title="7.输入模块的指定方法"></a>7.输入模块的指定方法</h3><p>加载模块时，往往需要指定输入哪些方法。解构赋值使得输入语句非常清晰。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;sourceMapConsumer,SourceNode&#125;=<span class="built_in">require</span>(<span class="string">'source-map'</span>);</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="Class语法"><a href="#Class语法" class="headerlink" title="Class语法"></a>Class语法</h1><h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>javascript语言中，生成实例对象的传统方法是通过构造函数。下面是一个例子。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.x=x;</span><br><span class="line">  <span class="keyword">this</span>.y=y;</span><br><span class="line">&#125;</span><br><span class="line">Point.prototype.toString=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`this.x,this.y`</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p=<span class="keyword">new</span> Point(<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure></p>
+<p>ES6引入类，作为对象的模板，ES6中的class可以看做是一个语法糖，它的绝大部分功能，ES5都可以做到，新的class写法只是让对象原型的写法更加清晰，更像面向对象编程的语法而已。上面的代码用ES6的class改写：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x,y)&#123;</span><br><span class="line">    <span class="keyword">this</span>.x=x;</span><br><span class="line">    <span class="keyword">this</span>.y=y;</span><br><span class="line">  &#125;</span><br><span class="line">  toString()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`this.x,this.y`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。也就是说，ES5的构造函数Point，对应ES6的Point类的构造方法。<br>Point类除了构造方法，还定义了toString方法，注意，定义类的方法的时候，前面不需要加上function这个关键字，直接把函数定义放进去就可以了。另外，方法之间不需要逗号分隔，加了会报错。<br>ES6的类，完全可以看做构造函数的另一种写法。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> Point);<span class="comment">//function</span></span><br><span class="line">Point===Point.prototype.constructor;<span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码声明，类的数据类型就是函数，类的本身就是指向构造函数。<br>使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bar</span></span>&#123;</span><br><span class="line">  doStuff()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'stuff'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b=<span class="keyword">new</span> Bar();</span><br><span class="line">b.doStuff();<span class="comment">//stuff</span></span><br></pre></td></tr></table></figure></p>
+<p>构造函数的prototype属性，在ES6的‘类’上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="comment">//。。。</span></span><br><span class="line">  &#125;</span><br><span class="line">  toString()&#123;</span><br><span class="line">    <span class="comment">//。。。。</span></span><br><span class="line">  &#125;</span><br><span class="line">  toValue()&#123;</span><br><span class="line">    <span class="comment">//。。。</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line">Point.prototype=&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;&#125;,</span><br><span class="line">   toString()&#123;&#125;,</span><br><span class="line">   toValue()&#123;&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在类的实例上面调用方法，其实就是调用原型上的方法。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.assign(Point.prototype,&#123;</span><br><span class="line">  toString()&#123;&#125;,</span><br><span class="line">  toValue()&#123;&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>prototype对象的constructor属性，直接指向“类”本身，这与ES5行为是一致的。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Point.prototype.constructor===Point;<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>另外，类内部定义的所有的方法都是不可枚举的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x,y)&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys(Point.prototype);<span class="comment">//[]</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames(Point.prototype);</span><br><span class="line"><span class="comment">//['constructor','toString']</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，toString方法是Point类内部定义的方法，它是不可枚举的。这一点与ES5的行为不一致。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Point=<span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line">Point.prototype.toString=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.keys(Point.prototype);<span class="comment">//['toString']</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames(Point.prototype);</span><br><span class="line"><span class="comment">//['constructor','toString']</span></span><br></pre></td></tr></table></figure>
+<p>类的属性名，可以采用表达式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> methodName=<span class="string">'getArea'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(length)&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">  [methodName]()&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，Square类的方法名getArea，是从表达式中得到的。   </p>
+<h2 id="二、严格模式"><a href="#二、严格模式" class="headerlink" title="二、严格模式"></a>二、严格模式</h2><p>类和模块的内部，默认就是严格模式。<br>不多讲了。   </p>
+<h2 id="三、constructor方法"><a href="#三、constructor方法" class="headerlink" title="三、constructor方法"></a>三、constructor方法</h2><p>constructor方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法，一个类必须要有一个constructor方法，如果没有显示定义，一个空的constructor方法会被默认添加。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，定义了一个空的类Point，javascript引擎会自动为它添加一个空的constructor方法。<br>constructor方法默认返回一个实例对象（即this），完全可以指定返回另一个对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> Foo() <span class="keyword">instanceof</span> Foo;<span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，constructor函数返回一个全新的对象，结果导致实例对象不是Foo类的实例。<br>类必须使用new调用，否则会报错。这是它和普通构造函数一个主要的区别，后者不用new也可以执行。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Foo();<span class="comment">//Error</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="四、类的实例对象"><a href="#四、类的实例对象" class="headerlink" title="四、类的实例对象"></a>四、类的实例对象</h2><p>生成实例对象的写法，与ES5完全一样，也就是使用new命令。前面说过，如果忘记加上new，向=像函数那样调用Class，将会报错。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//报错</span></span><br><span class="line"><span class="keyword">var</span> point=Point(<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="comment">//正确</span></span><br><span class="line"><span class="keyword">var</span> point=<span class="keyword">new</span> Point(<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure></p>
+<p><strong>与ES5一样，实例的属性除非显示定义在其本身（即定义在this对象上），否则是定义在原型上（即定义在class上）</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x,y)&#123;</span><br><span class="line">    <span class="keyword">this</span>.x=x;</span><br><span class="line">    <span class="keyword">this</span>.y=y;</span><br><span class="line">  &#125;</span><br><span class="line">  toString()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`this.x,this.y`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> point=<span class="keyword">new</span> Point(<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">point.toString();<span class="comment">//(2,3)</span></span><br><span class="line">point.hasOwnProperty(<span class="string">'x'</span>);<span class="comment">//true</span></span><br><span class="line">point.hasOwnProperty(<span class="string">'y'</span>);<span class="comment">///true</span></span><br><span class="line">point.hasOwnProperty(<span class="string">'toString'</span>);<span class="comment">//false</span></span><br><span class="line">point.__proto__.hasOwnProperty(<span class="string">'toString'</span>);<span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>与ES5一样，类的所有实例共享一个原型对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p1=<span class="keyword">new</span> Point(<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">var</span> p2=<span class="keyword">new</span> Point(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line">p1.__proto__===p2.__proto__;<span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，p1和p2都是Point实例，它们的原型都是Point.prototype,所以<strong>proto</strong>属性是相等的。<br>这也意味着，可以通过实例的<strong>proto</strong>属性为‘类’添加方法。   </p>
+<blockquote>
+<p>proto并不是语言本身的特性，这是各大厂商具体实现时添加的私有属性，虽然目前很多现代浏览器的JS引擎中都提供了这个私有属性，但是依旧不建议在生产中使用该属性，避免对环境产生依赖。生产环境中，我们可以使用Object.getPrototypeOf()方法来获取实例对象的原型，然后再为原型添加方法/属性。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p1=<span class="keyword">new</span> Point(<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">var</span> p2=<span class="keyword">new</span> Point(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">p1.__proto__.printName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="string">'Opps'</span>&#125;;</span><br><span class="line"></span><br><span class="line">p1.printName();<span class="comment">//'Opps'</span></span><br><span class="line">p2.printName();<span class="comment">//'Opps'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p3=<span class="keyword">new</span> Point();</span><br><span class="line">p3.printName();<span class="comment">//'Opps'</span></span><br></pre></td></tr></table></figure>
+<h2 id="五、Class表达式"><a href="#五、Class表达式" class="headerlink" title="五、Class表达式"></a>五、Class表达式</h2><p>与函数一样，类也可以使用表达式定义<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyClass=<span class="class"><span class="keyword">class</span> <span class="title">Me</span></span>&#123;</span><br><span class="line">  getClassName()&#123;</span><br><span class="line">    <span class="keyword">return</span> Me.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中使用表达式定义了一个类，需要注意的是，这个类的名字是MyClass而不是Me，Me只在Class的内部可用，指代当前类。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> inst=<span class="keyword">new</span> MyClass();</span><br><span class="line">inst.getClassName();<span class="comment">//Me</span></span><br><span class="line"><span class="built_in">console</span>.log(Me.name);<span class="comment">//error</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码表示，Me只在Class内部定义。<br>如果类内部没有用到的话，可以省略Me，也就是说可以写成下面的形式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyClass=<span class="class"><span class="keyword">class</span></span>&#123;<span class="comment">/*.....*/</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>采用Class表达式，可以写出立即执行的Class表达式。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person=<span class="keyword">new</span> <span class="class"><span class="keyword">class</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">  &#125;</span><br><span class="line">  sayName()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;(<span class="string">'张三'</span>);</span><br><span class="line">person.sayName();<span class="comment">//张三</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，person是一个立即执行的类的实例。</p>
+<h2 id="六、不存在变量提升"><a href="#六、不存在变量提升" class="headerlink" title="六、不存在变量提升"></a>六、不存在变量提升</h2><p>类不存在变量提升（hoist）,这一点与ES5完全不同<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Foo();<span class="comment">//error</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>()</span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="七、私有方法"><a href="#七、私有方法" class="headerlink" title="七、私有方法"></a>七、私有方法</h2><p>私有方法是常见需求，但是ES6不提供，只能通过变量方法模式实现。<br>一种做法是在命名上加以区分。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">  <span class="comment">//公有方法</span></span><br><span class="line">  foo(baz)&#123;</span><br><span class="line">    <span class="keyword">this</span>._bar(baz);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//私有方法</span></span><br><span class="line">  _bar(baz)&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">this</span>.snaf=baz;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中,bar方法前面的下划线，表示这是一个只限于内部使用的私有方法。但是，这种命名不保险，在类的外部，还是可以调用到这个方法的。<br>另一种方法就是索性将私有方法移出模块，因为模块内部的所有方法都是对外可见的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">  foo(baz)&#123;</span><br><span class="line">    bar.call(<span class="keyword">this</span>,baz);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">baz</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.snaf=baz;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，foo是公有方法，内部调用了bar.call(this,baz)。这使得bar实际上称为了当前模块的私有方法。<br>还有一种方法是利用Symbol值的唯一性，将私有方法的命名为一个Symbol值。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bar=<span class="built_in">Symbol</span>(<span class="string">'bar'</span>);</span><br><span class="line"><span class="keyword">const</span> snaf=<span class="built_in">Symbol</span>(<span class="string">'snaf'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> defalut <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span>&#123;</span><br><span class="line">  <span class="comment">//公有方法</span></span><br><span class="line">  foo(baz)&#123;</span><br><span class="line">    <span class="keyword">this</span>[bar](baz);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//私有方法</span></span><br><span class="line">  [bar](baz)&#123;</span><br><span class="line">    retrun <span class="keyword">this</span>[snaf]=baz;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，bar和snaf都是Symbol值，导致第三方无法获取到它们，因此达到了私有方法和私有属性的效果。    </p>
+<h2 id="八、私有属性"><a href="#八、私有属性" class="headerlink" title="八、私有属性"></a>八、私有属性</h2><p>  与私有方法一样，ES6不支持私有属性。目前，有一个提案，为class加了私有属性。方法是在属性名之前 ，使用#表示。    </p>
+<h2 id="九、this的指向"><a href="#九、this的指向" class="headerlink" title="九、this的指向"></a>九、this的指向</h2><p>类的方法内部如果含有this，它默认指向类的实例。但是，必须非常小心，一旦单独使用该方法，很可能报错。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Logger</span></span>&#123;</span><br><span class="line">  printName(name=<span class="string">'there'</span>)&#123;</span><br><span class="line">    <span class="keyword">this</span>.print(<span class="string">`hello <span class="subst">$&#123;name&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  print(text)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(text);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> logger=<span class="keyword">new</span> Logger();</span><br><span class="line"><span class="keyword">const</span> &#123;printName&#125;=logger;</span><br><span class="line">printName();<span class="comment">//error</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，printName方法中的this，默认指向Logger类的实例。但是，如果将这个方法提取出来单独使用，this会指向该方法运行时所在的环境，因为找不到print方法而导致报错。<br>一个比较简单的解决方法是，在构造方法中绑定this，这样不会找不到print方法了。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Logger</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.printName=<span class="keyword">this</span>.printName.bind(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="Class继承"><a href="#Class继承" class="headerlink" title="Class继承"></a>Class继承</h1><h2 id="一、简介-1"><a href="#一、简介-1" class="headerlink" title="一、简介"></a>一、简介</h2><p>Class可以通过extends关键实现继承，这比ES5中通过修改原型链要简单方便很多。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码定义了一个ColorPoint类，该类通过extends关键字，继承了Point类的所有属性和方法。有部署任何代码，所以这里两个类完全一样，等于复制了一个Point类。下面，我们在ColorPoint内部加上代码。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x,y,color)&#123;</span><br><span class="line">    <span class="keyword">super</span>(x,y);<span class="comment">//调用父类的constructor(x,y);</span></span><br><span class="line">    <span class="keyword">this</span>.color=color;</span><br><span class="line">  &#125;</span><br><span class="line">  toString()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.color&#125;</span> <span class="subst">$&#123;<span class="keyword">super</span>.toString()&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;<span class="comment">/*....*/</span>&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> cp=<span class="keyword">new</span> ColorPoint();<span class="comment">//Error</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，ColorPoint继承了父类Point，但是它的构造函数没有调用super方法，导致新建实例时报错。<br>ES5中的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）<br>ES6的继承机制完全不同，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。<br>如果子类没有定义constructor方法，这个方法会被默认添加，代码如下。也就是说，不管有没有显示定义，任何子类都有constructor方法。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(...args)&#123;</span><br><span class="line">        <span class="keyword">super</span>(...args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另一个需要注意的地方是，在类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例的加工，只有super方法才能返回父类实例。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x,y)&#123;</span><br><span class="line">    <span class="keyword">this</span>.x=x;</span><br><span class="line">    <span class="keyword">this</span>.y=y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x,y,color)&#123;</span><br><span class="line">    <span class="keyword">this</span>.color=color;<span class="comment">//RefferencError</span></span><br><span class="line">    <span class="keyword">super</span>(x,y);</span><br><span class="line">    <span class="keyword">this</span>.color=color;<span class="comment">//正确</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，子类的constructor方法在没有调用super之前，就是使用this关键字，结果报错，而放在super方法之后就是正确的。<br>下面是生成子类实例的代码。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> cp=<span class="keyword">new</span> ColorPoint(<span class="number">25</span>,<span class="number">8</span>,<span class="string">'green'</span>);</span><br><span class="line">cp <span class="keyword">instanceof</span> ColorPoint;<span class="comment">//true</span></span><br><span class="line">cp <span class="keyword">instanceof</span> Point;<span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，实例对象cp同时是ColorPoint和Point两个类的实例，这与ES5行为完全一致。<br>最后，父类的静态方法，也会被子类继承。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> hello()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'hello world'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="title">extneds</span> <span class="title">A</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">B.hello();<span class="comment">//hello world</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，hello()是A类的静态方法，B继承A，也继承了A的静态方法。</p>
+<h2 id="二、Object-getPrototypeOf"><a href="#二、Object-getPrototypeOf" class="headerlink" title="二、Object.getPrototypeOf()"></a>二、Object.getPrototypeOf()</h2><p>Object.getPrototypeOf方法可以用来从子类上获取父类。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.getPrototypeOf(ColorPoint)===Point</span><br></pre></td></tr></table></figure></p>
+<p>因此，可以使用这个方法岸段一个类是否继承了另一个类。   </p>
+<h2 id="三、super关键字"><a href="#三、super关键字" class="headerlink" title="三、super关键字"></a>三、super关键字</h2><p>super这个关键字，既可以当做函数使用，也可以当做对象使用。这两种情况下，它的用法完全不同。<br>第一种情况，super作为函数调用时，代表父类的构造函数。ES6要求，子类的构造函数必须执行一次super函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，子类B的构造函数之中的super(),代表调用父类构造函数。这是必须的，否则javascript引擎会报错。<br>注意，super虽然代表了父类A的构造函数，但是返回的是子类B的实例，即super内部的this指的是B，因此super()在这里相当于：<br>A.prototype.constructor.call(this)   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">new</span>.target.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  cosntructor()&#123;</span><br><span class="line">      <span class="keyword">super</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> A();<span class="comment">//A</span></span><br><span class="line"><span class="keyword">new</span> B();<span class="comment">//B</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，new.target指向当前正在执行的函数，可以看到，在suoer()执行时，它指向的是子类B的构造函数，而不是父类A的构造函数，也就是说super()内部的this指向的是B。<br>作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    m()&#123;</span><br><span class="line">        <span class="keyword">super</span>();<span class="comment">//报错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，super()用在B类的m方法之中，就会造成语法报错。   </p>
+<p><strong>第二中情况，super作为对象，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  p()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">super</span>.p());<span class="comment">//2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b=<span class="keyword">new</span> B();</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，子类B当中的super.p(),就是将super作为一个对象使用。这时，super在普通方法之中，指向A.prototype,所以super.p()就相当于A.prototype.p()。   </p>
+<p>这里需要注意，由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.p=<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    get m()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b=<span class="keyword">new</span> B();</span><br><span class="line">b.m;<span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，p是父类A实例的属性，super.p就引用不到它。<br>如果属性定义在父类的原型对象上，supper就可以引用到。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;&#125;</span><br><span class="line">A.prototype.x=<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    cosntructor()&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">super</span>.x);<span class="comment">//2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b=<span class="keyword">new</span> B();</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，属性x是定义在A.prototype上面的，所以super.x可以取到它的值。<br>ES6规定，通过super调用父类的方法时，方法内部的this指向子类。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">this</span>.x=<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  print()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.x=<span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  m()&#123;</span><br><span class="line">    <span class="keyword">super</span>.print();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b=<span class="keyword">new</span> B();</span><br><span class="line">b.m();<span class="comment">//2</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，super.print()虽然调用的是A.prototype.print(),但是A.prototype.print()内部的this指向子类B，导致输出的是2，而不是1，也就是说，实际上执行的是super.print.call(this)。    </p>
+<p>由于this指向子类，所以如果通过super对某个属性赋值，这时super就是this，赋值的属性会变成实例的属性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    constructot()&#123;</span><br><span class="line">        <span class="keyword">this</span>.x=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.x=<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">super</span>.x=<span class="number">3</span>;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">super</span>.x);<span class="comment">//undefined</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);<span class="comment">//3</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b=<span class="keyword">new</span> B();</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，super.x赋值为3，这时等同于this.x赋值为3。而当读取super.x的时候，读的是A.prototype.x，所以返回undefined。   </p>
+<p><strong>如果super作为对象，用在静态方法之中，这时super指向父类，而不是父类的原型对象。</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span></span>&#123;</span><br><span class="line">  <span class="keyword">static</span> myMethod(msg)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'static'</span>,msg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">myMethod(msg)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'instance'</span>,msg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span></span>&#123;</span><br><span class="line">  <span class="keyword">static</span>.myMethod(msg)&#123;</span><br><span class="line">    <span class="keyword">super</span>.myMethod(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  myMethod(msg)&#123;</span><br><span class="line">    <span class="keyword">super</span>.myMethod(msg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Child.myMethod(<span class="number">1</span>);<span class="comment">//static 1</span></span><br><span class="line"><span class="keyword">var</span> child =<span class="keyword">new</span> Child();</span><br><span class="line">child.myMethod(<span class="number">2</span>);<span class="comment">//instance 2</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，super在静态方法之中指向父类，在普通方法之中指向父类的原型对象。<br>注意，使用super的时候，必须显示指定作为函数，还是作为对象使用，否则会报错。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">super</span>);<span class="comment">//报错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，console.log(super)当中的super，无法看出事作为函数使用，还是作为对象使用，所以javascript引擎解析代码的时候就会报错。这时，如果能清晰的表明super的数据类型，就不会报错。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">super</span>.valueOf() <span class="keyword">instanceof</span> B);<span class="comment">//true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b=<span class="keyword">new</span> B();</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，super.valueOf()表明super是一个对象，因此就不会报错。同时，由于super使得this指向B，所以super.valueOf()返回的是一个B的实例。<br>最后，由于对象总是继承其他对象，所以可以在任意一个对象中，使用super关键字。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'MyObject:'</span>+<span class="keyword">super</span>.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.toString();<span class="comment">//MyObject:[object Object]</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="四、类的prototype属性和proto属性"><a href="#四、类的prototype属性和proto属性" class="headerlink" title="四、类的prototype属性和proto属性"></a>四、类的prototype属性和<strong>proto</strong>属性</h2><p>大多数浏览器的ES5实现之中，每一个对象都有<strong>proto</strong>属性，指向对应的构造函数的prototype属性。Class作为构造函数的语法糖，同时又prototype属性和<strong>proto</strong>属性，因此同时存在两条继承链。    </p>
+<ol>
+<li>子类的<strong>proto</strong>属性，表示构造函数的继承，总是指向父类。</li>
+<li>子类的prototype属性的<strong>proto</strong>属性，表示方法的继承，总是指向父类的prototype属性。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">B.__proto__===A;<span class="comment">//true</span></span><br><span class="line">B.prototype.__proto__===A.prototype;<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，子类B的<strong>proto</strong>属性指向父类A，子类B的prototype属性的<strong>proto</strong>属性指向父类A的prototype属性。<br>这样的结果是因为，类的继承是按照下面的模式实现的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">//B 的实例继承A的实例</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(B.prototype,A.prototype);</span><br><span class="line"><span class="comment">//B的实例继承A的静态属性</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(B,A);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> b=<span class="keyword">new</span> B();</span><br></pre></td></tr></table></figure></p>
+<p>Object.setPrototypeOf方法的实现如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.setPrototypeOf=<span class="function"><span class="keyword">function</span>(<span class="params">obj,proto</span>)</span>&#123;</span><br><span class="line">  obj.__proto__=proto;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因此，就得到了上面的结果。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.setPrototypeOf(B.prototype,A.prototype);</span><br><span class="line"></span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line">B.prototype.__proto=A.prototype;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(B,A);</span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"></span><br><span class="line">B.__proto=A</span><br></pre></td></tr></table></figure></p>
+<p>这两条继承链，可以理解为：作为一个对象，子类（B）的原型（proto属性）是父类（A）；作为构造函数，子类(B)的原型对象（prototype属性）是父类的原型对象（prototype属性）的实例。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.create(A.prototype);</span><br><span class="line"><span class="comment">//d等同于</span></span><br><span class="line">B.prototype.__proto__=A.prototype;</span><br></pre></td></tr></table></figure></p>
+<h3 id="extends的继承目标"><a href="#extends的继承目标" class="headerlink" title="extends的继承目标"></a>extends的继承目标</h3><p>extends关键字后面可以跟很多种类型的值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码的A，只要是一个有prototype属性的函数，就能被B继承。由于函数都有prototype属性（除了Function.prototype函数），因此A可以是任意函数。  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="稻香Snowy wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="稻香Snowy 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript初探/" rel="tag"><i class="fa fa-tag"></i> JavaScript初探</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/JavaScript/JS初探十一（JS中的垃圾回收以及内存管理）/" rel="next" title="JS初探十一（JS中的垃圾回收以及内存管理）">
+                <i class="fa fa-chevron-left"></i> JS初探十一（JS中的垃圾回收以及内存管理）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/JavaScript/JS进阶一（JS中的DOM）/" rel="prev" title="JS进阶一（JS中的DOM）">
+                JS进阶一（JS中的DOM） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/toux.jpg"
+                alt="稻香Snowy" />
+            
+              <p class="site-author-name" itemprop="name">稻香Snowy</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry.Stay Foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Asiazdx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/fb5f478b1a94" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59638598f265da6c4523c761" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5541828133/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-Weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6简介"><span class="nav-number">1.</span> <span class="nav-text">ES6简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、ECMScript和javascript的关系"><span class="nav-number">1.1.</span> <span class="nav-text">一、ECMScript和javascript的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、ES6与ECAMScript-2015的关系"><span class="nav-number">1.2.</span> <span class="nav-text">二、ES6与ECAMScript 2015的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、进度部署"><span class="nav-number">1.3.</span> <span class="nav-text">三、进度部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Babel转码器"><span class="nav-number">1.4.</span> <span class="nav-text">六、Babel转码器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-配置文件-babelrc"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.配置文件.babelrc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-命令转码babel-cli"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.命令转码babel-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-babel-node"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.babel-node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-babel-register"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.babel-register</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-babel-core"><span class="nav-number">1.4.5.</span> <span class="nav-text">5. babel-core</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-babel-polyfill"><span class="nav-number">1.4.6.</span> <span class="nav-text">6.babel-polyfill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-浏览器环境"><span class="nav-number">1.4.7.</span> <span class="nav-text">7.浏览器环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-与其他工具配合"><span class="nav-number">1.4.8.</span> <span class="nav-text">8.与其他工具配合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将ES6转化成ES5除了使用Babel还可以使用其他转码器比如Traceur转码器，这里就不详细介绍了。大家可以去官网查看使用方法。"><span class="nav-number">1.5.</span> <span class="nav-text">将ES6转化成ES5除了使用Babel还可以使用其他转码器比如Traceur转码器，这里就不详细介绍了。大家可以去官网查看使用方法。   </span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量的解构赋值"><span class="nav-number">2.</span> <span class="nav-text">变量的解构赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、数组的解构赋值"><span class="nav-number">2.1.</span> <span class="nav-text">一、数组的解构赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基本用法"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-默认值"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.默认值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、对象的解构赋值"><span class="nav-number">2.2.</span> <span class="nav-text">二、对象的解构赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、字符串的解构赋值"><span class="nav-number">2.3.</span> <span class="nav-text">三、字符串的解构赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、数值和布尔值的解构赋值"><span class="nav-number">2.4.</span> <span class="nav-text">四、数值和布尔值的解构赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、函数参数的解构赋值"><span class="nav-number">2.5.</span> <span class="nav-text">五、函数参数的解构赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、圆括号问题"><span class="nav-number">2.6.</span> <span class="nav-text">六、圆括号问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-不能使用圆括号的情况"><span class="nav-number">2.6.1.</span> <span class="nav-text">1.不能使用圆括号的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）、变量声明语句"><span class="nav-number">2.6.1.1.</span> <span class="nav-text">（1）、变量声明语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）、函数参数"><span class="nav-number">2.6.1.2.</span> <span class="nav-text">（2）、函数参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）、赋值语句的模式"><span class="nav-number">2.6.1.3.</span> <span class="nav-text">（3）、赋值语句的模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、可以使用圆括号的情况"><span class="nav-number">2.6.2.</span> <span class="nav-text">2、可以使用圆括号的情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、用途"><span class="nav-number">2.7.</span> <span class="nav-text">七、用途</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-交换变量的值"><span class="nav-number">2.7.1.</span> <span class="nav-text">1.交换变量的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、从函数返回多个值"><span class="nav-number">2.7.2.</span> <span class="nav-text">2、从函数返回多个值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、函数参数的定义"><span class="nav-number">2.7.3.</span> <span class="nav-text">3、函数参数的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-提取JSON数据"><span class="nav-number">2.7.4.</span> <span class="nav-text">4.提取JSON数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-函数参数的默认值"><span class="nav-number">2.7.5.</span> <span class="nav-text">5.函数参数的默认值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-遍历Map结构"><span class="nav-number">2.7.6.</span> <span class="nav-text">6. 遍历Map结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-输入模块的指定方法"><span class="nav-number">2.7.7.</span> <span class="nav-text">7.输入模块的指定方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Class语法"><span class="nav-number">3.</span> <span class="nav-text">Class语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简介"><span class="nav-number">3.1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、严格模式"><span class="nav-number">3.2.</span> <span class="nav-text">二、严格模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、constructor方法"><span class="nav-number">3.3.</span> <span class="nav-text">三、constructor方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、类的实例对象"><span class="nav-number">3.4.</span> <span class="nav-text">四、类的实例对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、Class表达式"><span class="nav-number">3.5.</span> <span class="nav-text">五、Class表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、不存在变量提升"><span class="nav-number">3.6.</span> <span class="nav-text">六、不存在变量提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、私有方法"><span class="nav-number">3.7.</span> <span class="nav-text">七、私有方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、私有属性"><span class="nav-number">3.8.</span> <span class="nav-text">八、私有属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、this的指向"><span class="nav-number">3.9.</span> <span class="nav-text">九、this的指向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Class继承"><span class="nav-number">4.</span> <span class="nav-text">Class继承</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简介-1"><span class="nav-number">4.1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Object-getPrototypeOf"><span class="nav-number">4.2.</span> <span class="nav-text">二、Object.getPrototypeOf()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、super关键字"><span class="nav-number">4.3.</span> <span class="nav-text">三、super关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、类的prototype属性和proto属性"><span class="nav-number">4.4.</span> <span class="nav-text">四、类的prototype属性和proto属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#extends的继承目标"><span class="nav-number">4.4.1.</span> <span class="nav-text">extends的继承目标</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">稻香Snowy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var cw = canvas.width = window.innerWidth,
+  cx = cw / 2;
+var ch = canvas.height = window.innerHeight,
+  cy = ch / 2;
+
+ctx.fillStyle = "#999";
+var linesNum = 16;
+var linesRy = [];
+var requestId = null;
+
+function Line(flag) {
+  this.flag = flag;
+  this.a = {};
+  this.b = {};
+  if (flag == "v") {
+    this.a.y = 0;
+    this.b.y = ch;
+    this.a.x = randomIntFromInterval(0, ch);
+    this.b.x = randomIntFromInterval(0, ch);
+  } else if (flag == "h") {
+    this.a.x = 0;
+    this.b.x = cw;
+    this.a.y = randomIntFromInterval(0, cw);
+    this.b.y = randomIntFromInterval(0, cw);
+  }
+  this.va = randomIntFromInterval(25, 100) / 100;
+  this.vb = randomIntFromInterval(25, 100) / 100;
+
+  this.draw = function() {
+    ctx.strokeStyle = "#ccc";
+    ctx.beginPath();
+    ctx.moveTo(this.a.x, this.a.y);
+    ctx.lineTo(this.b.x, this.b.y);
+    ctx.stroke();
+  }
+
+  this.update = function() {
+    if (this.flag == "v") {
+      this.a.x += this.va;
+      this.b.x += this.vb;
+    } else if (flag == "h") {
+      this.a.y += this.va;
+      this.b.y += this.vb;
+    }
+
+    this.edges();
+  }
+
+  this.edges = function() {
+    if (this.flag == "v") {
+      if (this.a.x < 0 || this.a.x > cw) {
+        this.va *= -1;
+      }
+      if (this.b.x < 0 || this.b.x > cw) {
+        this.vb *= -1;
+      }
+    } else if (flag == "h") {
+      if (this.a.y < 0 || this.a.y > ch) {
+        this.va *= -1;
+      }
+      if (this.b.y < 0 || this.b.y > ch) {
+        this.vb *= -1;
+      }
+    }
+  }
+
+}
+
+for (var i = 0; i < linesNum; i++) {
+  var flag = i % 2 == 0 ? "h" : "v";
+  var l = new Line(flag);
+  linesRy.push(l);
+}
+
+function Draw() {
+  requestId = window.requestAnimationFrame(Draw);
+  ctx.clearRect(0, 0, cw, ch);
+
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    l.draw();
+    l.update();
+  }
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    for (var j = i + 1; j < linesRy.length; j++) {
+      var l1 = linesRy[j]
+      Intersect2lines(l, l1);
+    }
+  }
+}
+
+function Init() {
+  linesRy.length = 0;
+  for (var i = 0; i < linesNum; i++) {
+    var flag = i % 2 == 0 ? "h" : "v";
+    var l = new Line(flag);
+    linesRy.push(l);
+  }
+
+  if (requestId) {
+    window.cancelAnimationFrame(requestId);
+    requestId = null;
+  }
+
+  cw = canvas.width = window.innerWidth,
+    cx = cw / 2;
+  ch = canvas.height = window.innerHeight,
+    cy = ch / 2;
+
+  Draw();
+};
+
+setTimeout(function() {
+  Init();
+
+  addEventListener('resize', Init, false);
+}, 15);
+
+function Intersect2lines(l1, l2) {
+  var p1 = l1.a,
+    p2 = l1.b,
+    p3 = l2.a,
+    p4 = l2.b;
+  var denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+  var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+  var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+  var x = p1.x + ua * (p2.x - p1.x);
+  var y = p1.y + ua * (p2.y - p1.y);
+  if (ua > 0 && ub > 0) {
+    markPoint({
+      x: x,
+      y: y
+    })
+  }
+}
+
+function markPoint(p) {
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+function randomIntFromInterval(mn, mx) {
+  return ~~(Math.random() * (mx - mn + 1) + mn);
+}
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</script>
+</html>

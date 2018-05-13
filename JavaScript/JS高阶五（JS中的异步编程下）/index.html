@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #AFDBE3; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #AFDBE3, 0 0 5px     #AFDBE3; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #AFDBE3;    /*上边框颜色*/
+        border-left-color: #AFDBE3;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript高阶," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="JavaScript高阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS高阶四（JS中的异步编程下）">
+<meta property="og:url" content="http://www.github.com/Snowyzdx/JavaScript/JS高阶五（JS中的异步编程下）/index.html">
+<meta property="og:site_name" content="Snowy&#39;blog">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/jsJichujsc05.png">
+<meta property="og:updated_time" content="2018-05-09T09:20:34.266Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS高阶四（JS中的异步编程下）">
+<meta name="twitter:image" content="http://p6nfblqvu.bkt.clouddn.com/jsJichujsc05.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.github.com/Snowyzdx/JavaScript/JS高阶五（JS中的异步编程下）/"/>
+
+
+
+
+
+  <title>JS高阶四（JS中的异步编程下） | Snowy'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Asiazdx"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Snowy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Stay Hungry. Stay Foolish</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-comments">
+          <a href="/comments/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-laboratory">
+          <a href="/laboratory/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-other_note">
+          <a href="/other_note/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            书影音
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.github.com/Snowyzdx/JavaScript/JS高阶五（JS中的异步编程下）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="稻香Snowy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/toux.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Snowy'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JS高阶四（JS中的异步编程下）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-05T09:54:09+08:00">
+                2016-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://p6nfblqvu.bkt.clouddn.com/jsJichujsc05.png" alt="jsc05" width="600/"><br><a id="more"></a></p>
+<h1 id="JS异步编程之生成器"><a href="#JS异步编程之生成器" class="headerlink" title="JS异步编程之生成器"></a>JS异步编程之生成器</h1><p>我们确定了会调函数表达异步控制流程的两个关键缺陷：  </p>
+<ul>
+<li>基于回调的异步不符合大脑对任务步骤的规划方式；</li>
+<li>由于控制反转，回调并不是可信任或可组合的<br>Promise实现了将回调的控制反转回来，恢复了可信任/可组合性。<br>现在我们把注意力转移到一种顺序，看似同步的异步流程控制表达风格。是这种风格称为可能的“魔法”就是ES6中的生成器（Generator）。   </li>
+</ul>
+<h2 id="一、打破完整运行"><a href="#一、打破完整运行" class="headerlink" title="一、打破完整运行"></a>一、打破完整运行</h2><p>在回调函数那一章，我们解释javascript开发者在代码中几乎普遍依赖的一个假定：一个函数一旦开始执行，就会运行到结束，期间不会有其他代码能够打断它并插入期间。   </p>
+<p>可能看起来似乎有点奇怪，不过ES6引入了一个新的函数类型，它并不符合这种运行到结束的特性。这类新的函数被成为生成器。<br>考虑如下这个例子来了解其含义：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    x++;</span><br><span class="line">    bar();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'x:'</span>,x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    x++;</span><br><span class="line">&#125;</span><br><span class="line">foo();<span class="comment">//x:3</span></span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，我们确信bar()会在x++和console.log(x)之间运行。但是，如bar()并不在那里会怎样呢？显然结果会是2，而不是3.   </p>
+<p>现在想一下。如果bar()并不在那儿，但出于某种原因它仍然可以在x++和console.lgo(x)语句之间运行，这又会怎样呢？这如何才会成为可能呢？   </p>
+<p>如果foo()自身可以通过某种形式在代码的这个位置指示暂停的话，那就仍然可以以一种合作式的方式实现这样的中断（并发）。   </p>
+<p>ES6代码中指定暂停点的语法是yield，这也礼貌地表达了一种合作式的控制放弃。   </p>
+<p>下面是实现这样的方式并发的ES6代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    x++;</span><br><span class="line">    <span class="keyword">yield</span>;<span class="comment">//暂停</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"x"</span>,x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    x++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在，我们要如何运行前面的代码，使得bar()在*foo()内部的yield处执行呢？   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造一个迭代器it来控制这个生成器</span></span><br><span class="line"><span class="keyword">var</span> it=foo();</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里启动foo()!</span></span><br><span class="line">it.next();</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//2</span></span><br><span class="line">bar();</span><br><span class="line"><span class="built_in">console</span>.log(x);<span class="comment">//3</span></span><br><span class="line">it.next();<span class="comment">//x:3</span></span><br></pre></td></tr></table></figure>
+<p>上面的代码运行过程：  </p>
+<ol>
+<li>it=foo()运算并没有执行生成器*foo()，而只是构造了一个迭代器（iterator），这个迭代器会控制它的执行。   </li>
+<li>第一个it.next()启动了生成器*foo(),并运行生成器函数中的第一行x++   </li>
+<li>foo()在yield语句出暂停，在这一点上第一个it.next（）调用结束，此时生成器仍然在运行并且是活跃的，但是处于暂停状态。  </li>
+<li>我们查看x的值，此时为2</li>
+<li>我们调用bar()，它通过x++再次递增x。</li>
+<li>我们再次查看x的值，此时为3.</li>
+<li>最后的it.next()调用从暂停处恢复了生成器的运行，并运行console.log(..)语句，这条语句使用当前x的值3.</li>
+</ol>
+<p>显然，foo()启动了，但是没有完整运行，它在yield出暂停了。后面恢复了foo()并让它运行到结束，但这不是必需的。   </p>
+<p><strong>因此，生成器是一类特殊的函数，可以一次或者多次启动和停止，并不一定非得要。</strong>   </p>
+<h3 id="1-输入和输出"><a href="#1-输入和输出" class="headerlink" title="1.输入和输出"></a>1.输入和输出</h3><p>生成器函数是一个特殊的函数，具有前面我们展示的新的执行模式。但是，它仍然是一个函数，这意味着它仍然有一些基本的特性没有改变。比如，它仍然可以接受参数（即输入），也能够返回值（即输出）。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x*y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> it=foo(<span class="number">6</span>,<span class="number">7</span>);</span><br><span class="line"><span class="keyword">var</span> res=it.next();</span><br><span class="line">res.value;<span class="comment">//42</span></span><br></pre></td></tr></table></figure></p>
+<p>现在我们可以看到生成器和普通函数在调用上的一个区别，显然foo(6,7)看起来很熟悉。但难以理解的是，生成器<em>foo(…)并没有像普通函数一样实际运行。<br>事实上，我们只是创建了一个迭代器对象，把它赋给了一个变量it，用于控制生成器</em>foo(…)。然后调用it.next()，指示生成器从当前位置开始继续运行，停在下一个yield处或者直到生成器结束。  </p>
+<p>这个next(…)调用的结果是一个对象，它有一个value属性，持有从生成器返回的值（如果有的话）。换句话说，yield会导致生成器在执行过程中发出一个值，这有点类似于中间的return。   </p>
+<h3 id="1-迭代消息传递"><a href="#1-迭代消息传递" class="headerlink" title="1.迭代消息传递"></a>1.迭代消息传递</h3><p>除了能够接受参数并提供返回值之外，生成器甚至提供了更强大更引人注目的内建消息输入输出能力，通过yield和next(…)实现。<br>考虑：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> y=x*(<span class="keyword">yield</span>);</span><br><span class="line">    <span class="keyword">return</span> y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> it=foo(<span class="number">6</span>);</span><br><span class="line"><span class="comment">//启动foo(...)</span></span><br><span class="line">it.next();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> res=it.next(<span class="number">7</span>);</span><br><span class="line"><span class="built_in">console</span>.log(res.value);<span class="comment">//42</span></span><br></pre></td></tr></table></figure></p>
+<p>首先6作为参数x。然后调用it.next(),这会启动*foo(…)。  </p>
+<p>在*foo(…)内部，开始执行语句var y=x…但随后就遇到来了yield表达式。它就会在这一点上暂停生成器函数（在赋值语句中间），并在本质上要求了调用代码为yield表达式提供一个结果值。接下来it.next(7),这一句吧值7传回作为被暂停的yield表达式的结果。   </p>
+<p>所以，这是赋值语句实际上就是var y=6*7。现在，return y返回值42作为调用it.next(7)的结果。   </p>
+<p>一般来书，需要的next(…)调用要比yield表达式语句多一个。   </p>
+<p>消息是双向绑定的：yield作为一个表达式可以发出消息，响应next(…)调用,next(…)也可以向暂停的yield表达式发送值。   </p>
+<p>考虑如下示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> y=x*(<span class="keyword">yield</span> <span class="string">'hello'</span>);</span><br><span class="line">    <span class="keyword">return</span> y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> it=foo(<span class="number">6</span>);</span><br><span class="line"><span class="keyword">var</span> res=it.next();<span class="comment">//第一个next(),并不传入任何东西</span></span><br><span class="line"><span class="built_in">console</span>.log(res.value);<span class="comment">//'Hello'</span></span><br><span class="line"></span><br><span class="line">res=it.next(<span class="number">7</span>);<span class="comment">//向等待的yield传入7</span></span><br><span class="line"><span class="built_in">console</span>.log(res.value);<span class="comment">//42</span></span><br></pre></td></tr></table></figure></p>
+<p>yield..和next(…)这一堆组合起来，在生成器的执行火锅城中够成一个双向消息传递系统。  </p>
+<p>我们并没有向第一个next()调用发送值，这是有意为之。只有暂停的yield才能接受这样一个通过next(…)传递的值。而生成器的起始处我们调用第一个next()时还没有暂停的yield来接受这样的一个值。规范和所有兼容浏览器都会默默丢弃传递给第一个next()的任何东西。因此，启动生成器时一定要不带参数的next()。<br>第一个next()调用（没有参数的）基本就是在提示出一个问题：“生成器*foo()要给我们的下一个值是什么”谁来回答这个问题呢？第一个“yield “hello””表达式。   </p>
+<p>如果你的生成器函数中没有return语句的话，在生成器中和普通函数中一样。<br>return当然不是必须的——总有一个假定的（隐式的）return，也就是return undefined。当然它在默认情况下回答的是最后的it.next(7)调用提出的问题。   </p>
+<h3 id="2-多个迭代器"><a href="#2-多个迭代器" class="headerlink" title="2.多个迭代器"></a>2.多个迭代器</h3><p>每次构建一个迭代器，实际上就是隐式构建了生成器的一个实例，通过这个迭代器来控制的是这个生成器的实例。   </p>
+<p>同一个生成器的实例可以同时运行，它们甚至可以彼此交互。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">funciton *foo()&#123;</span><br><span class="line">    <span class="keyword">var</span> x=<span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    z++;</span><br><span class="line">    <span class="keyword">var</span> y=<span class="keyword">yield</span>(x*z);</span><br><span class="line">    <span class="built_in">console</span>.log(x,y,z);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> z=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> it1=foo();</span><br><span class="line"><span class="keyword">var</span> it2=foo();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> val1=it1.next().value;<span class="comment">//2    yield 2</span></span><br><span class="line"><span class="keyword">var</span> val2=it2.next().value;<span class="comment">//2    yield 2</span></span><br><span class="line"></span><br><span class="line">val1=it1.next(val2*<span class="number">10</span>).value;<span class="comment">//x:20,z:2,   val1:40</span></span><br><span class="line">varl2=it2.next(val1*<span class="number">5</span>).value;<span class="comment">//x:200,z:3   val2:600</span></span><br><span class="line"></span><br><span class="line">it1.next(val2/<span class="number">2</span>);<span class="comment">//y:300, x:20,z:3</span></span><br><span class="line">it2.next(val1/<span class="number">4</span>);<span class="comment">//y:10,x:100,z:3</span></span><br></pre></td></tr></table></figure>
+<p>我们简单梳理一下流程：  </p>
+<ol>
+<li>foo()的两个实例同时启动，两个next()分别从yield 2语句得到值2</li>
+<li>val2*10也就是，发送到第一个生成器实例it1，因此x得到值20。z从1增加到2，然后20和z相乘通过yield发出，将val1设置为40</li>
+<li>val1*5,发送到第二个生成器实例it2，因此x得到值200。z再次从2递增到3，然后200和3相乘通过yield发出，将val2设置为600。</li>
+<li>val2/2也就是600除以2，发送到第一个生成器实例it1，因此y得到值300，然后打印出x,y,z的值分别是20 300 3</li>
+<li>val1/4也就是40除以4，发送到第二个生成器实例it2，因此y得到值10，然后打印出x y z的值分别是200 10 3</li>
+</ol>
+<h2 id="二、生成器生产值"><a href="#二、生成器生产值" class="headerlink" title="二、生成器生产值"></a>二、生成器生产值</h2><h3 id="1-生产者与迭代器"><a href="#1-生产者与迭代器" class="headerlink" title="1.生产者与迭代器"></a>1.生产者与迭代器</h3><p>假定你要生产一系列的值，其中每个值都与前面一个有特定的关系。要实现这一点，需要一个有状态的生产者能够记住其生成的最后一个值。   </p>
+<p>我们可以实现一个直接使用函数闭包的版本：  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gimmeSomething=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> nextVal;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nextVal===<span class="literal">undefined</span>)&#123;</span><br><span class="line">            nextVal=<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            nextVal=(<span class="number">3</span>*nextVal)+<span class="number">6</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nextVal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">gimmeSomething();<span class="comment">//1</span></span><br><span class="line">gimmeSomething();<span class="comment">//9</span></span><br><span class="line">gimmeSomething();<span class="comment">//33</span></span><br><span class="line">gimmeSomething();<span class="comment">//105</span></span><br></pre></td></tr></table></figure>
+<p>闭包函数会保留变量不被垃圾回收机制回收。  </p>
+<p>实际上，这个任务是非常通用的设计模式，通常通过迭代器来完成。迭代器是一个定义良好的接口，用于从一个生产者一步步得到一系列值。javascript迭代器的接口，与多数语言类似，就是每次想从生产者得到一个值的时候调用next()。   </p>
+<p>如下示例代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> something=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> nextVal;</span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">        <span class="comment">//for..of循环需要</span></span><br><span class="line">        [<span class="built_in">Symbol</span>.iterator]:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="keyword">this</span>;&#125;,</span><br><span class="line">        <span class="comment">//标准迭代器节后方法</span></span><br><span class="line">        next:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(nextVal===<span class="literal">undefined</span>)&#123;</span><br><span class="line">                nextVal=<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>()&#123;</span><br><span class="line">                nextVal=(<span class="number">3</span>*nextVal)+<span class="number">6</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> &#123;<span class="attr">done</span>:<span class="literal">false</span>,<span class="attr">value</span>:nextVal&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">something.next().value;<span class="comment">//1</span></span><br><span class="line">something.next().value;<span class="comment">//9</span></span><br><span class="line">something.next().value;<span class="comment">//33</span></span><br><span class="line">something.next().value;<span class="comment">//105</span></span><br></pre></td></tr></table></figure></p>
+<p>next()调用返回一个对象。这个对象有两个属性。done是一个boolean值，标识迭代器的完成状态；value中放置迭代值。   </p>
+<p>ES6还新增了一个for…of循环，这意味着可以通过原生循环的语法自动遍历迭代器：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> v <span class="keyword">of</span> something)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(v);</span><br><span class="line">    <span class="keyword">if</span>(v&gt;<span class="number">500</span>)&#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、异步迭代生成器"><a href="#三、异步迭代生成器" class="headerlink" title="三、异步迭代生成器"></a>三、异步迭代生成器</h2><p>生成器与异步编码模式及解决回调问题等，有什么关系呢？我们还是重新讨论《javascript异步编程之回调函数》中的一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x,y,cb</span>)</span>&#123;</span><br><span class="line">    ajax(<span class="string">'http://some.urlx='</span>+x+<span class="string">"y="</span>+y,</span><br><span class="line">    cb</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line">foo(<span class="number">1</span>,<span class="number">31</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,text</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(text);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>如果想通过生成器来表达同样的任务流程控制，可以这样实现：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">    ajax(</span><br><span class="line">        <span class="string">'http://some.urlx='</span>+x+<span class="string">"y="</span>+y,</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(err)&#123;</span><br><span class="line">                <span class="comment">//向*main()抛出一个错误</span></span><br><span class="line">                it.throw(err);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">//用收到的data恢复*main()</span></span><br><span class="line">                it.next(data);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">main</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> text=<span class="keyword">yield</span> foo(<span class="number">11</span>,<span class="number">31</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(text);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> it=main();</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里启动</span></span><br><span class="line">it.next();</span><br></pre></td></tr></table></figure>
+<p>这段代码与会调函数代码的区别在于生成器中使用yield。正是这一点使得我们看似阻塞同步的代码，实际上并不会阻塞，整个程序中，它只是暂停或阻塞了生成器本身的代码，在yield foo(11,31)中首先使用foo(11,31),它没有返回值（即返回undefined），所以我们发出了一个调用来请求数据，但实际上之后调用的是yield undefined。<br>这没有问题，因为这段代码当前并不依赖yield出来的值来做任何事情。<br>所以生成器在yield处暂停，本质上是在提出一个问题：我们该返回什么值赋给变量text？谁来回答这个问题呢。   </p>
+<p>看一下foo(…)，如果这个Ajax请求成功，我们调用：   </p>
+<p>it.next(data);<br>这会用响应数据恢复生成器，意味着我们暂停的yield表达式直接收到了这个值。然后随着生成器代码的继续运行，这个值被赋值给局部变量text。    </p>
+<p>本质上而言，我们把异步作为实现细节抽象了出去，使得我们可以以同步顺序的形式追踪流程控制：”发出一个Ajax请求，等它完成后打印出响应的结果”。   </p>
+<h4 id="同步错误处理"><a href="#同步错误处理" class="headerlink" title="同步错误处理"></a>同步错误处理</h4><p>try…catch可以捕获到异步错误吗？<br>前面我们已经看到yield是如何让赋值语句暂停下来等待foo(…),使得响应完成后可以赋给text。精彩的是yield暂停也使得生成器能够捕获错误。通过下面的这段代码，把错误抛出到生成器中：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(err)&#123;</span><br><span class="line">    <span class="comment">//向*main()抛出一个错误</span></span><br><span class="line">    it.throw(err);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、生成器-Promise"><a href="#四、生成器-Promise" class="headerlink" title="四、生成器+Promise"></a>四、生成器+Promise</h2><p>我们现在要将生成器的优点（看似同步的异步代码）和Promise的优点（可信任，可组合）结合在一起。<br>之前Ajax请求的例子中，基于Promise的实现方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> request(<span class="string">'http://...x='</span>+x+<span class="string">'y='</span>+y);</span><br><span class="line">&#125;</span><br><span class="line">foo(<span class="number">11</span>,<span class="number">31</span>)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">text</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(text);</span><br><span class="line">&#125;,</span><br><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">err</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>这里foo(…)在发出Ajax调用之后返回一个Promise。这暗示我们可以通过foo(…)构造一个promise，然后通过生成器把它yield出来，然后迭代器代码就可以接收到这个promise了。并且监听这个promise的决议（完成或拒绝），然后要么自己完成消息恢复生成器，要么向生成器抛出一个带有拒绝原因的错误。<br>示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> request(<span class="string">'http://...x='</span>+x+<span class="string">'y='</span>+y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">main</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> text=<span class="keyword">yield</span> foo(<span class="number">11</span>,<span class="number">31</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(text);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//运行*main(),手工实现：</span></span><br><span class="line"><span class="keyword">var</span> it=main();</span><br><span class="line"><span class="keyword">var</span> p=it.next().value;</span><br><span class="line"><span class="comment">//等待paromise p决议</span></span><br><span class="line">p.then(<span class="function"><span class="keyword">function</span>(<span class="params">text</span>)</span>&#123;</span><br><span class="line">    it.next(text);</span><br><span class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">    it.throw(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="扩展asyn-await"><a href="#扩展asyn-await" class="headerlink" title="扩展asyn/await"></a>扩展asyn/await</h2><p>async/await是generator和promise结合的语法糖。 前已经讲到了，这里不再多说。</p>
+<h1 id="Javascript异步编程——“回调地狱”的一些解决方案"><a href="#Javascript异步编程——“回调地狱”的一些解决方案" class="headerlink" title="Javascript异步编程——“回调地狱”的一些解决方案"></a>Javascript异步编程——“回调地狱”的一些解决方案</h1><blockquote>
+<p>异步编程在javascript中非常重要。过多的异步编程也带了回调嵌套的问题，本文会提供一些解决“回调地狱”的方法</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'延时触发'</span>);</span><br><span class="line">&#125;,<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'./sample.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,res</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上面就是典型的回调函数，不论是在浏览器中，还是在node中，javascript本身是单线程，因此，为了对应一些单线程带来的问题，异步编程成为了javascript中非常重要的一部分。   </p>
+<p>不论是浏览器中最为常见的ajax、事件监听、还是node中文件读取、网络编程、数据库操作，都离不开异步编程。在异步编程中，许多操作都会放在回调函数（callback）中。同步与异步的混杂、过多的回调嵌套都会使得代码变得难以理解与维护，这也是常受人诟病的地方。   </p>
+<p>先看下面这段代码：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'/somple.txt'</span>,<span class="string">'utf-8'</span>,(err,content)=&gt;&#123;</span><br><span class="line">    <span class="keyword">let</span> keyword=content.substring(<span class="number">0</span>,<span class="number">5</span>);</span><br><span class="line">    db.find(<span class="string">`select * from sample where kw=<span class="subst">$&#123;keyword&#125;</span>`</span>,(err,res)=&gt;&#123;</span><br><span class="line">        get(<span class="string">`/sampleget?count=<span class="subst">$&#123;res.length&#125;</span>`</span>,data=&gt;&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(data);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>首先我们读取的一个文件中的关键字keyword，然后根据该keyword进行数据库查询，最后依据查询结构请求数据。   </p>
+<p>其中包含了三个异步操作：   </p>
+<ul>
+<li>文件读取：fs.readFile</li>
+<li>数据库查询：db.find</li>
+<li>http请求：get</li>
+</ul>
+<p>可以看到，我们没有增加一个异步请求，就会多添加一层回调函数的嵌套，这段代码中三个异步函数的嵌套已经开始使一段本可以语言明确的代码编程不易阅读与维护了。  </p>
+<p>抽象出来这种代码会变成下面这样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">asyncFunc1(opt,(...args1)=&gt;&#123;</span><br><span class="line">    asyncFunc2(opt,(...args2)=&gt;&#123;</span><br><span class="line">        asyncFunc3(opt,(...args3)=&gt;&#123;</span><br><span class="line">            asyncFunc4(opt,(...args4)=&gt;&#123;</span><br><span class="line">                <span class="comment">//some operation</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>左侧明显出现了一个三角形的缩进区域，过多的回调就让我们陷入“回调地狱”。接下来会介绍一些方法来规避回调地狱。   </p>
+<h2 id="一、拆解function"><a href="#一、拆解function" class="headerlink" title="一、拆解function"></a>一、拆解function</h2><p>回调嵌套所带来的一个重要问题就是代码不易阅读与维护。因为普遍来说，过多的缩进（嵌套）会极大的影响代码的可读性。基于这一点，可以进行一个简单的优化——将各步拆解为单个的function。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">count</span>)</span>&#123;</span><br><span class="line">    get(<span class="string">`/sampleget?count=<span class="subst">$&#123;count&#125;</span>`</span>,data=&gt;&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">queryDB</span>(<span class="params">kw</span>)</span>&#123;</span><br><span class="line">    db.find(<span class="string">`select * from sample where kw=<span class="subst">$&#123;kw&#125;</span>`</span>,(err,res)&#123;</span><br><span class="line">        getData(res.length);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">filepath</span>)</span>&#123;</span><br><span class="line">    fs.readFile(filepath,<span class="string">'utf-8'</span>,(err,content)=&gt;&#123;</span><br><span class="line">        <span class="keyword">let</span> keyword=count.substring(<span class="number">0</span>,<span class="number">5</span>);</span><br><span class="line">        queryDB(keyword);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">readFile(<span class="string">'./sample.txt'</span>);</span><br></pre></td></tr></table></figure>
+<p>可以看到，通过上面的改写方式，代码清晰了许多。该方法非常简单，具有一定的效果，但是缺少通用性。   </p>
+<h2 id="二、事件发布-监听模式"><a href="#二、事件发布-监听模式" class="headerlink" title="二、事件发布/监听模式"></a>二、事件发布/监听模式</h2><p>如果在浏览器中写过 事件监听addEventListener，那么你对这种事件发布/监听的模式一定不陌生。   </p>
+<p>借鉴这种思想，一方面，我们可以监听某一事件，当事件发生时，进行相应回调操作；另一方面，当某些操作完成后，通过发布事件触发回调。这样就可以将原本捆绑在一起的代码解耦。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> events=<span class="built_in">require</span>(<span class="string">'events'</span>);</span><br><span class="line"><span class="keyword">const</span> eventEmitter=<span class="keyword">new</span> events.EventEmitter();</span><br><span class="line"></span><br><span class="line">eventEmitter.on(<span class="string">'db'</span>,(err,kw)=&gt;&#123;</span><br><span class="line">    db.find(<span class="string">`select * from sample where kw=<span class="subst">$&#123;kw&#125;</span>`</span>,(err,res)=&gt;&#123;</span><br><span class="line">        eventEmitter.emit(<span class="string">'get'</span>,res.length);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">eventEmitter.on(<span class="string">'get'</span>,(err,count)=&gt;&#123;</span><br><span class="line">    get(<span class="string">`/sampleget?count=<span class="subst">$&#123;count&#125;</span>`</span>,data=&gt;&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">`./sample.txt`</span>,<span class="string">'utf-8'</span>,(err,content)=&gt;&#123;</span><br><span class="line">    <span class="keyword">let</span> keyword=content.substring(<span class="number">0</span>,<span class="number">5</span>);</span><br><span class="line">    eventEmitter.emit(<span class="string">'db'</span>,keyword);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>使用这种模式的实现需要一个事件发布/监听的库。上面代码中使用node原生events模块，当然你可以使用任何你喜欢的库。   </p>
+<h2 id="三、Promise"><a href="#三、Promise" class="headerlink" title="三、Promise"></a>三、Promise</h2><p>Promise是一种异步解决方案，最早由社区提出并实现，后来写进了es6规范。   </p>
+<p>目前一些主流浏览器已经原生实现了Promise的API，可以在<a href="https://caniuse.com/" target="_blank" rel="noopener">Can I use</a>里查看浏览器的支持情况。当然，如果想要做浏览器的兼容，可以考虑使用一些Promise的实现库，例如bluebird、Q等。下面以bluebird为例：   </p>
+<p>首先，我们需要将异步方法改写为Promise，对于符合node规范的回调函数（第一个参数必须是Error），可以使用bluebird的promisify方法。该方法接收一个标准的异步方法并返回一个Promise对象。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bluebird=<span class="built_in">require</span>(<span class="string">'bluebird'</span>);</span><br><span class="line"><span class="keyword">const</span> fs=<span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> readFile=bluebird.promisify(fs.readFile);</span><br></pre></td></tr></table></figure>
+<p>这样，readFile就变成一个Promise对象。   </p>
+<p>但是，有的异步方法无法进行转换，或者我们需要使用原生Promise，这就需要我们手动进行一些改造。下面提供一种改造的方法。   </p>
+<p>以fs.readFile为例，借助原生Promise来改造该方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> readFile=<span class="function"><span class="keyword">function</span>(<span class="params">filepath</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> resolve,</span><br><span class="line">    reject;</span><br><span class="line">    <span class="keyword">let</span> promise=<span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">_resolve,_reject</span>)=&gt;</span>&#123;</span><br><span class="line">        resolve=_resolve;</span><br><span class="line">        reject=_reject;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">let</span> deferred=&#123;</span><br><span class="line">        resolve,</span><br><span class="line">        reject,</span><br><span class="line">        promise</span><br><span class="line">    &#125;;</span><br><span class="line">    fs.readFile(filepath,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,...args</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            deferred.reject(err);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            deferred.resolve(...args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> deferred.promise;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们在方法中创建一个Promise对象，并在异步回调中根本不同的情况使用reject与resolve来改变Promise对象的状态。该方法返回这个Promise对象。其他的一些异步方法也可以参照这种方式进行改造。   </p>
+<p>假设通过改造，readFile,queryDB与getData方法均会返回一个Promise对象。代码就变为了：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">readFile(<span class="string">'./sample.txt'</span>).then(<span class="function"><span class="params">content</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> keyword=content.substring(<span class="number">0</span>,<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> queryDB(keyword);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getData(res.length);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;).catch(<span class="function"><span class="params">err</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>可以看到，之前的嵌套操作编程了通过then连接的链式操作。代码的整洁度上有了一个较大的提高。   </p>
+<h2 id="四、generator"><a href="#四、generator" class="headerlink" title="四、generator"></a>四、generator</h2><p>generator是ES6中的一个新的语法。<br>在function关键字后添加*即可将函数变为generator。     </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gen=<span class="function"><span class="keyword">function</span>* (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行generator将会返回一个遍历器对象，用于遍历generator内部状态。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> g=gen();</span><br><span class="line">g.next();<span class="comment">//&#123;value:1,done:false&#125;</span></span><br><span class="line">g.next();<span class="comment">//&#123;value:2,done:false&#125;</span></span><br><span class="line">g.next();<span class="comment">//&#123;value:3,done:true&#125;</span></span><br><span class="line">g.next();<span class="comment">//&#123;value:undefined,done:true&#125;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，generator函数有一个最大的特点，可以在内部执行的过程中交出程序的控制权，yield相当于其到了一个暂停的作用；而当一定情况下，外部又将控制权移交回来。   </p>
+<p>想象一下，我们用generator来封装代码，在异步任务处使用yield关键词，此时generator会将程序执行权交给其他代码，而在异步任务完成后，调用next方法来恢复yield下方代码的执行。以readFile为例，大致流程如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们的主任务显示关键字</span></span><br><span class="line"><span class="comment">//使用yield暂时中断下方代码执行</span></span><br><span class="line"><span class="comment">//yield以后为Promise对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> showKeyword=<span class="function"><span class="keyword">function</span>* (<span class="params">filepath</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'开始读取'</span>);</span><br><span class="line">    <span class="keyword">let</span> keyword=<span class="keyword">yield</span> readFile(filepath);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`关键字为<span class="subst">$&#123;filepath&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//generator的流程控制</span></span><br><span class="line"><span class="keyword">let</span> gen=showKeyword();</span><br><span class="line"><span class="keyword">let</span> res=gen.next();</span><br><span class="line">res.value.then(<span class="function"><span class="params">res</span>=&gt;</span>gen.next(res));</span><br></pre></td></tr></table></figure></p>
+<p>在任务部分，原本readFile异步的部分变成类似同步的写法，代码变得非常清晰。而在下部分，则是对于什么时候需要移交会控制权给generator的流程控制。   </p>
+<p>然而，我们需要手动控制generator的流程，如果能够自动执行generator（在需要的时候自动移交控制权）那么会更加具有使用性。   </p>
+<p>为此，我们可以使用co这个库。它可以省去我们对于generator流程控制的代码。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> co=<span class="built_in">require</span>(<span class="string">'co'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//我们主任务——显示关键字</span></span><br><span class="line"><span class="comment">//使用yield暂时中断下方代码执行</span></span><br><span class="line"><span class="comment">//yield后面为promise对象</span></span><br><span class="line"><span class="keyword">const</span> showKeyword=<span class="function"><span class="keyword">function</span>* (<span class="params">filepath</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'开始读取'</span>);</span><br><span class="line">    <span class="keyword">let</span> keyword=<span class="keyword">yield</span> readFile(filepath);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`关键字为<span class="subst">$&#123;filepath&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用co</span></span><br><span class="line">co(showKeyword);</span><br></pre></td></tr></table></figure>
+<p>其中，yield关键字后面需要时function, promise,generator,array或者object。可以改写文章一开始的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> co=<span class="built_in">require</span>(<span class="string">'co'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> task=<span class="function"><span class="keyword">function</span>* (<span class="params">filepath</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> keyWord=<span class="keyword">yield</span> readFile(filepath);</span><br><span class="line">    <span class="keyword">let</span> count=<span class="keyword">yield</span> queryDB(keyword);</span><br><span class="line">    <span class="keyword">let</span> data=<span class="keyword">yield</span> getData(res.length);</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">co(task,<span class="string">'./somple.txt'</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="五、async-await"><a href="#五、async-await" class="headerlink" title="五、async/await"></a>五、async/await</h2><p>可以看到，上面的方法虽然都在一定程度上解决了异步编程中回调带来的问题。然而</p>
+<ul>
+<li>function拆分的方式其实仅仅只是查分代码块，会不利于后期维护；</li>
+<li>事件发布/监听方式模糊了异步方法之间的流程关系；</li>
+<li>Promise虽然使得多个嵌套的异步调用能够通过链式的API进行操作，但是过多的then也增加了代码的冗余，也对阅读代码中各阶段的异步任务产生了一定的干扰；</li>
+<li>通过generator虽然能提供较好的语法结构，但是毕竟generator与yield的语境用在这里多少还有一些不太贴切。  </li>
+</ul>
+<p>因此，这里再介绍一个方法，它就是es7中的async/await。   </p>
+<p>简单介绍一下async/await。基本上，任何一个函数都可以成为async函数，以下都是合法的书写形式：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> foo=<span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> foo=<span class="keyword">async</span> ()=&gt;&#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>在async函数中可以使用await语句。await后一般是一个Promise对象。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'开始'</span>);</span><br><span class="line">    <span class="keyword">let</span> res=<span class="keyword">await</span> post(data);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`post已完成，结果为：<span class="subst">$&#123;res&#125;</span>`</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当上面的函数执行到await时，可以简单的理解为，函数挂起，等待await后的Promise返回，再执行下面的语句。   </p>
+<p>值得注意的是，这段异步操作代码，看起来就像是“同步操作”。这就大大方便了异步代码的编写与阅读。下面改写我们的例子。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> pintData=<span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">filepath</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> keyword=<span class="keyword">await</span> readFile(filepath);</span><br><span class="line">    <span class="keyword">let</span> count=<span class="keyword">await</span> queryDB(keyword);</span><br><span class="line">    <span class="keyword">let</span> data=<span class="keyword">await</span> getData(res.length);</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printData(<span class="string">'./sample.txt'</span>);</span><br></pre></td></tr></table></figure>
+<p>可以看到，代码简洁清晰，异步代码也具有有了“同步”代码的结构。<br>注意，其中readFile，queryDB与getData方法都需要返回一个Promise对象。这可以通过在第三部分Promise里提供的方式进行改写。   </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="稻香Snowy wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="稻香Snowy 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript高阶/" rel="tag"><i class="fa fa-tag"></i> JavaScript高阶</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/JavaScript/JS高阶四（JS中的异步编程中）/" rel="next" title="JS高阶四（JS中的异步编程中）">
+                <i class="fa fa-chevron-left"></i> JS高阶四（JS中的异步编程中）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/JavaScript/JS高阶六（JS模块化上）/" rel="prev" title="JS高阶六（JS模块化上）">
+                JS高阶六（JS模块化上） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/toux.jpg"
+                alt="稻香Snowy" />
+            
+              <p class="site-author-name" itemprop="name">稻香Snowy</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry.Stay Foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Asiazdx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/fb5f478b1a94" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59638598f265da6c4523c761" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5541828133/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-Weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JS异步编程之生成器"><span class="nav-number">1.</span> <span class="nav-text">JS异步编程之生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、打破完整运行"><span class="nav-number">1.1.</span> <span class="nav-text">一、打破完整运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-输入和输出"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.输入和输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-迭代消息传递"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.迭代消息传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-多个迭代器"><span class="nav-number">1.1.3.</span> <span class="nav-text">2.多个迭代器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、生成器生产值"><span class="nav-number">1.2.</span> <span class="nav-text">二、生成器生产值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-生产者与迭代器"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.生产者与迭代器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、异步迭代生成器"><span class="nav-number">1.3.</span> <span class="nav-text">三、异步迭代生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同步错误处理"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">同步错误处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、生成器-Promise"><span class="nav-number">1.4.</span> <span class="nav-text">四、生成器+Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展asyn-await"><span class="nav-number">1.5.</span> <span class="nav-text">扩展asyn/await</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Javascript异步编程——“回调地狱”的一些解决方案"><span class="nav-number">2.</span> <span class="nav-text">Javascript异步编程——“回调地狱”的一些解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、拆解function"><span class="nav-number">2.1.</span> <span class="nav-text">一、拆解function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、事件发布-监听模式"><span class="nav-number">2.2.</span> <span class="nav-text">二、事件发布/监听模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Promise"><span class="nav-number">2.3.</span> <span class="nav-text">三、Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、generator"><span class="nav-number">2.4.</span> <span class="nav-text">四、generator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、async-await"><span class="nav-number">2.5.</span> <span class="nav-text">五、async/await</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">稻香Snowy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var cw = canvas.width = window.innerWidth,
+  cx = cw / 2;
+var ch = canvas.height = window.innerHeight,
+  cy = ch / 2;
+
+ctx.fillStyle = "#999";
+var linesNum = 16;
+var linesRy = [];
+var requestId = null;
+
+function Line(flag) {
+  this.flag = flag;
+  this.a = {};
+  this.b = {};
+  if (flag == "v") {
+    this.a.y = 0;
+    this.b.y = ch;
+    this.a.x = randomIntFromInterval(0, ch);
+    this.b.x = randomIntFromInterval(0, ch);
+  } else if (flag == "h") {
+    this.a.x = 0;
+    this.b.x = cw;
+    this.a.y = randomIntFromInterval(0, cw);
+    this.b.y = randomIntFromInterval(0, cw);
+  }
+  this.va = randomIntFromInterval(25, 100) / 100;
+  this.vb = randomIntFromInterval(25, 100) / 100;
+
+  this.draw = function() {
+    ctx.strokeStyle = "#ccc";
+    ctx.beginPath();
+    ctx.moveTo(this.a.x, this.a.y);
+    ctx.lineTo(this.b.x, this.b.y);
+    ctx.stroke();
+  }
+
+  this.update = function() {
+    if (this.flag == "v") {
+      this.a.x += this.va;
+      this.b.x += this.vb;
+    } else if (flag == "h") {
+      this.a.y += this.va;
+      this.b.y += this.vb;
+    }
+
+    this.edges();
+  }
+
+  this.edges = function() {
+    if (this.flag == "v") {
+      if (this.a.x < 0 || this.a.x > cw) {
+        this.va *= -1;
+      }
+      if (this.b.x < 0 || this.b.x > cw) {
+        this.vb *= -1;
+      }
+    } else if (flag == "h") {
+      if (this.a.y < 0 || this.a.y > ch) {
+        this.va *= -1;
+      }
+      if (this.b.y < 0 || this.b.y > ch) {
+        this.vb *= -1;
+      }
+    }
+  }
+
+}
+
+for (var i = 0; i < linesNum; i++) {
+  var flag = i % 2 == 0 ? "h" : "v";
+  var l = new Line(flag);
+  linesRy.push(l);
+}
+
+function Draw() {
+  requestId = window.requestAnimationFrame(Draw);
+  ctx.clearRect(0, 0, cw, ch);
+
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    l.draw();
+    l.update();
+  }
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    for (var j = i + 1; j < linesRy.length; j++) {
+      var l1 = linesRy[j]
+      Intersect2lines(l, l1);
+    }
+  }
+}
+
+function Init() {
+  linesRy.length = 0;
+  for (var i = 0; i < linesNum; i++) {
+    var flag = i % 2 == 0 ? "h" : "v";
+    var l = new Line(flag);
+    linesRy.push(l);
+  }
+
+  if (requestId) {
+    window.cancelAnimationFrame(requestId);
+    requestId = null;
+  }
+
+  cw = canvas.width = window.innerWidth,
+    cx = cw / 2;
+  ch = canvas.height = window.innerHeight,
+    cy = ch / 2;
+
+  Draw();
+};
+
+setTimeout(function() {
+  Init();
+
+  addEventListener('resize', Init, false);
+}, 15);
+
+function Intersect2lines(l1, l2) {
+  var p1 = l1.a,
+    p2 = l1.b,
+    p3 = l2.a,
+    p4 = l2.b;
+  var denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+  var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+  var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+  var x = p1.x + ua * (p2.x - p1.x);
+  var y = p1.y + ua * (p2.y - p1.y);
+  if (ua > 0 && ub > 0) {
+    markPoint({
+      x: x,
+      y: y
+    })
+  }
+}
+
+function markPoint(p) {
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+function randomIntFromInterval(mn, mx) {
+  return ~~(Math.random() * (mx - mn + 1) + mn);
+}
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</script>
+</html>

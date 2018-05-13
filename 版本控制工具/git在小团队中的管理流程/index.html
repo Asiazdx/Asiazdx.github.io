@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #AFDBE3; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #AFDBE3, 0 0 5px     #AFDBE3; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #AFDBE3;    /*上边框颜色*/
+        border-left-color: #AFDBE3;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原文地址目标读者：了解Git基本概念，能够使用Git进行基本的本地和远程操作。本文介绍了小团队中Git管理的基本使用流程。小团队的代码管理可以采用这样的一种方式：项目存在一个 中心远程仓库，作为团队成员进行代码交流的主要场所。同时可以存在一些 成员远程仓库，用于局限在团队中部分成员间的代码交流。并将成员分成以下几类不同的角色：负责人，普通组员，预发布负责人和版本修复负责人。下面的章节具体介绍了各类">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git在小团队中的管理流程">
+<meta property="og:url" content="http://www.github.com/Snowyzdx/版本控制工具/git在小团队中的管理流程/index.html">
+<meta property="og:site_name" content="Snowy&#39;blog">
+<meta property="og:description" content="原文地址目标读者：了解Git基本概念，能够使用Git进行基本的本地和远程操作。本文介绍了小团队中Git管理的基本使用流程。小团队的代码管理可以采用这样的一种方式：项目存在一个 中心远程仓库，作为团队成员进行代码交流的主要场所。同时可以存在一些 成员远程仓库，用于局限在团队中部分成员间的代码交流。并将成员分成以下几类不同的角色：负责人，普通组员，预发布负责人和版本修复负责人。下面的章节具体介绍了各类">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-16T05:28:49.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git在小团队中的管理流程">
+<meta name="twitter:description" content="原文地址目标读者：了解Git基本概念，能够使用Git进行基本的本地和远程操作。本文介绍了小团队中Git管理的基本使用流程。小团队的代码管理可以采用这样的一种方式：项目存在一个 中心远程仓库，作为团队成员进行代码交流的主要场所。同时可以存在一些 成员远程仓库，用于局限在团队中部分成员间的代码交流。并将成员分成以下几类不同的角色：负责人，普通组员，预发布负责人和版本修复负责人。下面的章节具体介绍了各类">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.github.com/Snowyzdx/版本控制工具/git在小团队中的管理流程/"/>
+
+
+
+
+
+  <title>git在小团队中的管理流程 | Snowy'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Asiazdx"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Snowy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Stay Hungry. Stay Foolish</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-comments">
+          <a href="/comments/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-laboratory">
+          <a href="/laboratory/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-other_note">
+          <a href="/other_note/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            书影音
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.github.com/Snowyzdx/版本控制工具/git在小团队中的管理流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="稻香Snowy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/toux.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Snowy'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">git在小团队中的管理流程</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-08T20:58:09+08:00">
+                2017-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/版本控制工具/" itemprop="url" rel="index">
+                    <span itemprop="name">版本控制工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://www.cnblogs.com/tangyikejun/p/4217561.html" target="_blank" rel="noopener">原文地址</a><br><strong>目标读者</strong>：了解Git基本概念，能够使用Git进行基本的本地和远程操作。<br>本文介绍了小团队中Git管理的基本使用流程。<br>小团队的代码管理可以采用这样的一种方式：项目存在一个 <strong>中心远程仓库</strong>，作为团队成员进行代码交流的主要场所。同时可以存在一些 <strong>成员远程仓库</strong>，用于局限在团队中部分成员间的代码交流。并将成员分成以下几类不同的角色：<strong>负责人，普通组员，预发布负责人和版本修复负责人</strong>。下面的章节具体介绍了各类角色的Git使用流程。<br><strong>基本须知</strong>：<br>需要多个人共同完成的分支可以建立远程分支，单个人完成的分支只建立本地分支即可。   </p>
+<h2 id="一、负责人"><a href="#一、负责人" class="headerlink" title="一、负责人"></a>一、负责人</h2><p>负责人的职责：管理远程仓库。<br>负责人的工作均可直接在远程仓库完成。   </p>
+<h3 id="1-创建项目"><a href="#1-创建项目" class="headerlink" title="1.创建项目"></a>1.创建项目</h3><ul>
+<li>创建公有项目</li>
+<li>添加README.md</li>
+<li>添加证书</li>
+<li>添加忽略文件</li>
+<li>创建dev分支</li>
+</ul>
+<h3 id="2-其他"><a href="#2-其他" class="headerlink" title="2.其他"></a>2.其他</h3><ul>
+<li>更新README.md文件</li>
+</ul>
+<h2 id="二、组员"><a href="#二、组员" class="headerlink" title="二、组员"></a>二、组员</h2><p><strong>工作流程</strong>：</p>
+<ul>
+<li>克隆项目</li>
+<li>签出并创建dev分支，使其跟踪远程的origin/dev分支</li>
+<li>在dev分支基础上创建自己的分支member*。</li>
+</ul>
+<hr>
+<ul>
+<li>在自己的分支上添加文件</li>
+<li>在自己的分支上修改文件</li>
+<li>合并到dev分支</li>
+<li>推送dev到origin/dev分支</li>
+</ul>
+<hr>
+<p>//更新.gitignore文件</p>
+<ul>
+<li>从dev新建一个分支ignore（如果预测变更就建立一个远程分支，现在一般都有模板，偶尔有个没有忽略的直接在dev分支上该就可以了）</li>
+<li>更新忽略文件</li>
+<li>尽快合并到/推送到origin/dev分支（避免两个组员同时更改该文件造成冲突。）   </li>
+</ul>
+<h3 id="1-创建本地仓库"><a href="#1-创建本地仓库" class="headerlink" title="1. 创建本地仓库"></a>1. 创建本地仓库</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cd [项目目录]</span><br><span class="line">$ git clone https:<span class="comment">//coding.net/tangyikejun/GitTest2.git</span></span><br><span class="line">$ git checkout -u -b dev origin/dev</span><br><span class="line">$ git checkout -b [MEMBER_NAME]</span><br></pre></td></tr></table></figure>
+<h3 id="2、更新本地仓库"><a href="#2、更新本地仓库" class="headerlink" title="2、更新本地仓库"></a>2、更新本地仓库</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m<span class="string">"your comments"</span></span><br><span class="line"><span class="comment">//多次提交完成了一项新的功能，自己的分支不能正常运行</span></span><br><span class="line">$ git checkout dev</span><br><span class="line">$ git merge --no-ff [MEMBER_NAME]   <span class="comment">//[MEMBER_NAME]是自己的分支名称</span></span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+<h3 id="3、更新-gitgnore文件"><a href="#3、更新-gitgnore文件" class="headerlink" title="3、更新.gitgnore文件"></a>3、更新.gitgnore文件</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout dev  <span class="comment">//更新忽略文件</span></span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m<span class="string">"更新.gitignore文件"</span></span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+<h3 id="4、常用查询命令"><a href="#4、常用查询命令" class="headerlink" title="4、常用查询命令"></a>4、常用查询命令</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git branch  <span class="comment">//查看自己所在分支，以及自己所拥有的分支</span></span><br><span class="line">$ git log --pretty=“%h - %cn(%ci): %s” --graph  <span class="comment">//查看自己的提交记录</span></span><br><span class="line">$ git reflog  <span class="comment">//查看自己的操作历史</span></span><br><span class="line">$ git status <span class="comment">//查看本地仓库当前的文件状态</span></span><br><span class="line">$ git blame [FILE_PATH] <span class="comment">//查看文件的每一部分最后谁改动</span></span><br></pre></td></tr></table></figure>
+<h3 id="5、意外情况处理"><a href="#5、意外情况处理" class="headerlink" title="5、意外情况处理"></a>5、意外情况处理</h3><p><strong>意外</strong>：推送代码到远程dev分支时发生冲突<br><strong>解决方案</strong>：先把远程仓库的origin/dev分支拉取下来，解决冲突文件后再推送。平时的时候尽量避免不同组员更改同一个文件。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br><span class="line"><span class="comment">// ...遇到错误</span></span><br><span class="line">$ git pull</span><br><span class="line"><span class="comment">// ...解决冲突</span></span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m<span class="string">"solve conflict:由于XX原因出错，修改XX文件解决问题"</span></span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure></p>
+<p><strong>意外</strong>：不小心把自己的工作成果push到了master分支上了。<br><strong>解决方案</strong>：先对master进行回退，再使用git push -f将错误的提交删除</p>
+<hr>
+<h2 id="三、预发布责任人-amp-版本修复责任人"><a href="#三、预发布责任人-amp-版本修复责任人" class="headerlink" title="三、预发布责任人&amp;版本修复责任人"></a>三、预发布责任人&amp;版本修复责任人</h2><h3 id="1-预发布责任人"><a href="#1-预发布责任人" class="headerlink" title="1.预发布责任人"></a>1.预发布责任人</h3><p>当需要发布新的版本时，预发布责任人：  </p>
+<ul>
+<li>基于最新的dev分支创建一个release版本号 分支</li>
+<li>进行修缮工作</li>
+<li>合并到dev分支</li>
+<li>合并到master分支</li>
+<li>打标签</li>
+<li>删除release-版本号 分支</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout dev</span><br><span class="line">$ git pull</span><br><span class="line">$ git checkout -b release<span class="number">-1.2</span></span><br><span class="line"><span class="comment">//...进行修缮工作</span></span><br><span class="line">$ git checkout dev</span><br><span class="line">$ git merge --no-ff release<span class="number">-1.2</span></span><br><span class="line">$ git checkout master</span><br><span class="line">$ git merge --no-ff release<span class="number">-1.2</span>   <span class="comment">//在评论中写入相比上一个版本新增的功能，修复的bug等详细信息</span></span><br><span class="line">$ git tag v1<span class="number">.2</span></span><br><span class="line">$ git branch -d release<span class="number">-1.2</span></span><br></pre></td></tr></table></figure>
+<p>使用git show [TAG_NAME]可以查看标签对应的提交信息。   </p>
+<h3 id="2、版本修复负责人"><a href="#2、版本修复负责人" class="headerlink" title="2、版本修复负责人"></a>2、版本修复负责人</h3><p>当新发布的版本发现bug时，版本修复负责人：  </p>
+<ul>
+<li>基于最新的master分支创建一个hotfix-版本号 分支</li>
+<li>进行debug工作</li>
+<li>合并到master分支</li>
+<li>打标签</li>
+<li>合并到dev分支</li>
+<li>删除hotfix-版本号分支</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">$ git pull</span><br><span class="line">$ git checkout -b hotfix<span class="number">-1.2</span><span class="number">.1</span></span><br><span class="line"><span class="comment">//... 进行修缮工作</span></span><br><span class="line">$ git checkout master</span><br><span class="line">$ git merge --no-ff hotfix<span class="number">-1.2</span><span class="number">.1</span></span><br><span class="line">$ git tag v1<span class="number">.2</span><span class="number">.1</span></span><br><span class="line">$ git checkout dev</span><br><span class="line">$ git merge --not-ff hotfix<span class="number">-1.2</span><span class="number">.1</span></span><br><span class="line">$ git tag v1<span class="number">.2</span><span class="number">.1</span></span><br><span class="line">$ git checkout dev</span><br><span class="line">$ git merge --no-ff hotfix<span class="number">-1.2</span><span class="number">.1</span> <span class="comment">//在评论中写入修复的不管等详细内容</span></span><br><span class="line">$ git branch -d hotfix<span class="number">-1.2</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-意外情况处理"><a href="#3-意外情况处理" class="headerlink" title="3.意外情况处理"></a>3.意外情况处理</h3><p><strong>意外</strong>：某组员完成自己的任务后合并到dev分支，推送时发现release分支的修缮工作更改了自己原来的文件，产生了冲突。<br><strong>解决方案</strong>：把origin/dev分支拉取下来，将冲突解决后再次提交。（注意这里解决冲突后master分支上的文件与该组成员的工作成果依旧是有冲突的。除非该组成员解决冲突时不更改release时的修缮代码，而仅仅更改自己的代码来解决问题。因此，一旦有冲突产生，最好双方进行合理交流达成一致意见。减少冲突。）   </p>
+<h2 id="四、成员远程仓库"><a href="#四、成员远程仓库" class="headerlink" title="四、成员远程仓库"></a>四、成员远程仓库</h2><p>当某个团队成员希望其他成员协助完成他的编程任务时，该成员可以自己的本地仓库创建一个远程仓库作为成员远程仓库，方便其他成员协助。建立成员远程仓库可以避免中心远程仓库的代码交流繁杂混乱。成员远程仓库在操作上是中心远程仓库的简化版。进在细微之处有所不同。   </p>
+<h3 id="1-求助者"><a href="#1-求助者" class="headerlink" title="1.求助者"></a>1.求助者</h3><ul>
+<li>创建成员远程仓库</li>
+<li>添加成员远程仓库</li>
+<li>推送自己的分支到成员仓库的master分支</li>
+<li>拉取成员远程仓库的master分支到自己的分支<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add [ALIAS_NAME] [GIT_ADRESS]</span><br><span class="line">$ git push [ALIAS_NAME] [BRANCH_NAME] [BRANCH_NAME_REMOTE]</span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>举例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add binRepo https:<span class="comment">//coding/chenbin/GitTest2.git</span></span><br><span class="line">$ git push binbin binRepo:master <span class="comment">//由于由于是第一次推送，该操作已经使得分支binbin跟踪了远程分支binRepo/master</span></span><br></pre></td></tr></table></figure></p>
+<p>当某个分支a跟踪了远程分支b，即b成为a的默认拉取来源，也因此，一个本地分支同一时间只能跟踪一个远程分支。<br>让本地某分支跟踪远程分支的命令。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -u [REPO_NAME]/[REMOTE_BRANCH_NAME] [BRANCH_NAME]</span><br><span class="line"><span class="comment">// git branch -u binRepo/master binbin</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2、协助者"><a href="#2、协助者" class="headerlink" title="2、协助者"></a>2、协助者</h3><ul>
+<li>克隆成员远程仓库</li>
+<li>在master分支基础上创建自己的分支master*</li>
+<li>在自己的分支上修改代码</li>
+<li>合并到master分支后推送到成员远程仓库</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https:<span class="comment">//coding.net/chenbin/GitTest2.git</span></span><br><span class="line">$ git checkout -b master1    </span><br><span class="line"><span class="comment">//.....修改代码</span></span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m<span class="string">"我帮你把xx功能完成了"</span></span><br><span class="line">$ git checkout --no-ff merge member1</span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="稻香Snowy wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="稻香Snowy 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/版本控制工具/git学习笔记六（git在团队开发中的工作流）/" rel="next" title="git学习笔记六（git在团队开发中的工作流程）">
+                <i class="fa fa-chevron-left"></i> git学习笔记六（git在团队开发中的工作流程）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/uncategorized/JS常用设计模式/" rel="prev" title="JS常用设计模式">
+                JS常用设计模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/toux.jpg"
+                alt="稻香Snowy" />
+            
+              <p class="site-author-name" itemprop="name">稻香Snowy</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry.Stay Foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Asiazdx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/fb5f478b1a94" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59638598f265da6c4523c761" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5541828133/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-Weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、负责人"><span class="nav-number">1.</span> <span class="nav-text">一、负责人</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-创建项目"><span class="nav-number">1.1.</span> <span class="nav-text">1.创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-其他"><span class="nav-number">1.2.</span> <span class="nav-text">2.其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、组员"><span class="nav-number">2.</span> <span class="nav-text">二、组员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-创建本地仓库"><span class="nav-number">2.1.</span> <span class="nav-text">1. 创建本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、更新本地仓库"><span class="nav-number">2.2.</span> <span class="nav-text">2、更新本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、更新-gitgnore文件"><span class="nav-number">2.3.</span> <span class="nav-text">3、更新.gitgnore文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、常用查询命令"><span class="nav-number">2.4.</span> <span class="nav-text">4、常用查询命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、意外情况处理"><span class="nav-number">2.5.</span> <span class="nav-text">5、意外情况处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、预发布责任人-amp-版本修复责任人"><span class="nav-number">3.</span> <span class="nav-text">三、预发布责任人&amp;版本修复责任人</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-预发布责任人"><span class="nav-number">3.1.</span> <span class="nav-text">1.预发布责任人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、版本修复负责人"><span class="nav-number">3.2.</span> <span class="nav-text">2、版本修复负责人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-意外情况处理"><span class="nav-number">3.3.</span> <span class="nav-text">3.意外情况处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、成员远程仓库"><span class="nav-number">4.</span> <span class="nav-text">四、成员远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-求助者"><span class="nav-number">4.1.</span> <span class="nav-text">1.求助者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、协助者"><span class="nav-number">4.2.</span> <span class="nav-text">2、协助者</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">稻香Snowy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var cw = canvas.width = window.innerWidth,
+  cx = cw / 2;
+var ch = canvas.height = window.innerHeight,
+  cy = ch / 2;
+
+ctx.fillStyle = "#999";
+var linesNum = 16;
+var linesRy = [];
+var requestId = null;
+
+function Line(flag) {
+  this.flag = flag;
+  this.a = {};
+  this.b = {};
+  if (flag == "v") {
+    this.a.y = 0;
+    this.b.y = ch;
+    this.a.x = randomIntFromInterval(0, ch);
+    this.b.x = randomIntFromInterval(0, ch);
+  } else if (flag == "h") {
+    this.a.x = 0;
+    this.b.x = cw;
+    this.a.y = randomIntFromInterval(0, cw);
+    this.b.y = randomIntFromInterval(0, cw);
+  }
+  this.va = randomIntFromInterval(25, 100) / 100;
+  this.vb = randomIntFromInterval(25, 100) / 100;
+
+  this.draw = function() {
+    ctx.strokeStyle = "#ccc";
+    ctx.beginPath();
+    ctx.moveTo(this.a.x, this.a.y);
+    ctx.lineTo(this.b.x, this.b.y);
+    ctx.stroke();
+  }
+
+  this.update = function() {
+    if (this.flag == "v") {
+      this.a.x += this.va;
+      this.b.x += this.vb;
+    } else if (flag == "h") {
+      this.a.y += this.va;
+      this.b.y += this.vb;
+    }
+
+    this.edges();
+  }
+
+  this.edges = function() {
+    if (this.flag == "v") {
+      if (this.a.x < 0 || this.a.x > cw) {
+        this.va *= -1;
+      }
+      if (this.b.x < 0 || this.b.x > cw) {
+        this.vb *= -1;
+      }
+    } else if (flag == "h") {
+      if (this.a.y < 0 || this.a.y > ch) {
+        this.va *= -1;
+      }
+      if (this.b.y < 0 || this.b.y > ch) {
+        this.vb *= -1;
+      }
+    }
+  }
+
+}
+
+for (var i = 0; i < linesNum; i++) {
+  var flag = i % 2 == 0 ? "h" : "v";
+  var l = new Line(flag);
+  linesRy.push(l);
+}
+
+function Draw() {
+  requestId = window.requestAnimationFrame(Draw);
+  ctx.clearRect(0, 0, cw, ch);
+
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    l.draw();
+    l.update();
+  }
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    for (var j = i + 1; j < linesRy.length; j++) {
+      var l1 = linesRy[j]
+      Intersect2lines(l, l1);
+    }
+  }
+}
+
+function Init() {
+  linesRy.length = 0;
+  for (var i = 0; i < linesNum; i++) {
+    var flag = i % 2 == 0 ? "h" : "v";
+    var l = new Line(flag);
+    linesRy.push(l);
+  }
+
+  if (requestId) {
+    window.cancelAnimationFrame(requestId);
+    requestId = null;
+  }
+
+  cw = canvas.width = window.innerWidth,
+    cx = cw / 2;
+  ch = canvas.height = window.innerHeight,
+    cy = ch / 2;
+
+  Draw();
+};
+
+setTimeout(function() {
+  Init();
+
+  addEventListener('resize', Init, false);
+}, 15);
+
+function Intersect2lines(l1, l2) {
+  var p1 = l1.a,
+    p2 = l1.b,
+    p3 = l2.a,
+    p4 = l2.b;
+  var denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+  var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+  var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+  var x = p1.x + ua * (p2.x - p1.x);
+  var y = p1.y + ua * (p2.y - p1.y);
+  if (ua > 0 && ub > 0) {
+    markPoint({
+      x: x,
+      y: y
+    })
+  }
+}
+
+function markPoint(p) {
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+function randomIntFromInterval(mn, mx) {
+  return ~~(Math.random() * (mx - mn + 1) + mn);
+}
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</script>
+</html>

@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #AFDBE3; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #AFDBE3, 0 0 5px     #AFDBE3; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #AFDBE3;    /*上边框颜色*/
+        border-left-color: #AFDBE3;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="分支是git中非常重要的一块，同时在我们开发过程中对我们团队开发起到了很大的作用。那么何为分支？在我们开发中是如何使用分支的？">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git学习笔记三（git中的分支）">
+<meta property="og:url" content="http://www.github.com/Snowyzdx/版本控制工具/git学习笔记三（git中的分支）/index.html">
+<meta property="og:site_name" content="Snowy&#39;blog">
+<meta property="og:description" content="分支是git中非常重要的一块，同时在我们开发过程中对我们团队开发起到了很大的作用。那么何为分支？在我们开发中是如何使用分支的？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc01.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc03.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc04.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc05.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc06.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc11.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc07.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc08.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc09.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc12.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc10.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc11.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc12.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc13.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc16.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc18.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc17.png">
+<meta property="og:updated_time" content="2018-04-12T07:46:56.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git学习笔记三（git中的分支）">
+<meta name="twitter:description" content="分支是git中非常重要的一块，同时在我们开发过程中对我们团队开发起到了很大的作用。那么何为分支？在我们开发中是如何使用分支的？">
+<meta name="twitter:image" content="http://p6nfblqvu.bkt.clouddn.com/gitc.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.github.com/Snowyzdx/版本控制工具/git学习笔记三（git中的分支）/"/>
+
+
+
+
+
+  <title>git学习笔记三（git中的分支） | Snowy'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Asiazdx"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Snowy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Stay Hungry. Stay Foolish</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-comments">
+          <a href="/comments/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-laboratory">
+          <a href="/laboratory/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-other_note">
+          <a href="/other_note/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            书影音
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.github.com/Snowyzdx/版本控制工具/git学习笔记三（git中的分支）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="稻香Snowy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/toux.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Snowy'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">git学习笔记三（git中的分支）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T11:03:00+08:00">
+                2017-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/版本控制工具/" itemprop="url" rel="index">
+                    <span itemprop="name">版本控制工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://p6nfblqvu.bkt.clouddn.com/gitc.png" width="600" alt="gitc"><br>分支是git中非常重要的一块，同时在我们开发过程中对我们团队开发起到了很大的作用。<br>那么何为分支？在我们开发中是如何使用分支的？<br><a id="more"></a></p>
+<h2 id="一、分支的概述"><a href="#一、分支的概述" class="headerlink" title="一、分支的概述"></a>一、分支的概述</h2><p>假设你准备开发一个新的功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，由于代码还没有写完，不完整的代码库可能会导致别人干不了活。如果等代码全部写完再一次性提交，没有写完只能先暂时保存在本地仓库中。这样存在丢失每天进度的巨大风险。   </p>
+<p>现在有了分支，就不用怕了。你创建一个属于自己的分支，别人看不到，还继续在原来的分支上正常工作，而你在自己的分支上干活，想提交就提交，直到开发完毕后，在一次性合并到原来的分支上，这样，即安全，有不影响别人工作。   </p>
+<p>可见使用分支的目的就是可以把你的工作从开发主线上分离开来，以免影响开发主线。    </p>
+<p>其他很多版本控制系统中都有某种形式支持的分支。但是这些系统对分支这一块的实现不是很好（几乎是完全创建一个源码目录的副本），效率极其低。   </p>
+<p>git中的分支很轻，创建一个新的分支是瞬间可以完成的事情，不同分支之间的切换也是非常便捷的。所以很多开发者在使用git进行版本控制的时候是很愿意去使用分支的。   </p>
+<p>git中的分支是如何实现的呢？下面就介绍一下其中的基本流程。   </p>
+<h3 id="1、Git中分支的实现"><a href="#1、Git中分支的实现" class="headerlink" title="1、Git中分支的实现"></a>1、Git中分支的实现</h3><p>我们知道git保存的不是文件的变化或者差异，而是一系列不同时刻的文件快照。在进行提交时，git会保存一个提交对象（git学习笔记一中有提到）。这个提交对象包含了很多的信息，其中就有一个指向暂存区内容快照的指针。首次提交产生的提交对象没有父对象，普通提交操作产生的提交会有父对象，由多个分支合并产生的提交对象有多个父对象。   </p>
+<blockquote>
+<p>git分支，其实仅仅是指向提交对象的可变指针，git的默认分支名是master。在多次提交操作之后，你其实已经有一个指向最后那个提交对象的master分支了。它会在每次体积哦啊操作中自动向前移动。<br>git的“master”分支并不是一个特殊分支，它和其他分支完全没有区别。之所以几乎每个仓库都有master分支，是因为git init命令默认创建了它并且大多数人都懒得改动它。</p>
+</blockquote>
+<p>通俗的讲，我们可以把分支理解成时间轴，在没有创建任何分支的时候我们只有一个分支即master主分支，master指向提交，HEAD指向的是master（指向当前分支）。每次提交后，master分支都会往下走一步。提交的次数越多，这个时间轴就会越长。</p>
+<h2 id="二、创建分支与切换分支"><a href="#二、创建分支与切换分支" class="headerlink" title="二、创建分支与切换分支"></a>二、创建分支与切换分支</h2><h3 id="1-创建一个分支，但是仍然停留在当前分支"><a href="#1-创建一个分支，但是仍然停留在当前分支" class="headerlink" title="1.创建一个分支，但是仍然停留在当前分支"></a>1.创建一个分支，但是仍然停留在当前分支</h3><p><strong>git branch [branch-name][commit]*</strong><br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc01.png" alt="gitc01"><br>创建一个分支dev01，可以把dev01看成一个指针，指向master相同的提交，但是HEAD现在还是指向master，表示当前所在的分支还是master分支。   </p>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitc03.png" alt="gitc03"><br>新建分支时，可以指向指定的commit使用命令：<br><strong>git branch branch-name commitID</strong>   </p>
+<h3 id="2、新建一个分支并切换到这个新建的分支"><a href="#2、新建一个分支并切换到这个新建的分支" class="headerlink" title="2、新建一个分支并切换到这个新建的分支"></a>2、新建一个分支并切换到这个新建的分支</h3><p><strong>git checkout -b dev</strong><br>创建一个分支dev，改变HEAD的指向，工作区中的文件并没有发生任何改变。不过从现在开始，对工作区的修改和提交就是针对dev分支的，比如新提交一次后，dev的指针往前移动一步，而master指针不变。   </p>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitc04.png" alt="gitc04">   </p>
+<h3 id="3-只切换分支"><a href="#3-只切换分支" class="headerlink" title="3.只切换分支"></a>3.只切换分支</h3><p><strong>git checkout [branch-name]</strong><br>切换到指定分支，并更新工作区<br><strong>git checkout -</strong><br>切换到上一个分支</p>
+<h3 id="4、新建一个分支与远程分支简历追踪关系"><a href="#4、新建一个分支与远程分支简历追踪关系" class="headerlink" title="4、新建一个分支与远程分支简历追踪关系"></a>4、新建一个分支与远程分支简历追踪关系</h3><p><strong>git branch –track [branch] [remote-branch]</strong><br>关于与远程分支，现在不展开讲了，后面会在远程仓库中介绍</p>
+<h2 id="三、查看分支"><a href="#三、查看分支" class="headerlink" title="三、查看分支"></a>三、查看分支</h2><ol>
+<li><strong>git branch</strong>：列出所有本地分支</li>
+<li><strong>git branch -r</strong>:列出所有远程分支</li>
+<li><strong>git branch -a</strong>：列出所有本地和远程分支</li>
+</ol>
+<h2 id="四、分支合并"><a href="#四、分支合并" class="headerlink" title="四、分支合并"></a>四、分支合并</h2><p><strong>git merge [branch]</strong><br>合并指定分支到当前分支。<br>比如我们创建了一个新的分支dev，并且切换到当前分支。在当前分支中我们对a。txt进行了修改。当我们切换回master分之后，再查看a.txt文件，才发现刚才修改的内容不见了。<br>因为刚才的提交是在dev分支上，而master分支此刻的提交并没有改变：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc05.png" alt="gitc05"><br>现在，我们把dev分支的工作成果合并到master分支上：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc06.png" alt="gitc06"><br>注意在合并分支的时候先要切换到master分支上。因为git merge命令合并指定分支到当前分支。合并后，再查看a.txt的内容，就可以看到和dev分支的最新提交是完全一样的。   </p>
+<p>注意到上面的Fast-forward信息，表示这次合并时“快进模式”，也就是直接把master指向dev的当前提交，所以合并速度非常快。（不是每次合并都是这种模式）。其他的方式我们后面再说。<br>合并完之后我们就可以放心地删除dev分支了。<br><strong>git branch -d dev</strong><br>删除之后就只剩下master分支了   </p>
+<h2 id="五、解决冲突"><a href="#五、解决冲突" class="headerlink" title="五、解决冲突"></a>五、解决冲突</h2><p>如果同一个文件在合并分支时都被修改了则会引起冲突。<br>下面借鉴阮一峰老师的例子，说一些如何解决冲突。   </p>
+<p>先准备一个新dev分支：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b dev</span><br></pre></td></tr></table></figure>
+<p>修改a.txt的内容，改为：“a hello second”<br>在dev分支上提交：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add a.txt</span><br><span class="line">$ git commit -m<span class="string">"update"</span></span><br></pre></td></tr></table></figure></p>
+<p>切换到master分支上：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure></p>
+<p>在master分支上把a.txt文件中的内容修改一下：“a hello thrid”<br>在master上提交：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add a.txt</span><br><span class="line">$ git commit -m<span class="string">"update"</span></span><br></pre></td></tr></table></figure></p>
+<p>现在，master分支和dev分支各自都分别有新的提交，变成了这样：<br> <img src="http://p6nfblqvu.bkt.clouddn.com/gitc11.png" alt="gitc11"><br> 这种情况下，git无法执行“快速合并”，只能试图把各自修改合并起来，但这种合并就可能会有冲突，我们试试看：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc07.png" alt="gitc07"><br>果然冲突了，git显示a.txt文件存在冲突，必须手动解决冲突后再提交。git status也可以告诉我们冲突的文件：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc08.png" alt="gitc08"><br>我们可以直接查看a.txt文件的内容：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc09.png" alt="gitc09"><br>Git用&lt;&lt;&lt;&lt;&lt;&lt;&lt;，=======，&gt;&gt;&gt;&gt;&gt;&gt;&gt;标记出不同分支的内容我们修改如下后保存：“a hello thrid”<br>再提交：<br>现在，master分支和dev分支变成如下：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc12.png" alt="gitc12"><br>用带参数的git log也可以看到分支的合并的情况：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc10.png" alt="gitc10"><br>最后，删除dev分支：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d dev</span><br></pre></td></tr></table></figure></p>
+<p><strong>小结</strong>：当git无法自动合并分支时，就必须首先解决冲突，解决冲突之后，再提交，合并完成。<br>用git log –graph命令可以看到分支合并图。   </p>
+<h2 id="六、git-rebase"><a href="#六、git-rebase" class="headerlink" title="六、git rebase"></a>六、git rebase</h2><p>原文：<a href="http://gitbook.liuhui998.com/4_2.html" target="_blank" rel="noopener">http://gitbook.liuhui998.com/4_2.html</a></p>
+<h3 id="（1）、基本"><a href="#（1）、基本" class="headerlink" title="（1）、基本"></a>（1）、基本</h3><p>rebase（变基）用于把一个分支的修改合并到当前分支。<br>假设你现在基于master分支，创建了一个mywork分支。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b mywork master</span><br></pre></td></tr></table></figure></p>
+<p>假设master分支上已经有两个提交了。如图：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc11.png" alt="gitc11"><br>现在我们在这个分支上做一些修改，然后生成两个提交。<br>但是与此同时，有人也在master上进行了一些修改并且做了提交，这就意味着master和mywork这两个分支各自“前进”了，它们之间“分叉”了。<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc12.png" alt="gitc12"><br>在这里你可以通过merge命令将mywork与master分支进行合并。如图：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc13.png" alt="gitc13"><br>但是，如果你想让mywork分支历史看起来像没有经历过任何合并一样，你也许可以使用git rebase：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout mywork</span><br><span class="line">$ git rebase master</span><br></pre></td></tr></table></figure></p>
+<p>这些命令会把你的mywork分支里的每个提交（commit）取消掉，并且把它们临时保存为补丁（patch）（这些补丁被放到.git/rebase目录中），然后把mywork分支更新为最新的master分支，最后把保存的这些补丁应用到mywork分支上。   </p>
+<p>当mywork分支更新之后，它会指向这些新创建的提交，而那些老的提交会别丢弃。如果运行垃圾收集命令(git gc)这些丢失的提交就会删除。     </p>
+<h3 id="（2）-git-rebase-i"><a href="#（2）-git-rebase-i" class="headerlink" title="（2） git rebase -i"></a>（2） git rebase -i</h3><p>用-i标记运行git rebase开始交互式rebase。交互rebase给你在合并过程中修改单个提交的机会，而不是盲目地将所有提交都移到新的基上。你可以删除，分割提交，更改提交的顺序。它就像是打了鸡血的git commit –amend一样。   </p>
+<h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i &lt;base&gt;</span><br></pre></td></tr></table></figure>
+<p>将当前分支rebase到base上，但是使用可交互的形式。它会打开一个编辑器，你可以为每个将要reabse放入提交输入命令。这些命令决定了每个提交将会怎样被转移到新的基上去。你还可以对这些提交进行排序。   </p>
+<blockquote>
+<p>交互式rebase给了你控制项目历史的完全掌握。它给了开发人员很大的自由，因为它可以提交一个混乱的历史，开发人员只需专注于写代码，然后回去恢复干净。</p>
+</blockquote>
+<p>大多数开发者喜欢在并入住代码库之前用交互式rebase来完善他们的feature分支。他们可以将不重要的提交合并在一起，删除不需要的，确保所有东西在提交到正式项目历史前是整齐的。<br>例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//开始交互式rebase</span></span><br><span class="line">$ git checkout mywork</span><br><span class="line">$ git rebase -i master</span><br></pre></td></tr></table></figure></p>
+<p>最后那个命令会打开一个编辑器，包含mywork的两个提交，和一些提示：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pick <span class="number">32618</span>c4 Start developing a feature</span><br><span class="line">pick <span class="number">62</span>eed47 Fix something <span class="keyword">from</span> the previous commit</span><br></pre></td></tr></table></figure></p>
+<p>保存并关闭编辑器开始rebase。两一个编辑器打开，询问你合并后的快照的提交信息。在定义了提交信息之后，rebase就完成了，你可以在git log输出中看到那个提交。整个过程可以用下图可视化。   </p>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitc16.png" alt="gitc16"></p>
+<p>注意缩并的提交和原来两个提交的ID都不一样，告诉我们这确实是一个新的提交。最后，你可以执行一个快速向前的合并，来将完善的mywork分支整合进主代码库。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">$ git merge mywork</span><br></pre></td></tr></table></figure>
+<h3 id="（4）、解决冲突"><a href="#（4）、解决冲突" class="headerlink" title="（4）、解决冲突"></a>（4）、解决冲突</h3><p>在rebase的过程中，也许会出现冲突，在这种情况下git会停止rebase并会让你去解决冲突；在解决冲突后，用“git add”，命令去更新这些内容的索引，然后你无需执行git commit，只要执行git rebase –continue，这样git会继续应用余下的补丁。<br>在任何时候，你可以用–abort参数来终止rebase的行动，并且mywork分支会回到rebase开始前的状态。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --abort</span><br></pre></td></tr></table></figure>
+<h3 id="（5）、git-rebase和git-merge的区别"><a href="#（5）、git-rebase和git-merge的区别" class="headerlink" title="（5）、git rebase和git merge的区别"></a>（5）、git rebase和git merge的区别</h3><p>现在我们可以看一下用合并merge和rebase所产生的历史区别：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc18.png" alt="gitc18"><br>当我们使用git log来参看commit时，其commit的顺序也有所不同。<br>假设C3提交于9:00AM，C5提交于10:00AM，C4提交于11:00AM，C6提交于12:00AM,对于使用git merge来合并所看到的commit的顺序（从新到旧）是：C7，C6，C4，C5，C3，C2，C1<br>对于使用git rebase来合并所看到的commit的顺序（从新到旧）是：C7，C6’,C5’,C4，C3，C2，C1<br>因为C6’提交知识C6提交的克隆，C5’提交只是C5提交的克隆。<br>从用户的角度来看使用git rebase来合并后所看到的commit的顺序（从新到旧）是：C7，C6，C5，C4，C3，C2，C1<br>另外，我们在使用git pull命令的时候，可以使用–rebase参数，即git pull –rebase，这里表示把你的本地当前分支里的每个提交（commit）取消掉，并且把它们临时保存为补丁（patch，这些补丁放到“。“.git/rebase”目录中），然后把本地当前分支更新为最新的“origin”分支，最后把保存的这些补丁应用到本地当前分支上。   </p>
+<h3 id="（6）、git-reflog"><a href="#（6）、git-reflog" class="headerlink" title="（6）、git reflog"></a>（6）、git reflog</h3><p>如果在回退以后又想再次回到之前的版本，git reflog可以查看所有分支的所有操作记录（包括commit和reset的操作），包括已经删除的commit记录，git log则不能查看已经删除的commit记录。<br>如下图所示：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitc17.png" alt="gitc17"></p>
+<p>引用日志只对提交到本地仓库的更改有效，而且只有移动操作会被记录。   </p>
+<h2 id="七、分支管理策略"><a href="#七、分支管理策略" class="headerlink" title="七、分支管理策略"></a>七、分支管理策略</h2><p>master主分支应该是非常稳定，用来发布新版本，一般情况下不允许在上面工作，工作一般情况下在新建的dev分支上工作，工作完后，dev分支代码稳定后就可以合并到主分支master上了。   </p>
+<p>接下来我们会介绍</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="稻香Snowy wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="稻香Snowy 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/版本控制工具/git学习笔记一（版本控制系统概述）/" rel="next" title="Git学习笔记一（版本控制系统概述）">
+                <i class="fa fa-chevron-left"></i> Git学习笔记一（版本控制系统概述）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/版本控制工具/git学习笔记二（文件基本操作）/" rel="prev" title="git学习笔记二（文件基本操作）">
+                git学习笔记二（文件基本操作） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/toux.jpg"
+                alt="稻香Snowy" />
+            
+              <p class="site-author-name" itemprop="name">稻香Snowy</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry.Stay Foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Asiazdx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/fb5f478b1a94" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59638598f265da6c4523c761" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5541828133/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-Weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、分支的概述"><span class="nav-number">1.</span> <span class="nav-text">一、分支的概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Git中分支的实现"><span class="nav-number">1.1.</span> <span class="nav-text">1、Git中分支的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、创建分支与切换分支"><span class="nav-number">2.</span> <span class="nav-text">二、创建分支与切换分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-创建一个分支，但是仍然停留在当前分支"><span class="nav-number">2.1.</span> <span class="nav-text">1.创建一个分支，但是仍然停留在当前分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、新建一个分支并切换到这个新建的分支"><span class="nav-number">2.2.</span> <span class="nav-text">2、新建一个分支并切换到这个新建的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-只切换分支"><span class="nav-number">2.3.</span> <span class="nav-text">3.只切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、新建一个分支与远程分支简历追踪关系"><span class="nav-number">2.4.</span> <span class="nav-text">4、新建一个分支与远程分支简历追踪关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、查看分支"><span class="nav-number">3.</span> <span class="nav-text">三、查看分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、分支合并"><span class="nav-number">4.</span> <span class="nav-text">四、分支合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、解决冲突"><span class="nav-number">5.</span> <span class="nav-text">五、解决冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、git-rebase"><span class="nav-number">6.</span> <span class="nav-text">六、git rebase</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）、基本"><span class="nav-number">6.1.</span> <span class="nav-text">（1）、基本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）-git-rebase-i"><span class="nav-number">6.2.</span> <span class="nav-text">（2） git rebase -i</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用法"><span class="nav-number">6.2.1.</span> <span class="nav-text">用法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）、解决冲突"><span class="nav-number">6.3.</span> <span class="nav-text">（4）、解决冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（5）、git-rebase和git-merge的区别"><span class="nav-number">6.4.</span> <span class="nav-text">（5）、git rebase和git merge的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（6）、git-reflog"><span class="nav-number">6.5.</span> <span class="nav-text">（6）、git reflog</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、分支管理策略"><span class="nav-number">7.</span> <span class="nav-text">七、分支管理策略</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">稻香Snowy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var cw = canvas.width = window.innerWidth,
+  cx = cw / 2;
+var ch = canvas.height = window.innerHeight,
+  cy = ch / 2;
+
+ctx.fillStyle = "#999";
+var linesNum = 16;
+var linesRy = [];
+var requestId = null;
+
+function Line(flag) {
+  this.flag = flag;
+  this.a = {};
+  this.b = {};
+  if (flag == "v") {
+    this.a.y = 0;
+    this.b.y = ch;
+    this.a.x = randomIntFromInterval(0, ch);
+    this.b.x = randomIntFromInterval(0, ch);
+  } else if (flag == "h") {
+    this.a.x = 0;
+    this.b.x = cw;
+    this.a.y = randomIntFromInterval(0, cw);
+    this.b.y = randomIntFromInterval(0, cw);
+  }
+  this.va = randomIntFromInterval(25, 100) / 100;
+  this.vb = randomIntFromInterval(25, 100) / 100;
+
+  this.draw = function() {
+    ctx.strokeStyle = "#ccc";
+    ctx.beginPath();
+    ctx.moveTo(this.a.x, this.a.y);
+    ctx.lineTo(this.b.x, this.b.y);
+    ctx.stroke();
+  }
+
+  this.update = function() {
+    if (this.flag == "v") {
+      this.a.x += this.va;
+      this.b.x += this.vb;
+    } else if (flag == "h") {
+      this.a.y += this.va;
+      this.b.y += this.vb;
+    }
+
+    this.edges();
+  }
+
+  this.edges = function() {
+    if (this.flag == "v") {
+      if (this.a.x < 0 || this.a.x > cw) {
+        this.va *= -1;
+      }
+      if (this.b.x < 0 || this.b.x > cw) {
+        this.vb *= -1;
+      }
+    } else if (flag == "h") {
+      if (this.a.y < 0 || this.a.y > ch) {
+        this.va *= -1;
+      }
+      if (this.b.y < 0 || this.b.y > ch) {
+        this.vb *= -1;
+      }
+    }
+  }
+
+}
+
+for (var i = 0; i < linesNum; i++) {
+  var flag = i % 2 == 0 ? "h" : "v";
+  var l = new Line(flag);
+  linesRy.push(l);
+}
+
+function Draw() {
+  requestId = window.requestAnimationFrame(Draw);
+  ctx.clearRect(0, 0, cw, ch);
+
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    l.draw();
+    l.update();
+  }
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    for (var j = i + 1; j < linesRy.length; j++) {
+      var l1 = linesRy[j]
+      Intersect2lines(l, l1);
+    }
+  }
+}
+
+function Init() {
+  linesRy.length = 0;
+  for (var i = 0; i < linesNum; i++) {
+    var flag = i % 2 == 0 ? "h" : "v";
+    var l = new Line(flag);
+    linesRy.push(l);
+  }
+
+  if (requestId) {
+    window.cancelAnimationFrame(requestId);
+    requestId = null;
+  }
+
+  cw = canvas.width = window.innerWidth,
+    cx = cw / 2;
+  ch = canvas.height = window.innerHeight,
+    cy = ch / 2;
+
+  Draw();
+};
+
+setTimeout(function() {
+  Init();
+
+  addEventListener('resize', Init, false);
+}, 15);
+
+function Intersect2lines(l1, l2) {
+  var p1 = l1.a,
+    p2 = l1.b,
+    p3 = l2.a,
+    p4 = l2.b;
+  var denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+  var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+  var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+  var x = p1.x + ua * (p2.x - p1.x);
+  var y = p1.y + ua * (p2.y - p1.y);
+  if (ua > 0 && ub > 0) {
+    markPoint({
+      x: x,
+      y: y
+    })
+  }
+}
+
+function markPoint(p) {
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+function randomIntFromInterval(mn, mx) {
+  return ~~(Math.random() * (mx - mn + 1) + mn);
+}
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</script>
+</html>

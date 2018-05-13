@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #AFDBE3; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #AFDBE3, 0 0 5px     #AFDBE3; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #AFDBE3;    /*上边框颜色*/
+        border-left-color: #AFDBE3;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript高阶," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="以功能块为单位进行程序设计，实现其求解算法的方法称为模块化，原则是“高内聚，低耦合”。“高内聚”尽量减少不同文件中函数的交叉引用，“低耦合”是模块与模块之间要相互独立。模块的目的是为了降低程序复杂度，使程序设计，调试和维护等操作简单化。">
+<meta name="keywords" content="JavaScript高阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS高阶六（JS模块化上）">
+<meta property="og:url" content="http://www.github.com/Snowyzdx/JavaScript/JS高阶六（JS模块化上）/index.html">
+<meta property="og:site_name" content="Snowy&#39;blog">
+<meta property="og:description" content="以功能块为单位进行程序设计，实现其求解算法的方法称为模块化，原则是“高内聚，低耦合”。“高内聚”尽量减少不同文件中函数的交叉引用，“低耦合”是模块与模块之间要相互独立。模块的目的是为了降低程序复杂度，使程序设计，调试和维护等操作简单化。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/jsJichujsc06.png">
+<meta property="og:updated_time" content="2018-05-09T09:21:31.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS高阶六（JS模块化上）">
+<meta name="twitter:description" content="以功能块为单位进行程序设计，实现其求解算法的方法称为模块化，原则是“高内聚，低耦合”。“高内聚”尽量减少不同文件中函数的交叉引用，“低耦合”是模块与模块之间要相互独立。模块的目的是为了降低程序复杂度，使程序设计，调试和维护等操作简单化。">
+<meta name="twitter:image" content="http://p6nfblqvu.bkt.clouddn.com/jsJichujsc06.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.github.com/Snowyzdx/JavaScript/JS高阶六（JS模块化上）/"/>
+
+
+
+
+
+  <title>JS高阶六（JS模块化上） | Snowy'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Asiazdx"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Snowy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Stay Hungry. Stay Foolish</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-comments">
+          <a href="/comments/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-laboratory">
+          <a href="/laboratory/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-other_note">
+          <a href="/other_note/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            书影音
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.github.com/Snowyzdx/JavaScript/JS高阶六（JS模块化上）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="稻香Snowy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/toux.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Snowy'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JS高阶六（JS模块化上）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-06T09:54:09+08:00">
+                2016-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://p6nfblqvu.bkt.clouddn.com/jsJichujsc06.png" alt="js06" width="600/"><br>以功能块为单位进行程序设计，实现其求解算法的方法称为模块化，原则是“高内聚，低耦合”。“高内聚”尽量减少不同文件中函数的交叉引用，“低耦合”是模块与模块之间要相互独立。模块的目的是为了降低程序复杂度，使程序设计，调试和维护等操作简单化。<br><a id="more"></a></p>
+<h2 id="一、为什么要使用模块"><a href="#一、为什么要使用模块" class="headerlink" title="一、为什么要使用模块"></a>一、为什么要使用模块</h2><p>模块化可以使你的代码低耦合，功能模块直接不互相影响。我个人认为模块化主要有以下几点好处：    </p>
+<p>1.<strong>可维护性</strong>：根据定义，每个模块都是独立的。良好设计的模块会尽量与外部的代码撇清关系，以便于独立对其进行改进和维护。维护一个独立的模块比起一团凌乱的代码来说要轻松很多。   </p>
+<p>2.<strong>命名空间</strong>：在javascript中，最高级别的函数外定义的变量都是全局变量（这意味着所有人都可以访问到它们）。也正因如此，当一些无关的代码碰巧使用到同名变量的时候，我们就会遇到“命名空间污染”的问题。这样的问题在我们开发过程中是要极力避免的。（依然管理，函数命名冲突，依赖关系处理等）。     </p>
+<p>3.<strong>可复用性</strong>：现实来讲，在日常工作中我们经常会复制自己之前写过的代码到新的项目中。     </p>
+<p>复制粘贴很方便，但是难道我们找不到更好的方法了吗？要是有一个可以重复利用的模块不是更好吗？   </p>
+<h2 id="二、如何引入模块"><a href="#二、如何引入模块" class="headerlink" title="二、如何引入模块"></a>二、如何引入模块</h2><p>引入模块有很多种方式，这里我们先介绍一些：   </p>
+<h3 id="模块模式"><a href="#模块模式" class="headerlink" title="模块模式"></a>模块模式</h3><p>模块模式一般用来模拟类的概念（因为原生javascript并不支持，虽然最新的ES6里引入了Class不过还不普及）这样我们就能把公有和私有方法还有变量存储在一个对象中——这就和我们在java或Python里使用类的感觉一样了。这样我们就能在公开调用API的同时，仍然在一个闭包范围内封装私有变量和方法。   </p>
+<p>实现模块模式的方法有很多种，下面的例子是通过匿名闭包函数的方法。（在Javascript中函数是创建作用域的唯一方式）。   </p>
+<h4 id="例1：匿名闭包函数（立即执行函数）"><a href="#例1：匿名闭包函数（立即执行函数）" class="headerlink" title="例1：匿名闭包函数（立即执行函数）"></a>例1：匿名闭包函数（立即执行函数）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> global=<span class="string">'Hello, I am a global variable'</span>;</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//在函数的作用域中下面的函数是私有的</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> myGrades=[<span class="number">93</span>,<span class="number">95</span>,<span class="number">88</span>,<span class="number">0</span>,<span class="number">55</span>,<span class="number">91</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> average=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> total=myGrades.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">accumulator,item</span>)</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> accumulator+item  </span><br><span class="line">        &#125;,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Your average grade is '</span> + total / myGrades.length + <span class="string">'.'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> failing = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> failingGrades = myGrades.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> item &lt; <span class="number">70</span>;&#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'You failed '</span> + failingGrades.length + <span class="string">' times.'</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(failing());</span><br><span class="line">  <span class="built_in">console</span>.log(global);</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>通过这种构造，我们的匿名函数有了自己的作用域或“闭包”。这允许我们从父（全局）命名空间隐藏变量。   </p>
+<p>这种方法的好处在于，你可以在函数内部使用局部变量，而不回意外覆盖同名全局变量，但仍然能够访问到全局变量。如果不使用一些模块化的框架，而只用jQuery或者Zepto类库完成开发，匿名函数实现模块化也是常用的方式。有兴趣的朋友可以去阅读jQuery源码，里面大量的采用了这种方式。   </p>
+<p>这种方法的好处在于，你可以在函数内部使用局部变量，而不会意外覆盖同名全局变量，但仍然能够访问到全局变量。    </p>
+<h4 id="例2-全局引入"><a href="#例2-全局引入" class="headerlink" title="例2:全局引入"></a>例2:全局引入</h4><p>另一种比较受欢迎的方法是一些诸如jQuery的库使用<strong>全局引入</strong>。和我们刚刚才举例的匿名闭包函数很相似，只是传入全局变量的方法不同：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">globalVariable</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//在函数的作用域中下面的变量是私有的</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> privateFunction=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Shhhh, this is private!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//通过全局变量设置下列方法的外部访问接口</span></span><br><span class="line">    <span class="comment">//与此同时这些方法又在函数内部</span></span><br><span class="line"></span><br><span class="line">    globalVariable.each=<span class="function"><span class="keyword">function</span>(<span class="params">collection,iterator</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">Array</span>.isArray(collection))&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;collection.length;i++)&#123;</span><br><span class="line">                iterator(collection[i],i,collection);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> collection)&#123;</span><br><span class="line">                iterator(collection[key],key,collection);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    globalVariable.filter = <span class="function"><span class="keyword">function</span>(<span class="params">collection, test</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> filtered = [];</span><br><span class="line">    globalVariable.each(collection, <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (test(item)) &#123;</span><br><span class="line">        filtered.push(item);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> filtered;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">    globalVariable.map = <span class="function"><span class="keyword">function</span>(<span class="params">collection, iterator</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> mapped = [];</span><br><span class="line">    globalUtils.each(collection, <span class="function"><span class="keyword">function</span>(<span class="params">value, key, collection</span>) </span>&#123;</span><br><span class="line">      mapped.push(iterator(value));</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> mapped;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  globalVariable.reduce = <span class="function"><span class="keyword">function</span>(<span class="params">collection, iterator, accumulator</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> startingValueMissing = accumulator === <span class="literal">undefined</span>;</span><br><span class="line"></span><br><span class="line">    globalVariable.each(collection, <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(startingValueMissing) &#123;</span><br><span class="line">        accumulator = item;</span><br><span class="line">        startingValueMissing = <span class="literal">false</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        accumulator = iterator(accumulator, item);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> accumulator;</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">&#125;(globalVariable));</span><br></pre></td></tr></table></figure>
+<p>这个例子中，globalVariable 是唯一的全局变量。这种方法的好处是可以预先声明好全局变量，让你的代码更加清晰可读。    </p>
+<h4 id="例3：对象接口"><a href="#例3：对象接口" class="headerlink" title="例3：对象接口"></a>例3：对象接口</h4><p>像下面这样，还有一种创建模块的方法是使用独立的对象接口：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myGradesCalculate=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//在函数的作用域中下面的变量是私有的</span></span><br><span class="line">    <span class="keyword">var</span> myGrades=[<span class="number">93</span>,<span class="number">95</span>,<span class="number">88</span>,<span class="number">0</span>,<span class="number">55</span>,<span class="number">91</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//通过接口在外部访问下列方法</span></span><br><span class="line">    <span class="comment">//与此同时这些方法又都在函数内部</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        average:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> total = myGrades.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">accumulator, item</span>) </span>&#123;</span><br><span class="line">                 <span class="keyword">return</span> accumulator + item;</span><br><span class="line">            &#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span><span class="string">'Your average grade is '</span> + total / myGrades.length + <span class="string">'.'</span>;</span><br><span class="line">        &#125;,</span><br><span class="line">        failing: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> failingGrades = myGrades.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> item &lt; <span class="number">70</span>;</span><br><span class="line">             &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="string">'You failed '</span> + failingGrades.length + <span class="string">' times.'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">myGradesCalculate.failing();<span class="comment">//You failed 2 times.</span></span><br><span class="line">myGradesCalculate.failing();<span class="comment">//Your average grade is 70.33333333333333.</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="例4：揭示模块模式"><a href="#例4：揭示模块模式" class="headerlink" title="例4：揭示模块模式"></a>例4：揭示模块模式</h4><p>这和我们之前的实现方法非常相近，除了它会确保，在所有的变量和方法暴露之前都会保持私有：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myGradesCalculate=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//在函数的作用域中，下面的变量是私有的</span></span><br><span class="line">    <span class="keyword">var</span> myGrades=[<span class="number">93</span>, <span class="number">95</span>, <span class="number">88</span>, <span class="number">0</span>, <span class="number">55</span>, <span class="number">91</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> average=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> total = myGrades.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">accumulator, item</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> accumulator + item;</span><br><span class="line">        &#125;, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span><span class="string">'Your average grade is '</span> + total / myGrades.length + <span class="string">'.'</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> failing=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> failingGrades = myGrades.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> item &lt; <span class="number">70</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'You failed '</span> + failingGrades.length + <span class="string">' times.'</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//将指针指向私有方法</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        average:average,</span><br><span class="line">        failing:failing</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">myGradesCalculate.failing(); <span class="comment">// 'You failed 2 times.'</span></span><br><span class="line">myGradesCalculate.average(); <span class="comment">// 'Your average grade is 70.33333333333333.'</span></span><br></pre></td></tr></table></figure>
+<p>到这里，其实我们只聊了模块模式的冰山一角。感兴趣的朋友可以阅读更详细的资料。   </p>
+<ul>
+<li><a href="http://www.oschina.net/translate/javascript-module-pattern-in-depth" target="_blank" rel="noopener">深入理解javascript模块模式</a></li>
+<li><a href="http://www.cnblogs.com/TomXu/archive/2011/12/30/2288372.html" target="_blank" rel="noopener">深入理解javascript系列（3）：全面解析Module模式</a></li>
+</ul>
+<h1 id="CommonJS和AMD"><a href="#CommonJS和AMD" class="headerlink" title="CommonJS和AMD"></a>CommonJS和AMD</h1><p>上述的所有解决方案都有一个共同点：使用单个全局变量来把所有的代码包含在一个函数内。由此来创建私有的命名空间和闭包作用域。   </p>
+<p>虽然每种方法都比较有效，但也都有各自的短板。   </p>
+<p>有一点，作为开发者，你必须清楚地了解引入依赖文件的正确顺序。就拿Backbone.js来举个例子，想要使用Backbone就必须在你的页面里引入Backbone的源文件。   </p>
+<p>然而Backbone又依赖Underscore.js所以Backbone的引入必须在其之后。    </p>
+<p>而在工作中，这些依赖管理经常会成为让人头疼的问题。   </p>
+<p>另外一点，这些方法也有可能会引起命名空间冲突。举个例子，要是你碰巧写了来两个重名的模块怎么办？或者你需要一个模块的两个版本怎么办？   </p>
+<p>难道就没有不通过全局作用域来实现的模块方法吗？   </p>
+<p>当然是有的，接下来介绍两个广受欢迎的解决方案：CommonJS和AMD</p>
+<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><p>CommonJS扩展了JavaScript声明模块的API。   </p>
+<p>CommonJS模块可以很方便的将某个对象导出，让它们能够被其他模块通过require语句来引入。要是你写过Node.js应该很熟悉这些语法。   </p>
+<p>通过CommonJS，每个JS文件独立地存储它模块的内容（就像一个被括起来的闭包一样）。在这种作用域中，我们通过module.exports语句来导出对象为模块，再通过require语句来引入。    </p>
+<p>示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myModule</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.hello=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'hello!'</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.goodbye=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'goodbye!'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports=myModule;</span><br></pre></td></tr></table></figure></p>
+<p>通过指定导出的对象名称，CommonJS模块系统可以识别在其他文件引入这个模块时应该如何解释。    </p>
+<p>然后在某文件中想要调用myMoudle的时候，只需要require一下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myModule=<span class="built_in">require</span>(<span class="string">'myMoudle'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myModuleInstance=<span class="keyword">new</span> myModule();</span><br><span class="line">myModuleInstance.hello();<span class="comment">//hello</span></span><br><span class="line">myModuleInstance.goodbye();<span class="comment">//goodbye</span></span><br></pre></td></tr></table></figure></p>
+<p>这种实现比起模块模式有两点好处：   </p>
+<ol>
+<li>避免全局命令空间污染</li>
+<li>明确代码之间的依赖关系</li>
+</ol>
+<p>需要注意一点的是，CommonJS以服务器优先的方式来同步载入模块，假设我们引入三个模块的话，它们会一个个的被载入。   </p>
+<p>它在服务器端用起来很好，可是在浏览器里就不会那么高效了。毕竟读取网络的文件要比本地耗时更长。只哎哟它还在读取模块，浏览器载入的页面就会一直卡着不动（在下一篇我们会讨论如何解决这个问题）    </p>
+<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><p>CommonJS已经挺不错了，但是假如我们想要实现异步加载模块该怎么办？答案是Aynchronous Module Definition（异步模块定义规范），简称AMD。   </p>
+<p>通过AMD载入模块的代码一般这么写：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'myModule'</span>,<span class="string">'myOtherModule'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">myModule,myOtherModule</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(myModule.hello());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里我们使用define方法，第一个参数是依赖的模块，这些模块都会在后台无阻塞的加载第二个参数作为加载完毕的回调函数。   </p>
+<p>回调函数将会使用载入的模块作为参数。在这个例子中就是myModule和myOtherModule。最后，这些模块本身也需要通过define关键词定义。   </p>
+<p>拿myMoudle来举个例子：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">define([],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        hello:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'hello'</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        goodbye:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'goodbye'</span>)；</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>重申一下，不像CommonJS，AMD是优先浏览器的一种异步载入模块的解决方案（记得，很多人认为一个个载入小文件是很低效的，我们将在下一篇中介绍如何打包模块）。    </p>
+<p>除了异步加载以外，AMD的另一个优点是你可以在模块里使用对象，函数，构造函数，字符串，JSON或者别的数据类型，而CommonJS只支持对象。   </p>
+<p>再补充一点，AMD不支持Node里的一些诸如IO，文件系统等其他服务器端的功能。另外语法上写起来也比CommonJS麻烦一些。    </p>
+<h2 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h2><p>在一些同时需要AMD和CommonJS功能的项目中，你需要使用另一种规范：Universal Module Definition（通用模块定义规范）。<br>UMD创造了一种同时使用两种规范的方法，并且也支持全局变量的定义。所以UMD的模块可以同时在客户端和服务器端使用。   </p>
+<p>下面是一个解释其功能的例子：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">root,factory</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(typepof define===<span class="string">'function'</span> &amp;&amp; define.amd)&#123;</span><br><span class="line">        <span class="comment">//AMD</span></span><br><span class="line">        define([<span class="string">'myModule'</span>,<span class="string">'myOtherModule'</span>],factory);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">typeof</span> exports===<span class="string">'object'</span>)&#123;</span><br><span class="line">        <span class="comment">//CommonJS</span></span><br><span class="line">        <span class="built_in">module</span>.exports=factory(<span class="built_in">require</span>(<span class="string">'myModule'</span>),<span class="built_in">require</span>(<span class="string">'myOtherMoule'</span>));</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">// Browser globals (Note: root is window)</span></span><br><span class="line">        root.returnExports=factory(root.myModule,root.myOtherModule);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;(<span class="keyword">this</span>,<span class="function"><span class="keyword">function</span>(<span class="params">myModule,myOtherModule</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//Methods</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">notHelloOrGoodbye</span>(<span class="params"></span>)</span>&#123;&#125;;<span class="comment">// A private method</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>)</span>&#123;&#125;; <span class="comment">// A public method because it's returned (see below)</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">goodbye</span>(<span class="params"></span>)</span>&#123;&#125;; <span class="comment">// A public method because it's returned (see below)</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">      hello:hello,</span><br><span class="line">      goobye:goobye</span><br><span class="line">  &#125;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>更多有关UMD的例子情看其github上的<a href="https://github.com/umdjs/umd" target="_blank" rel="noopener">官方repo</a>   </p>
+<h2 id="原生JS"><a href="#原生JS" class="headerlink" title="原生JS"></a>原生JS</h2><p>我们最后再定义一种定义模块的方式   </p>
+<p>你可能已经注意到了，上述的这几种方法都不是JS原生支持的。要么是通过模块模式来模拟，要么是使用CommonJS或AMD。   </p>
+<p>幸运的是在JS的最新规范ECMAScript6中，引入了模块的功能。    </p>
+<p>ES6的模块功能汲取了CommonJS和AMD的优点，拥有简洁的语法并支持异步加载，并且还有其他诸多更好的支持。    </p>
+<p>我最喜欢的ES6模块功能的特性是，导入是实时只读的。（CommonJS只是相当于把导出的代码复制过来）。    </p>
+<p>来看例子：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//lib/counter.js</span></span><br><span class="line"><span class="keyword">var</span> counter=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">increment</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    counter++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decreament</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    counter--;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    counter:counter,</span><br><span class="line">    increment:increment,</span><br><span class="line">    decrement:decrement</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//src/main.js</span></span><br><span class="line"><span class="keyword">var</span> counter=<span class="built_in">require</span>(<span class="string">'../.../lib/counter'</span>);</span><br><span class="line">counter.increment();</span><br><span class="line"><span class="built_in">console</span>.log(counter.counter);<span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子中，我们一共创建了两份模块的实例，一个在导出的时候，一个在引入的时候。   </p>
+<p>在main.js当中的实例和原本模块完全不相干的。这也就解释了我为什么调用了counter.increment()之后仍然返回1.因为我们引入的counter变量和模块里的是两个不同的实例。   </p>
+<p>所以调用counter.increment()方法只会改变模块中的counter。想要修改引入的counter只有手动一下啦：    </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">counter.counter++;</span><br><span class="line"><span class="built_in">console</span>.log(counter.counter);<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>而通过import语句，刻印引入实时只读的模块：   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//lib/counter.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> counter=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">increment</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    counter++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">decrement</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    counter--;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//src/main.js</span></span><br><span class="line"><span class="keyword">import</span>* <span class="keyword">as</span> counter <span class="keyword">from</span> <span class="string">'../../counter'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(counter.counter);<span class="comment">//1</span></span><br><span class="line">counter.increment();</span><br><span class="line"><span class="built_in">console</span>.log(counter.counter);<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>这看起来很酷不是么？这样就实现了我们把模块分隔在不同的文件里，需要的时候又可以合并在一起而且不影响它的功能。<br><a href="https://zhuanlan.zhihu.com/p/22890374" target="_blank" rel="noopener">原文链接</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="稻香Snowy wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="稻香Snowy 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript高阶/" rel="tag"><i class="fa fa-tag"></i> JavaScript高阶</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/JavaScript/JS高阶五（JS中的异步编程下）/" rel="next" title="JS高阶四（JS中的异步编程下）">
+                <i class="fa fa-chevron-left"></i> JS高阶四（JS中的异步编程下）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/JavaScript/JS高阶七（JS模块化下）/" rel="prev" title="JS模块化七（JS模块化下）">
+                JS模块化七（JS模块化下） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/toux.jpg"
+                alt="稻香Snowy" />
+            
+              <p class="site-author-name" itemprop="name">稻香Snowy</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry.Stay Foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Asiazdx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/fb5f478b1a94" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59638598f265da6c4523c761" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5541828133/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-Weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、为什么要使用模块"><span class="nav-number">1.</span> <span class="nav-text">一、为什么要使用模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、如何引入模块"><span class="nav-number">2.</span> <span class="nav-text">二、如何引入模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块模式"><span class="nav-number">2.1.</span> <span class="nav-text">模块模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例1：匿名闭包函数（立即执行函数）"><span class="nav-number">2.1.1.</span> <span class="nav-text">例1：匿名闭包函数（立即执行函数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例2-全局引入"><span class="nav-number">2.1.2.</span> <span class="nav-text">例2:全局引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例3：对象接口"><span class="nav-number">2.1.3.</span> <span class="nav-text">例3：对象接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例4：揭示模块模式"><span class="nav-number">2.1.4.</span> <span class="nav-text">例4：揭示模块模式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CommonJS和AMD"><span class="nav-number"></span> <span class="nav-text">CommonJS和AMD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CommonJS"><span class="nav-number">1.</span> <span class="nav-text">CommonJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AMD"><span class="nav-number">2.</span> <span class="nav-text">AMD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UMD"><span class="nav-number">3.</span> <span class="nav-text">UMD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生JS"><span class="nav-number">4.</span> <span class="nav-text">原生JS</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">稻香Snowy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var cw = canvas.width = window.innerWidth,
+  cx = cw / 2;
+var ch = canvas.height = window.innerHeight,
+  cy = ch / 2;
+
+ctx.fillStyle = "#999";
+var linesNum = 16;
+var linesRy = [];
+var requestId = null;
+
+function Line(flag) {
+  this.flag = flag;
+  this.a = {};
+  this.b = {};
+  if (flag == "v") {
+    this.a.y = 0;
+    this.b.y = ch;
+    this.a.x = randomIntFromInterval(0, ch);
+    this.b.x = randomIntFromInterval(0, ch);
+  } else if (flag == "h") {
+    this.a.x = 0;
+    this.b.x = cw;
+    this.a.y = randomIntFromInterval(0, cw);
+    this.b.y = randomIntFromInterval(0, cw);
+  }
+  this.va = randomIntFromInterval(25, 100) / 100;
+  this.vb = randomIntFromInterval(25, 100) / 100;
+
+  this.draw = function() {
+    ctx.strokeStyle = "#ccc";
+    ctx.beginPath();
+    ctx.moveTo(this.a.x, this.a.y);
+    ctx.lineTo(this.b.x, this.b.y);
+    ctx.stroke();
+  }
+
+  this.update = function() {
+    if (this.flag == "v") {
+      this.a.x += this.va;
+      this.b.x += this.vb;
+    } else if (flag == "h") {
+      this.a.y += this.va;
+      this.b.y += this.vb;
+    }
+
+    this.edges();
+  }
+
+  this.edges = function() {
+    if (this.flag == "v") {
+      if (this.a.x < 0 || this.a.x > cw) {
+        this.va *= -1;
+      }
+      if (this.b.x < 0 || this.b.x > cw) {
+        this.vb *= -1;
+      }
+    } else if (flag == "h") {
+      if (this.a.y < 0 || this.a.y > ch) {
+        this.va *= -1;
+      }
+      if (this.b.y < 0 || this.b.y > ch) {
+        this.vb *= -1;
+      }
+    }
+  }
+
+}
+
+for (var i = 0; i < linesNum; i++) {
+  var flag = i % 2 == 0 ? "h" : "v";
+  var l = new Line(flag);
+  linesRy.push(l);
+}
+
+function Draw() {
+  requestId = window.requestAnimationFrame(Draw);
+  ctx.clearRect(0, 0, cw, ch);
+
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    l.draw();
+    l.update();
+  }
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    for (var j = i + 1; j < linesRy.length; j++) {
+      var l1 = linesRy[j]
+      Intersect2lines(l, l1);
+    }
+  }
+}
+
+function Init() {
+  linesRy.length = 0;
+  for (var i = 0; i < linesNum; i++) {
+    var flag = i % 2 == 0 ? "h" : "v";
+    var l = new Line(flag);
+    linesRy.push(l);
+  }
+
+  if (requestId) {
+    window.cancelAnimationFrame(requestId);
+    requestId = null;
+  }
+
+  cw = canvas.width = window.innerWidth,
+    cx = cw / 2;
+  ch = canvas.height = window.innerHeight,
+    cy = ch / 2;
+
+  Draw();
+};
+
+setTimeout(function() {
+  Init();
+
+  addEventListener('resize', Init, false);
+}, 15);
+
+function Intersect2lines(l1, l2) {
+  var p1 = l1.a,
+    p2 = l1.b,
+    p3 = l2.a,
+    p4 = l2.b;
+  var denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+  var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+  var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+  var x = p1.x + ua * (p2.x - p1.x);
+  var y = p1.y + ua * (p2.y - p1.y);
+  if (ua > 0 && ub > 0) {
+    markPoint({
+      x: x,
+      y: y
+    })
+  }
+}
+
+function markPoint(p) {
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+function randomIntFromInterval(mn, mx) {
+  return ~~(Math.random() * (mx - mn + 1) + mn);
+}
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</script>
+</html>

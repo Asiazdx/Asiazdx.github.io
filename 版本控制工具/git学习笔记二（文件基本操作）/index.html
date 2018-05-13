@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #AFDBE3; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #AFDBE3, 0 0 5px     #AFDBE3; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #AFDBE3;    /*上边框颜色*/
+        border-left-color: #AFDBE3;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文将介绍如何使用git命令对本地文件进行一些基本的操作。（下面的一些命令都是windows系统下操作的）">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git学习笔记二（文件基本操作）">
+<meta property="og:url" content="http://www.github.com/Snowyzdx/版本控制工具/git学习笔记二（文件基本操作）/index.html">
+<meta property="og:site_name" content="Snowy&#39;blog">
+<meta property="og:description" content="本文将介绍如何使用git命令对本地文件进行一些基本的操作。（下面的一些命令都是windows系统下操作的）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb02.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb03.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb04.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb06.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb27.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb28.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb25.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb29.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb08.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb09.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb21.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb30.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb22.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb24.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb23.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb11.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb12.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb13.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb14.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb15.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb17.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb18.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb19.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb31.png">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb32.png">
+<meta property="og:updated_time" content="2018-04-12T05:54:18.543Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git学习笔记二（文件基本操作）">
+<meta name="twitter:description" content="本文将介绍如何使用git命令对本地文件进行一些基本的操作。（下面的一些命令都是windows系统下操作的）">
+<meta name="twitter:image" content="http://p6nfblqvu.bkt.clouddn.com/gitb.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.github.com/Snowyzdx/版本控制工具/git学习笔记二（文件基本操作）/"/>
+
+
+
+
+
+  <title>git学习笔记二（文件基本操作） | Snowy'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Asiazdx"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Snowy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Stay Hungry. Stay Foolish</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-comments">
+          <a href="/comments/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-laboratory">
+          <a href="/laboratory/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-other_note">
+          <a href="/other_note/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            书影音
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.github.com/Snowyzdx/版本控制工具/git学习笔记二（文件基本操作）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="稻香Snowy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/toux.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Snowy'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">git学习笔记二（文件基本操作）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T11:03:10+08:00">
+                2017-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/版本控制工具/" itemprop="url" rel="index">
+                    <span itemprop="name">版本控制工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb.png" width="600" alt="gitb">    </p>
+<p>本文将介绍如何使用git命令对本地文件进行一些基本的操作。（下面的一些命令都是windows系统下操作的）<br><a id="more"></a></p>
+<h2 id="一、创建Git仓库"><a href="#一、创建Git仓库" class="headerlink" title="一、创建Git仓库"></a>一、创建Git仓库</h2><p>在使用Git管理我们的项目文件时必须要有一个本地仓库用来记录历史提交。所以首先要创建一个本地仓库。   </p>
+<h3 id="1-git-init"><a href="#1-git-init" class="headerlink" title="1.git init"></a>1.git init</h3><p>可以使用git init命令创建一个本地仓库。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在当前目录下新建一个git代码库</span></span><br><span class="line">$ git init</span><br></pre></td></tr></table></figure></p>
+<p>也可以仓库和项目目录一起创建：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//新建一个目录，将其初始化为Git代码库</span></span><br><span class="line">$ git init [project-name]</span><br></pre></td></tr></table></figure></p>
+<p>也可以在创建一个名为myProject的裸仓库<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个裸仓库</span></span><br><span class="line">$ git init --bare myProject.git</span><br></pre></td></tr></table></figure></p>
+<p>我们在创建仓库的时候添加了一个–bare参数，这样就创建了一个裸仓库。何为裸仓库呢？   </p>
+<blockquote>
+<p>裸仓库其实就是一个没有工作区的仓库。裸仓库用来做一个存储设备，而不是开发环境。团队开发中使用的中央仓库就应该被创建成一个裸仓库，因为非裸仓库推送分支时有可能会覆盖已有的代码变动。</p>
+</blockquote>
+<p>也就是说在使用Git进行协作开发时，中央仓库应该是裸仓库，开发者的本地仓库是非裸仓库。    </p>
+<p>注意：一般裸仓库的名称应该是以.git结尾的，像上面的myProject.git。   </p>
+<h3 id="2、仓库中的目录结构介绍"><a href="#2、仓库中的目录结构介绍" class="headerlink" title="2、仓库中的目录结构介绍"></a>2、仓库中的目录结构介绍</h3><p>创建好仓库之后我们进入到项目目录中，会发现有个隐藏的.git目录。关于项目的版本信息都存放在这个目录里。所以如果你想删除某个项目中的git只需要删除这个.git目录即可。      </p>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb02.png" alt="gitb02"></p>
+<ul>
+<li><strong>config</strong>：这个文件文件夹里是你保存的设置，这里的内容将写入远程URL中，比如你的邮箱地址，用户名等。每一次在控制端使用“git config”修改配置后都会被保存在这里。</li>
+<li><strong>description</strong>：用来显示对仓库的描述信息</li>
+<li><strong>hooks</strong>：这里有一个有趣的特性。Git有一套可以自动运行在任何一个有意义的git阶段下的脚本，叫做hooks。hooks可以运行在commit/rebase/pull等状态之前或之后。脚本的名称决定了它什么时候执行。一个有用的pre-push脚本的例子将会被运行以测试控制器（远程控制）中所有样式规则保持一致。</li>
+<li><strong>info-exclude</strong>：可以将你不想被git处理的文件放到.gitnore文件夹里。</li>
+</ul>
+<p>下面我们在之前创建的项目根目录下新建一个index.html文件，然后在当前目录下执行命令：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将修改提交到暂存区中</span></span><br><span class="line">$ git add .</span><br><span class="line"><span class="comment">//将修改提交到本地仓库中</span></span><br><span class="line">$ git commit -m<span class="string">"firset update"</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的命令可能你还看不懂，可以先看注释。我们发现.git文件夹的目录结构发生了变化：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb03.png" alt="gitb03"><br>可以看到多了一些内容。这些都是git执行commit操作之后自动创建的，git都会将其压缩并存储到自己的数据结构中。这个压缩对象有一个独特的名字，一个哈希码，存储在对象目录下。   </p>
+<p>简单的说你可以将commit看做是工作目录中的一种快照，但不仅仅是快照。实际上当你commit时，git只做了两件事情来创造你的工作目录的快照：   </p>
+<ol>
+<li>如果文件没有修改，git仅仅增加压缩文件的名字（hash）到快照中</li>
+<li>如果文件被修改过，git就将其压缩，再将压缩后的文件存储到对象的文件夹中然后再添加这个压缩文件的文件名（hash）到快照中去。   </li>
+</ol>
+<p>这些压缩文件都会被存放在对象文件夹下。比如刚刚我们创建了一个index.html文件提交后，对象目录中多出了三个文件夹，其中第一个是我的index.html压缩文件，另一个对应的是我提交时所创建的快照文件，第三个是commit自身的压缩，因为commit本身也是一个对象，它也会被压缩存储到对象文件夹中。   </p>
+<p>其实一个commit命令实际上包含4件东西：   </p>
+<ul>
+<li>工作目录的快照文件的名称（哈希码）</li>
+<li>注释</li>
+<li>提交者信息</li>
+<li>Parent commit的哈希码</li>
+</ul>
+<p>其实git中任何事情都可以用一个正确的hash来得到，分支，标签，HEAD它们都是一样的。比如打开refs/hader/master发现：10ea238c57c595e6a2bfa1619e52f2b25321ac6c<br>发现这和我刚刚commit的哈希吗是完全一样的，这说明head或者master无非是指向commit的一个指针。<br>好了，这一块讲的可能比较抽象，如果你看懂了最好，看不懂的话也不影响下面的学习。这里仅仅是让我们更加深刻理解git内部是如何工作的。   </p>
+<h2 id="二、查看文件状态"><a href="#二、查看文件状态" class="headerlink" title="二、查看文件状态"></a>二、查看文件状态</h2><p>在git版本控制系统中，文件总共有四种状态（在第一篇中提到过），分别是：<br>未跟踪状态（Untracked），未修改状态（Unmodified），已经修改状态（Modified），暂存状态（Staged）<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb04.png" alt="gitb04"><br>可以通过<strong>git status</strong>命令来查看工作区和暂存区中文件的状态。可以查看哪些更改被缓存了，哪些还没有缓存，以及哪些文件已经被Git追踪了，哪些还没有被Git追踪。git status的输出不会告诉你任何已经提交的项目历史信息。如果你想查看已经提交的文件状态应该使用git log命令（git log命令会在后面详细介绍）。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查看指定文件状态</span></span><br><span class="line">$ git status filename1 filename2 ...</span><br><span class="line"><span class="comment">//列出已经缓存，未缓存，未跟踪的文件</span></span><br><span class="line">$ git status</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb06.png" alt="gitb06"></p>
+<p>不能不说git就是强大，我们在查看文件状态时它还会提示你接下来可以对文件进行怎样的操作。<br>不同的git操作，文件会进入不同的阶段，同时也会改变当前的状态。   </p>
+<p>如何查看文件的状态我们可以使用git status [filename]。那么我们想查看指定状态的文件都有哪些该怎么办呢?比如我想知道项目中有哪些文件是未跟踪的。<br>我们可以通过<strong>git ls-files</strong>命令来查看指定状态的文件列表，如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查看指定状态的文件</span></span><br><span class="line">git ls-files [-z][-t][-v](--cached|deleted|others|ignored|staged|unmerged|killed|modified)*(-[c|d|o|i|u|k|m])*</span><br><span class="line"><span class="comment">//默认查看所有缓存的文件</span></span><br><span class="line">$ git ls-files</span><br><span class="line"><span class="comment">//查看未跟踪的文件</span></span><br><span class="line">$ git ls-files -o</span><br><span class="line"></span><br><span class="line"><span class="comment">//查看未修改的文件</span></span><br><span class="line">$ git ls-files --modified</span><br><span class="line"><span class="comment">//查看暂存区中文件详情</span></span><br><span class="line">$ git ls-files -s</span><br></pre></td></tr></table></figure></p>
+<h2 id="三、提交文件"><a href="#三、提交文件" class="headerlink" title="三、提交文件"></a>三、提交文件</h2><p>提交文件就是将工作区中的文件的修改提交到仓库中的一个过程。   </p>
+<h3 id="1-git-add"><a href="#1-git-add" class="headerlink" title="1. git add "></a>1. git add <file></file></h3><p>在提交文件到仓库之前需要先将文件添加到暂存区。<br>git add 这个命令就是将文件添加到暂存区。暂存区会临时缓存我们的修改，用法如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加指定文件到暂存区</span></span><br><span class="line">git add [filename1] [filename2] ...</span><br><span class="line"><span class="comment">//添加指定目录到暂存区，包括子目录</span></span><br><span class="line">git add [dirname]</span><br><span class="line"><span class="comment">//添加当前目录的所有文件到暂存区</span></span><br><span class="line">git add .</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、git-commit"><a href="#2、git-commit" class="headerlink" title="2、git commit"></a>2、git commit</h3><p>将文件加入到暂存区之后就可以提交文件到仓库中了。 提交时git用暂存区中的文件创建一个新的提交，并把此时的节点设为父节点。然后把当前分支指向新的节点。如下图所示，当前分支是master。在运行命令之前，master指向ed489，提交后，master指向新的提交节点f0cec并以ed489作为父节点。<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb27.png" alt="gitb27"><br>即便当前分支是某次提交的祖父节点，git会同样操作。下图中，在master分支的祖父节点maint分支进行一次提交，生成了1800b。<br>这样，maint分支就不再是master分支的祖父节点。（此时你可以进行合并分支或者rebase分支）<br>为父节点。<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb28.png" alt="gitb28"></p>
+<p>commit命令具体用法如下：</p>
+<ul>
+<li><strong>git commit [filename1 filename2…] -m <message></message></strong>:提交暂存区中的文件到仓库，其中m表示提交信息。   </li>
+<li><strong>git commit -a</strong>：提交工作区自上次commit之后的变化，直接到仓库区，跳过了add，此命令对新文件无效。</li>
+<li><strong>git commit -v</strong>：提交时显示所有diff信息（什么是diff信息，后面会详细介绍）</li>
+<li><strong>git commit –amend [filename1 filename2…] -m<message></message></strong>:使用一次新的commit，代替上一次commit，如果暂存区中没有文件，可以重新编辑一下提交信息。因为提交在我们日常开发中会时常发生。很容易就忘了缓存一个文件或者写错了提交信息的格式。–amend标记是修复这些意外的便捷方式。   </li>
+</ul>
+<p>举个例子：<br>这是在开发过程中经常会发生的事情。我编辑了一些希望在同一个快照中提交的文件，但是我记了添加其中的一个文件了。想修复这样的错误只需要缓存被忘记的那个文件然后用–amend标记提交就可以了：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//编辑a.txt和b.txt</span></span><br><span class="line">$ git add a.txt</span><br><span class="line">$ git commit -m<span class="string">"增加a和b两个文件"</span></span><br><span class="line"><span class="comment">//意识到自己忘记添加b文件了</span></span><br><span class="line">$ git add b.txt</span><br><span class="line">$ git commit --amend --no-edit</span><br></pre></td></tr></table></figure></p>
+<p>加入–no-edit标记会修复提交但是不会修改提交信息。需要修改的话你也可以修改。<br>我们通过git log来查看一下这两次更改是不是被放在了同一个提交中了。结果如下如所示：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb25.png" alt="gitb25"></p>
+<p>使用git commit –amend命令后提交节点的变化如下图所示：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb29.png" alt="gitb29">   </p>
+<h4 id="关于diff"><a href="#关于diff" class="headerlink" title="关于diff"></a>关于diff</h4><p>我们知道可以通过git status来查看文件的状态，但是我们只能查看文件处于什么状态，不能了解每个文件的内容具体做了哪些改动。那么我们如何查看文件修改后的差异呢？<br>可以通过git diff[files]命令可以比较工作区中的文件与暂存区中的文件具体差异。<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb08.png" alt="gitb08"><br>其中—a表示修改之前的文件，+++b表示修改之后的文件。   </p>
+<blockquote>
+<p>git diff –cached：比较暂存区中的文件与之前已经提交的文件</p>
+</blockquote>
+<p>当然你也可以把工作区中的状态和本地仓库中某个历史版本的状态进行diff，命令如下：   </p>
+<blockquote>
+<p>git diff HEAD~n,比较本地仓库与工作区中的文件差异</p>
+</blockquote>
+<p>另外有许多方法可以查看两次提交之间的变动，下面是其中的一些例子。<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb09.png" alt="gitb09"></p>
+<h2 id="四、撤销提交"><a href="#四、撤销提交" class="headerlink" title="四、撤销提交"></a>四、撤销提交</h2><p>有时候我们提交了文件之后，发现有错误，就不想提交了，想撤回。那么该怎样撤回之前的提交呢？撤销提交有三种方式，分别是reset，checkout和revert。下面将分别介绍这三种方法。（其实checkout和revert本质上并没有实现撤销提交，因为它根本没有改变HEAD指针，只是在某些情况下实现了撤销提交的效果）</p>
+<h3 id="1、checkout实现撤销提交"><a href="#1、checkout实现撤销提交" class="headerlink" title="1、checkout实现撤销提交"></a>1、checkout实现撤销提交</h3><p>git checkout命令有三个作用，检出文件，检出提交，检出分支，这一章先不说检出分支。检出提交会使工作区和某个提交完全匹配。检出文件使你能够查看某个特定文件的旧版本，它用于从历史提交（或者stage缓存）中拷贝文件到工作目录中。而工作目录中剩下的其他文件内容不变。用法如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;commit&gt; <span class="xml"><span class="tag">&lt;<span class="name">file</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>查看某个特定文件之前的版本。它将工作区中的<file>文件变成<commit>节点中的那个文件的拷贝，并将它加入到暂存区。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;commit&gt;</span><br></pre></td></tr></table></figure></commit></file></p>
+<p>如果没有指定文件，就将指定历史版本中的文件全部检出。   </p>
+<p><commit>参数可以是提交的哈希码，或者是标签。检出提交是一个只读操作。绝对不会损坏你的仓库（你是不可能对仓库的内容进行修改的）。   </commit></p>
+<p>如果命令中没有指定提交节点，则会从暂存区中拷贝内容到工作目录中。注意当前分支不会发生变化。<br>我们可以通过 git log（或者git log –oneline）来找到我们想要看的那个版本的commit ID。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git log --onelien</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    版本ID 版本信息</span></span><br><span class="line"><span class="comment">    版本ID 版本信息</span></span><br><span class="line"><span class="comment">    版本ID 版本信息</span></span><br><span class="line"><span class="comment">    ....</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">$ git checkout commitID</span><br></pre></td></tr></table></figure></p>
+<p>当执行“git checkout HEAD  .”或者“git checkout HEAD <file>”命令时，会用HEAD指向的分支中的全部或者部分文件替换暂存区以及工作区中的文件。<strong>这个命令是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout HEAD filename</span><br></pre></td></tr></table></figure></file></p>
+<p>在开发的正常阶段，HEAD一般是指向master或者其它分支的，但是当你检出提交的时候，HEAD就不再指向一个分支了，它直接指向这个提交节点。这被称为<strong>分离HEAD</strong>状态，如下图所示：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb21.png" alt="gitb21"><br>当HEAD处于分离状态（不依附于任一分支）时，提交操作可以正常进行，但是不会更新任何已经命名的分支。你可以认为这是在更新一个匿名的分支。<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb30.png" alt="gitb30"><br>一旦此后你切换到别的分支，比如说master，那么这个提交节点（可能）再也不会被引用到，然后就会被丢弃掉了。注意这个命令之后不会有东西引用2eecb这个提交节点了。<br>但是，如果你想保存这个状态，可以用命令git checkout -b name来创建一个新的分支来指向它。   </p>
+<h3 id="2、revert实现撤销提交"><a href="#2、revert实现撤销提交" class="headerlink" title="2、revert实现撤销提交"></a>2、revert实现撤销提交</h3><p>git revert也是撤销命令，它和reset的区别在于reset是向前移动指针，git revert是创建一个commit来覆盖要撤销的commit，是继续往后移动指针。   </p>
+<blockquote>
+<p>git revert命令用来撤销一个已经提交的快照。它是通过搞清楚如何撤销这个提交引入的更改，然后在最后加上一个撤销更改的新提交，而不是从项目历史中移除这个提交。这避免了Git丢失历史，这一点对于你的版本历史和协作的可靠性来说是很重要的。   </p>
+</blockquote>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb22.png" alt="gib22">  </p>
+<p>举个例子：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb24.png" alt="gib24"></p>
+<p>git revert的用法：   </p>
+<ul>
+<li>git revert HEAD:撤销前一次commit</li>
+<li>git revert HEAD^:撤销前前一次commit</li>
+<li>git revert commitID：（比如：2bf5926）撤销指定的提交。</li>
+</ul>
+<p>当我们执行了一次git revert  HEAD后会发现在原来的commit后又创建了一个commit并且工作区的内容被上次提交的内容覆盖。   </p>
+<blockquote>
+<p>撤销（revert）应该是用在你想要在项目历史中移除整个提交的时候。比如你在追踪一个bug，然后你发现它是一个提交造成的，这个时候revert就很有用了。与其说自己去修复这个bug，然后提交一个快照，不如用git revert撤销这个提交，它帮你做了所有的事情。   </p>
+</blockquote>
+<h3 id="3、git-reset"><a href="#3、git-reset" class="headerlink" title="3、git reset"></a>3、git reset</h3><p>reset的字面意思是“重置”，在介绍它之前我们先说一下几个概念。 （其实在前面也已经讲到了）     </p>
+<h4 id="（1）、三棵树"><a href="#（1）、三棵树" class="headerlink" title="（1）、三棵树"></a>（1）、三棵树</h4><p>理解reset和checkout的最简单的方法，就是以git的思维框架（将其作为内容管理器）来管理三颗不同的树。“树”在我们这里的实际意思是“文件的集合”，而不是特定的数据结构。<br>树|用途<br>–|—<br>HEAD|上一次提交的快照，下一次提交的父节点<br>Index|预期的下一次提交的快照<br>Working Directory|工作区</p>
+<p>HEAD：HEAD是指向当前分支的指针，它总是指向该分支的最后一次提交。这表示HEAD将是下一次提交的父节点。通常，理解HEAD的最简单方式，就是将它看做你上一次提交的快照。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//显示了HEAD快照实际的目录列表</span></span><br><span class="line">$ git cat-file -p HEAD</span><br></pre></td></tr></table></figure>
+<p>Index：索引是你的“预期的下一次提交，暂存区域”，运行git add后，代码就进入“暂存区域”。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//显示出索引当前的样子</span></span><br><span class="line">$ git ls-files -s</span><br></pre></td></tr></table></figure></p>
+<p>Working Directory:可以把工作目录当做“沙盒”。在提交之前对文件进行编辑。   </p>
+<h4 id="（2）、重置的作用"><a href="#（2）、重置的作用" class="headerlink" title="（2）、重置的作用"></a>（2）、重置的作用</h4><p>如果说git revert是一个撤销更改安全的方式，那么git reset就是一个危险的方式。因为使用revert后，如果后悔了还可以再使用一次revert返回去。而使用reset就不能了，一旦reset之后，就不能回到原来的样子。<strong>也就是说这个撤销是永远的</strong>。<br>如下图所示：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb23.png" alt="gib23"></p>
+<p>将当前分支重设（reset）到指定的提交节点或者HEAD（默认是HEAD,即最新的一次提交），并且根据参数有可能更新index和working directory（默认参数是mixed）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset [--hard|soft|mixed|merge|keep][commit|HEAD]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>–hard：重设暂存区和工作区，从commit节点以来在暂存区和工作区中的任何改变都会被丢弃，并把HEAD指向commit节点。  </li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git add a.txt</span><br><span class="line">$ git commit -m<span class="string">"add a.txt"</span></span><br><span class="line">$ git add b.txt</span><br><span class="line">$ git commit -m<span class="string">"add b.txt"</span></span><br><span class="line">$ git log --online  #查看日志</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb11.png" alt="gitb11">   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD~<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb12.png" alt="gitb12">   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --oneline</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb13.png">  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status #没有任何内容</span><br></pre></td></tr></table></figure>
+<p>说明：第二次提交的b.txt已经被丢弃！HEAD指针重新指向了第一次提交的节点。彻底回退到某个版本，本地的源码也会变为上一个版本的内容。   </p>
+<ul>
+<li>–soft：暂存区和工作目录中的内容不做任何改变，仅仅把HEAD指针向某个提交节点。自从<commit>以来的所有改变都会显示在git status的“Changes to be commited”中。    </commit></li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git add test1.txt</span><br><span class="line">$ git commit -m<span class="string">"add a.txt"</span></span><br><span class="line">$ git add test2.txt</span><br><span class="line">$ git commit -m<span class="string">"add b.txt"</span></span><br><span class="line">$ git log --online  #查看日志</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb14.png" alt="gitb14">   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --soft HEAD~1 #不会有任何提示</span><br><span class="line">$ git log --oneline</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb15.png" alt="gitb15">   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line"><span class="string">``</span><span class="string">`  </span></span><br><span class="line"><span class="string">&lt;img src='http://p6nfblqvu.bkt.clouddn.com/gitb16.png' alt="gitb16"&gt;   </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">说明：第二次提交的test2被重置到了“changes to be commited”中！HEAD指针重新指向了第一次提交的commitID。回退到某个版本，只回退了commit的信息。如果还要提交，直接commit即可。意思就是暂存区和工作区中的内容没有回退。   </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">- --mixed：仅仅重设index，但是不重设working directory。这个模式是默认模式，即当不显示告知git reset模式时，会使用mixed模式。这个模式的效果是，working directory中文件的修改都会被保留，不会丢失，但是也不会被标记成“Changes to be commited”,但是会打出什么还未被更新的报告。  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line">$ git add a.txt</span><br><span class="line">$ git commit -m<span class="string">"add a.txt"</span></span><br><span class="line">$ git add b.txt</span><br><span class="line">$ git commit -m<span class="string">"add b.txt"</span></span><br><span class="line">$ git log --oneline</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb17.png" alt="gitb17"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#不会有任何提示（默认方式，可以省略--mixed）</span><br><span class="line">$ git reset --mixed HEAD~<span class="number">1</span></span><br><span class="line">$ git log --oneline</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb18.png" alt="gitb18"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<p><img src="http://p6nfblqvu.bkt.clouddn.com/gitb19.png" alt="gitb19"><br>说明：第二次提交的b.txt被重置到了初始状态（上述示例为“Untracked”）HEAD指针重新指向了第一次提交的commitID。回退到某个版本，只保留源码，回退commit和index信息。   </p>
+<p>当然reset还可以用来解决冲突，这时候就需要使用另外两个模式了merge和keep。关于这一点我们会在分支那一块讲解。   </p>
+<p>reset不同模式撤销提交的图示：<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb31.png" alt="gitb31"></p>
+<p>撤销之后c10b9，da985，ed489这三个提交节点都会被删除。<br>另外如果没有给出提交点的版本号，那么默认用HEAD。这样，分支指向不变，但是索引会回滚到最后一次提价，如果用–hard选项，工作目录也同样。<br><img src="http://p6nfblqvu.bkt.clouddn.com/gitb32.png" alt="gitb32"></p>
+<p><strong>git reset和git revert的区别</strong>   </p>
+<ol>
+<li>git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit。</li>
+<li>在回滚这一操作上看，效果差不多。但是在日后继续merge以前的老版本时有区别的。因为git revert是用一次逆向的commit“中和”之前的commit，因此日后合并老的branch时，导致这部分改变不会再次出现，但是git reset是把某些commit在某个branch上删除，因而和老的branch再次merge时，这些被回滚的commit应该还会被引入。  </li>
+<li>git reset是把HEAD向前移动了一下，而git是HEAD继续往后走，只是新的commit的内容和要revert的内容正好相反，能够抵消要被revert的内容。</li>
+</ol>
+<h3 id="4、其他扩展：将文件从暂存区中删除（撤销add操作）"><a href="#4、其他扩展：将文件从暂存区中删除（撤销add操作）" class="headerlink" title="4、其他扩展：将文件从暂存区中删除（撤销add操作）"></a>4、其他扩展：将文件从暂存区中删除（撤销add操作）</h3><p>有时候可能发现要提交的文件中有错误，但是已经添加到暂存区了，现在我想把它从暂存区中移除，这种情况该怎么办？git为我们提供了响应的命令。   </p>
+<h4 id="（1）、git-rm-–cached-filename1-filename2…"><a href="#（1）、git-rm-–cached-filename1-filename2…" class="headerlink" title="（1）、git rm –cached filename1 filename2…"></a>（1）、git rm –cached filename1 filename2…</h4><p>这种方法是将指定文件从暂存区中删除，并且不影响工作区的文件。</p>
+<h4 id="（2）、git-rm相关扩展"><a href="#（2）、git-rm相关扩展" class="headerlink" title="（2）、git rm相关扩展"></a>（2）、git rm相关扩展</h4><ul>
+<li>git rm filename,不但从暂存区中删除，同是从工作区中也删除</li>
+<li>git mv a.txt b.txt,把a.txt改名为b.txt</li>
+<li>git clean[options],移除所有未跟踪文件，一般会加上参数-df，-d表示包含目录，-f表示强制清除。   </li>
+</ul>
+<h3 id="5、git-log"><a href="#5、git-log" class="headerlink" title="5、git log"></a>5、git log</h3><p>git log命令显示已经提交的快照。你可以列出项目历史，筛选，以及搜索特定更改。git status只允许你查看工作目录和暂存区的状态，而git log只作用于提交的项目历史。<br>log输出可以有很多种自定义的方式，从简单的筛选提交，到用完全自定义的格式显示。   </p>
+<h4 id="（1）、git-log"><a href="#（1）、git-log" class="headerlink" title="（1）、git log"></a>（1）、git log</h4><p>使用默认格式显示完整的项目历史。如果超出一屏，你可以使用“空格键”来滚动，按“q”键退出。</p>
+<h4 id="（2）、git-log-n"><a href="#（2）、git-log-n" class="headerlink" title="（2）、git log -n "></a>（2）、git log -n <limit></limit></h4><p>用<limit>限制提交的数量。比如git log -n 3,表示只会显示3个提交。   </limit></p>
+<h4 id="（3）、git-log-–oneline"><a href="#（3）、git-log-–oneline" class="headerlink" title="（3）、git log –oneline"></a>（3）、git log –oneline</h4><p>将每个提交压缩到一行。当你需要查看项目历史的上层情况时，这会很有用。    </p>
+<h4 id="（4）、git-log-–stat"><a href="#（4）、git-log-–stat" class="headerlink" title="（4）、git log –stat"></a>（4）、git log –stat</h4><p>除了git log信息之外，包含了哪些文件被更改了，以及每个文件相对的增删行数。  </p>
+<h4 id="（5）、git-log-p"><a href="#（5）、git-log-p" class="headerlink" title="（5）、git log -p"></a>（5）、git log -p</h4><p>显示代表每个提交的一堆信息。显示每个提交全部的差异（diff），这也是项目历史中最详细的视图。</p>
+<h4 id="（6）、git-log-–author-”“"><a href="#（6）、git-log-–author-”“" class="headerlink" title="（6）、git log –author=”“"></a>（6）、git log –author=”<pattern>“</pattern></h4><p>搜索特定作者的提交。<pattern>可以是字符串或正则表达式。  </pattern></p>
+<h4 id="（7）、git-log-–grep-”“"><a href="#（7）、git-log-–grep-”“" class="headerlink" title="（7）、git log –grep=”“"></a>（7）、git log –grep=”<pattern>“</pattern></h4><p>搜索提交信息匹配特定的<pattern>的提交。<pattern>可以是字符串或正则表达式。   </pattern></pattern></p>
+<h4 id="（8）、git-log-…"><a href="#（8）、git-log-…" class="headerlink" title="（8）、git log …"></a>（8）、git log <since>…<util></util></since></h4><p>只显示发生在<since>和<until>之间的提交。两个参数可以是提交ID、分支名、HEAD或者是任何一种引用。   </until></since></p>
+<h4 id="（9）、git-log"><a href="#（9）、git-log" class="headerlink" title="（9）、git log "></a>（9）、git log <file></file></h4><p>只显示包含特定文件的提交。查找特定文件的历史这样做会很方便。</p>
+<h4 id="（10）、git-log-–graph-–decorate-–online"><a href="#（10）、git-log-–graph-–decorate-–online" class="headerlink" title="（10）、git log –graph –decorate –online"></a>（10）、git log –graph –decorate –online</h4><p>还有一些有用的选项。–graph标记会绘制一幅字符组成的图形，左边是提交，右边是提交信息。–decorate标记会加上提交所在的分支名称和标签。–online标记将提交信息显示在一行，一目了然。   </p>
+<h2 id="五、创建忽略文件"><a href="#五、创建忽略文件" class="headerlink" title="五、创建忽略文件"></a>五、创建忽略文件</h2><p>这个就很简单了，有时候我们不想把某些文件纳入版本控制中，想在提交的时候把一些不想提交的文件跳过。<br>比如我在使用node开发一个小的应用，但是用到了很多第三方模块，当我提交到远程仓库的时候，如果我把整个项目都提交上去，如果这些第三方模块体积很大的话，再加上网很慢的情况，可能我出去喝杯咖啡回来都还没提交完呢。<br>所以我们可以把这些模块文件都忽略掉，在package文件中列一个模块清单就可以。<br>那怎样忽略这些文件呢？<br>我们需要创建一个名为”.gitignore”的文件，这个文件的规则如下：   </p>
+<ol>
+<li>文中的空行或以井号（#）开始的行将会被忽略。</li>
+<li>可以使用Linux通配符。例如：星号*代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1，string2…}）代表可选的字符串等。</li>
+<li>如果名称的最前面有一个叹号（！），表示例外规则，将不被忽略。  </li>
+<li>如果名称的最前面是一个路分隔符（/）,表示要忽略的文件在此目录下，而子目录中的文件不忽略。</li>
+<li>如果名称的最后面是一个路径分隔符（/）,表示要忽略的是此目录下该文件名称的子目录，而非文件（默认文件或目录都忽略）。</li>
+</ol>
+<p>示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">*.txt <span class="comment">//忽略所有.txt结尾的文件</span></span><br><span class="line">!lib.txt <span class="comment">//但是除了lib.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//仅忽略项目根目录下的TODO文件,不包括其它目录temp</span></span><br><span class="line">/temp</span><br><span class="line"></span><br><span class="line"><span class="comment">//忽略build/目录下的所有文件</span></span><br><span class="line">build/</span><br><span class="line"></span><br><span class="line"><span class="comment">//会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span></span><br></pre></td></tr></table></figure></p>
+<p>更多的规则请看<a href="http://www.cnblogs.com/kevingrace/p/5690241.html" target="_blank" rel="noopener">这里</a></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文介绍了文件的不同操作，包括添加到暂存区，提交文件，撤销提交等等，后面的文件我们将介绍git中比较重要的块：<a href="/版本控制工具/git学习笔记三（git中的分支）/" title="git学习笔记三（git中的分支">git学习笔记三（git中的分支</a>  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="稻香Snowy wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="稻香Snowy 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/版本控制工具/git学习笔记三（git中的分支）/" rel="next" title="git学习笔记三（git中的分支）">
+                <i class="fa fa-chevron-left"></i> git学习笔记三（git中的分支）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/版本控制工具/git学习笔记四（远程仓库）/" rel="prev" title="git学习笔记四（远程仓库）">
+                git学习笔记四（远程仓库） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/toux.jpg"
+                alt="稻香Snowy" />
+            
+              <p class="site-author-name" itemprop="name">稻香Snowy</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry.Stay Foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Asiazdx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/fb5f478b1a94" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59638598f265da6c4523c761" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5541828133/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-Weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、创建Git仓库"><span class="nav-number">1.</span> <span class="nav-text">一、创建Git仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-git-init"><span class="nav-number">1.1.</span> <span class="nav-text">1.git init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、仓库中的目录结构介绍"><span class="nav-number">1.2.</span> <span class="nav-text">2、仓库中的目录结构介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、查看文件状态"><span class="nav-number">2.</span> <span class="nav-text">二、查看文件状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、提交文件"><span class="nav-number">3.</span> <span class="nav-text">三、提交文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-git-add"><span class="nav-number">3.1.</span> <span class="nav-text">1. git add </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、git-commit"><span class="nav-number">3.2.</span> <span class="nav-text">2、git commit</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于diff"><span class="nav-number">3.2.1.</span> <span class="nav-text">关于diff</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、撤销提交"><span class="nav-number">4.</span> <span class="nav-text">四、撤销提交</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、checkout实现撤销提交"><span class="nav-number">4.1.</span> <span class="nav-text">1、checkout实现撤销提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、revert实现撤销提交"><span class="nav-number">4.2.</span> <span class="nav-text">2、revert实现撤销提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、git-reset"><span class="nav-number">4.3.</span> <span class="nav-text">3、git reset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）、三棵树"><span class="nav-number">4.3.1.</span> <span class="nav-text">（1）、三棵树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）、重置的作用"><span class="nav-number">4.3.2.</span> <span class="nav-text">（2）、重置的作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、其他扩展：将文件从暂存区中删除（撤销add操作）"><span class="nav-number">4.4.</span> <span class="nav-text">4、其他扩展：将文件从暂存区中删除（撤销add操作）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）、git-rm-–cached-filename1-filename2…"><span class="nav-number">4.4.1.</span> <span class="nav-text">（1）、git rm –cached filename1 filename2…</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）、git-rm相关扩展"><span class="nav-number">4.4.2.</span> <span class="nav-text">（2）、git rm相关扩展</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、git-log"><span class="nav-number">4.5.</span> <span class="nav-text">5、git log</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）、git-log"><span class="nav-number">4.5.1.</span> <span class="nav-text">（1）、git log</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）、git-log-n"><span class="nav-number">4.5.2.</span> <span class="nav-text">（2）、git log -n </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）、git-log-–oneline"><span class="nav-number">4.5.3.</span> <span class="nav-text">（3）、git log –oneline</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）、git-log-–stat"><span class="nav-number">4.5.4.</span> <span class="nav-text">（4）、git log –stat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（5）、git-log-p"><span class="nav-number">4.5.5.</span> <span class="nav-text">（5）、git log -p</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（6）、git-log-–author-”“"><span class="nav-number">4.5.6.</span> <span class="nav-text">（6）、git log –author=”“</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（7）、git-log-–grep-”“"><span class="nav-number">4.5.7.</span> <span class="nav-text">（7）、git log –grep=”“</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（8）、git-log-…"><span class="nav-number">4.5.8.</span> <span class="nav-text">（8）、git log …</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（9）、git-log"><span class="nav-number">4.5.9.</span> <span class="nav-text">（9）、git log </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（10）、git-log-–graph-–decorate-–online"><span class="nav-number">4.5.10.</span> <span class="nav-text">（10）、git log –graph –decorate –online</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、创建忽略文件"><span class="nav-number">5.</span> <span class="nav-text">五、创建忽略文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">稻香Snowy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var cw = canvas.width = window.innerWidth,
+  cx = cw / 2;
+var ch = canvas.height = window.innerHeight,
+  cy = ch / 2;
+
+ctx.fillStyle = "#999";
+var linesNum = 16;
+var linesRy = [];
+var requestId = null;
+
+function Line(flag) {
+  this.flag = flag;
+  this.a = {};
+  this.b = {};
+  if (flag == "v") {
+    this.a.y = 0;
+    this.b.y = ch;
+    this.a.x = randomIntFromInterval(0, ch);
+    this.b.x = randomIntFromInterval(0, ch);
+  } else if (flag == "h") {
+    this.a.x = 0;
+    this.b.x = cw;
+    this.a.y = randomIntFromInterval(0, cw);
+    this.b.y = randomIntFromInterval(0, cw);
+  }
+  this.va = randomIntFromInterval(25, 100) / 100;
+  this.vb = randomIntFromInterval(25, 100) / 100;
+
+  this.draw = function() {
+    ctx.strokeStyle = "#ccc";
+    ctx.beginPath();
+    ctx.moveTo(this.a.x, this.a.y);
+    ctx.lineTo(this.b.x, this.b.y);
+    ctx.stroke();
+  }
+
+  this.update = function() {
+    if (this.flag == "v") {
+      this.a.x += this.va;
+      this.b.x += this.vb;
+    } else if (flag == "h") {
+      this.a.y += this.va;
+      this.b.y += this.vb;
+    }
+
+    this.edges();
+  }
+
+  this.edges = function() {
+    if (this.flag == "v") {
+      if (this.a.x < 0 || this.a.x > cw) {
+        this.va *= -1;
+      }
+      if (this.b.x < 0 || this.b.x > cw) {
+        this.vb *= -1;
+      }
+    } else if (flag == "h") {
+      if (this.a.y < 0 || this.a.y > ch) {
+        this.va *= -1;
+      }
+      if (this.b.y < 0 || this.b.y > ch) {
+        this.vb *= -1;
+      }
+    }
+  }
+
+}
+
+for (var i = 0; i < linesNum; i++) {
+  var flag = i % 2 == 0 ? "h" : "v";
+  var l = new Line(flag);
+  linesRy.push(l);
+}
+
+function Draw() {
+  requestId = window.requestAnimationFrame(Draw);
+  ctx.clearRect(0, 0, cw, ch);
+
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    l.draw();
+    l.update();
+  }
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    for (var j = i + 1; j < linesRy.length; j++) {
+      var l1 = linesRy[j]
+      Intersect2lines(l, l1);
+    }
+  }
+}
+
+function Init() {
+  linesRy.length = 0;
+  for (var i = 0; i < linesNum; i++) {
+    var flag = i % 2 == 0 ? "h" : "v";
+    var l = new Line(flag);
+    linesRy.push(l);
+  }
+
+  if (requestId) {
+    window.cancelAnimationFrame(requestId);
+    requestId = null;
+  }
+
+  cw = canvas.width = window.innerWidth,
+    cx = cw / 2;
+  ch = canvas.height = window.innerHeight,
+    cy = ch / 2;
+
+  Draw();
+};
+
+setTimeout(function() {
+  Init();
+
+  addEventListener('resize', Init, false);
+}, 15);
+
+function Intersect2lines(l1, l2) {
+  var p1 = l1.a,
+    p2 = l1.b,
+    p3 = l2.a,
+    p4 = l2.b;
+  var denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+  var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+  var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+  var x = p1.x + ua * (p2.x - p1.x);
+  var y = p1.y + ua * (p2.y - p1.y);
+  if (ua > 0 && ub > 0) {
+    markPoint({
+      x: x,
+      y: y
+    })
+  }
+}
+
+function markPoint(p) {
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+function randomIntFromInterval(mn, mx) {
+  return ~~(Math.random() * (mx - mn + 1) + mn);
+}
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</script>
+</html>

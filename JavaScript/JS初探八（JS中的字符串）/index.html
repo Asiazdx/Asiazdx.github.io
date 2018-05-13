@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #AFDBE3; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #AFDBE3, 0 0 5px     #AFDBE3; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #AFDBE3;    /*上边框颜色*/
+        border-left-color: #AFDBE3;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript初探," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="JavaScript初探">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS初探八（JS中的字符串）">
+<meta property="og:url" content="http://www.github.com/Snowyzdx/JavaScript/JS初探八（JS中的字符串）/index.html">
+<meta property="og:site_name" content="Snowy&#39;blog">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p6nfblqvu.bkt.clouddn.com/jsJichujsa08.png">
+<meta property="og:updated_time" content="2018-05-02T10:19:05.016Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS初探八（JS中的字符串）">
+<meta name="twitter:image" content="http://p6nfblqvu.bkt.clouddn.com/jsJichujsa08.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.github.com/Snowyzdx/JavaScript/JS初探八（JS中的字符串）/"/>
+
+
+
+
+
+  <title>JS初探八（JS中的字符串） | Snowy'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Asiazdx"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Snowy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Stay Hungry. Stay Foolish</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-comments">
+          <a href="/comments/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            留言板
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-laboratory">
+          <a href="/laboratory/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-other_note">
+          <a href="/other_note/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            书影音
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.github.com/Snowyzdx/JavaScript/JS初探八（JS中的字符串）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="稻香Snowy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/toux.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Snowy'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JS初探八（JS中的字符串）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-08T09:44:46+08:00">
+                2016-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://p6nfblqvu.bkt.clouddn.com/jsJichujsa08.png" width="600" alt="jsa08"><br><a id="more"></a></p>
+<h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="1-定义"><a href="#1-定义" class="headerlink" title="1.定义"></a>1.定义</h3><p>字符串就是零个或多个排在一起的字符，放在单引号或双引号之中。单引号字符串的内部，可以使用双引号。双引号字符串的内部，可以使用单引号。<br>如果要在单引号字符串的内部，使用单引号（或者在双引号字符串的内部，使用双引号），就必须在内部的单引号（或者双引号）前面加上反斜杠，用来转义。    </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'Did she say \'Hello\''</span>;</span><br><span class="line"><span class="string">"Did she say \"Hello\"?"</span></span><br></pre></td></tr></table></figure>
+<p>由于HTML语言的属性值使用双引号，所以很多项目约定JavaScript语言的字符串只使用单引号，本教程就遵守这个约定。当然，只使用双引号也完全可以。重要的是，坚持使用一种风格，不要两种风格混合。<br>字符串默认只能写在一行内，分成多行将会报错<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a</span></span><br><span class="line"><span class="string">b</span></span><br><span class="line"><span class="string">c'</span></span><br><span class="line"><span class="comment">//SyntaxError: Unexpected token ILLEGAL</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码将一个字符串分成三行，JavaScript就会报错。    </p>
+<h3 id="2-转义"><a href="#2-转义" class="headerlink" title="2.转义"></a>2.转义</h3><p>反斜杠在字符串中有特殊的含义，用来表示一些特殊字符，所以又称转义符。<br>需要用反斜杠的特殊字符，主要下面这些：   </p>
+<ul>
+<li>\0 null(\u0000)</li>
+<li>\b 后退键(\u0008)</li>
+<li>\f 换页符(\u000C)</li>
+<li>\n 换行符(\u000A)</li>
+<li>\r 回车键(\u000D)</li>
+<li>\t 制表符(\u0009)</li>
+<li>\v 垂直制表符(\u000B)</li>
+<li>\’ 单引号(\u0027)</li>
+<li>\” 双引号(\u0022)</li>
+<li>\ 饭反斜杠(\u005C)</li>
+</ul>
+<p>反斜杠还有三种特殊用法。   </p>
+<h4 id="1-、-HHH"><a href="#1-、-HHH" class="headerlink" title="(1)、\HHH"></a>(1)、\HHH</h4><p>反斜杠后面紧跟八进制数（000到377），代表一个字符。HH对应字符的Unicode码点，比如\251表示版权符号。显然，这种方法只能输出256种字符。    </p>
+<h4 id="（2）、-xHH"><a href="#（2）、-xHH" class="headerlink" title="（2）、\xHH"></a>（2）、\xHH</h4><p>\x后面紧跟两个十六进制（00到FF），代表一个字符。HH对应该字符的Unicode码点，比如\xA9表示版权符号。这种方法只能输出256中字符。   </p>
+<h4 id="（3）、-uXXXX"><a href="#（3）、-uXXXX" class="headerlink" title="（3）、\uXXXX"></a>（3）、\uXXXX</h4><p>\u后面紧跟四个十六进制数（0000到FFFF），代表一个字符。HHHH对应该字符的Unicode码点，比如\u00A9表示版权符号。<br>下面是三种字符的特殊写法例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'\251'</span> <span class="comment">// "©"</span></span><br><span class="line"><span class="string">'\xA9'</span> <span class="comment">// "©"</span></span><br><span class="line"><span class="string">'\u00A9'</span> <span class="comment">// "©"</span></span><br><span class="line"></span><br><span class="line"><span class="string">'\172'</span> === <span class="string">'z'</span> <span class="comment">// true</span></span><br><span class="line"><span class="string">'\x7A'</span> === <span class="string">'z'</span> <span class="comment">// true</span></span><br><span class="line"><span class="string">'\u007A'</span> === <span class="string">'z'</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>如果在非特殊字符前面使用反斜杠，则反斜杠会被省略。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'\a'</span>;</span><br><span class="line"><span class="comment">//'a'</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，a是一个正常字符，前面加反斜杠没有特殊含义，反斜杠会被自动省略。    </p>
+<p>如果字符串的正常内容之中，需要包含反斜杠，则反斜杠前面需要再加一个反斜杠，用来对自身转义。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"Prev \\ Next"</span></span><br><span class="line"><span class="comment">// "Prev \ Next"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="3-字符串与数组"><a href="#3-字符串与数组" class="headerlink" title="3.字符串与数组"></a>3.字符串与数组</h3><p>字符串可以被视为字符数组，因此可以使用数组的放括号运算符，用来返回某个位置的字符（位置编号从0开始）。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s=<span class="string">'hello'</span>;</span><br><span class="line">s[<span class="number">0</span>];<span class="comment">//'h'</span></span><br><span class="line">s[<span class="number">1</span>];<span class="string">'e'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//直接对字符串使用方括号运算符</span></span><br><span class="line"><span class="string">'hello'</span>[<span class="number">1</span>];<span class="comment">//'e'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果方括号中的数字超过字符串的长度，或者方括号中根本不是数字，则返回undefined。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'abc'</span>[<span class="number">3</span>];<span class="comment">//undefiend</span></span><br><span class="line"><span class="string">'abc'</span>[<span class="number">-1</span>];<span class="comment">//undefined</span></span><br><span class="line"><span class="string">'abc'</span>[<span class="string">'x'</span>];<span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>但是，字符串与数组的相似仅此而已。实际上，无法改变字符串之中的单个字符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s=<span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">delete</span> s[<span class="number">0</span>];</span><br><span class="line"><span class="built_in">console</span>.log(s);<span class="comment">//'hello'</span></span><br><span class="line">s[<span class="number">1</span>]=<span class="string">'a'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(s);<span class="comment">//'hello'</span></span><br><span class="line">s[<span class="number">5</span>]=<span class="string">'!'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(s);<span class="comment">//'hello'</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码表示，字符串内部的单个字符无法改变和增删，这写操作会默默地失败。<br>字符串也无法直接使用数组的方法，必须通过call方法间接使用。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s=<span class="string">'hello'</span>;</span><br><span class="line">s.join(<span class="string">' '</span>);<span class="comment">//TypeError:s.join is not a function</span></span><br><span class="line"><span class="built_in">Array</span>.prototype.join.call(s,<span class="string">' '</span>);<span class="comment">//'h e l l o';</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，如果直接对字符串使用数组的join方法，会报错不存在该方法。但是，可以通过call方法，间接对字符串使用join方法。<br>不过，由于字符串是只读的，那些会改变原数组的方法，比如push()、sort()、reverse()、splice()都对字符串无效，只有将字符串显示转为数组后才能使用。    </p>
+<h3 id="4-length"><a href="#4-length" class="headerlink" title="4.length"></a>4.length</h3><p>length属性返回字符串的长度，该属性也是无法改变的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s=<span class="string">'hello'</span>;</span><br><span class="line">s.length;<span class="comment">//5</span></span><br><span class="line"></span><br><span class="line">s.length=<span class="number">3</span>;</span><br><span class="line">s.length;<span class="comment">//5</span></span><br><span class="line"></span><br><span class="line">s.length=<span class="number">7</span>;</span><br><span class="line">s.length;<span class="comment">//5</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码表示字符串的length属性无法改变，但是不会报错。    </p>
+<h2 id="二、字符集"><a href="#二、字符集" class="headerlink" title="二、字符集"></a>二、字符集</h2><p>javascript使用Unicode字符集。也就是说，在javascript引擎内部，所有字符都用Unicode表示。<br>javascript不仅仅以Unicode存储字符，还允许直接在程序中使用Unicode编码表示字符，即将字符写成\uxxx的形式，其中xxxx代表该字符的Unicode编码。比如，\u00A9代表版权符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s=<span class="string">'\u00A9'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(s);<span class="comment">//"©"</span></span><br></pre></td></tr></table></figure></p>
+<p>解析代码的时候，javascript会自动识别一个字符是字面形式表示，还是Unicode形式表示。输出给用户的时候，所有字符都会转成字面形式。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f\u006F\u006F=<span class="string">'abc'</span></span><br><span class="line"><span class="built_in">console</span>.log(foo);<span class="comment">//'abc'</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，第一行的变量名foo是Unicode形式表示，第二行是字面形式表示。javascript会自动识别。<br>我们还需要知道，每个字符在JavaScript内部都是以16位（即2个字节）的UTF-16格式储存。也就是说，JavaScript的单位字符长度固定为16位长度，即2个字节。<br>但是，UTF-16有两种长度：对于U+0000到U+FFFF之间的字符，长度为16位（即2个字节）；对于U+10000到U+10FFFF之间的字符，长度为32位（即4个字节），而且前两个字节在0xD800到0xDBFF之间，后两个字节在0xDC00到0xDFFF之间。举例来说，U+1D306对应的字符为𝌆，它写成UTF-16就是0xD834 0xDF06。浏览器会正确将这四个字节识别为一个字符，但是JavaScript内部的字符长度总是固定为16位，会把这四个字节视为两个字符。    </p>
+<h2 id="三、Base64转码"><a href="#三、Base64转码" class="headerlink" title="三、Base64转码"></a>三、Base64转码</h2><p>Base64是一种编码方法，可以将任意字符转成可已打印的字符。使用这种编码方法，主要不是为了加密，而是为了不出现特殊字符，简化程序处理。<br>javascript原生提供两个Base64相关方法。    </p>
+<ul>
+<li>btoa:将字符串或者是二进制值转成Base64编码</li>
+<li>atob:将Base64编码转化成字符串形式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> string=<span class="string">'Hello World!'</span>;</span><br><span class="line">btoa(string);<span class="comment">//'SGVsbG8gV29ybGQh'</span></span><br><span class="line">atob(<span class="string">'SGVsbG8gV29ybGQh'</span>);<span class="comment">//'Hello World!';</span></span><br></pre></td></tr></table></figure>
+<p>这两个方法不适合非ASCII码的字符，会报错。比如下面是将一个汉字字符串转化成Base64编码会报错。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">btoa(<span class="string">'你好'</span>);</span><br><span class="line"><span class="comment">//报错</span></span><br></pre></td></tr></table></figure></p>
+<p>要将非ASCII码字符转为Base64编码，必须中间插入一个转码环节，再使用这两个方法。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Base64Encode</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> btoa(<span class="built_in">encodeURIComponent</span>(str));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Base64Decode</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">decodeURIComponent</span>(atob(str));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>b64Encode(‘你好’) // “JUU0JUJEJUEwJUU1JUE1JUJE”<br>b64Decode(‘JUU0JUJEJUEwJUU1JUE1JUJE’) // “你好”</p>
+<h2 id="四、String对象"><a href="#四、String对象" class="headerlink" title="四、String对象"></a>四、String对象</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>String对象是javascript原生提供的三个包装对象之一，用来生成字符串的包装对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s1=<span class="string">'abc'</span>;</span><br><span class="line"><span class="keyword">var</span> s2=<span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'abc'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> s1;<span class="comment">//'string';</span></span><br><span class="line"><span class="keyword">typeof</span> s2;<span class="comment">//'object';</span></span><br><span class="line">s2.valueOf();<span class="comment">//'abc'</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，变量s1是字符串，s2是对象。由于s2是对象，所以有自己的方法，valueOf方法返回的就是它包装的那个字符串。<br>实际上，字符串的包装对象是一个类似数组的对象（即很像数组，但实际上不是数组）。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'abc'</span>);</span><br><span class="line"><span class="comment">//String&#123;0:'a',1:'b',2:'c',lenght:3&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>除了构造函数String还可以当做工具函数来使用，用来将任意类型的值转化成字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>(<span class="literal">true</span>);<span class="comment">//'true'</span></span><br><span class="line"><span class="built_in">String</span>(<span class="number">52</span>);<span class="comment">//'52'</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码将布尔值true和数值5，分别转换为字符串。   </p>
+<h3 id="2、String-fromCharCode"><a href="#2、String-fromCharCode" class="headerlink" title="2、String.fromCharCode()"></a>2、String.fromCharCode()</h3><p>这是一个静态的方法，方法的参数是一系列的Unicode编码，返回值是这些编码对应的字符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.fromCharCode(<span class="number">104</span>,<span class="number">101</span>,<span class="number">108</span>,<span class="number">108</span>,<span class="number">111</span>);</span><br><span class="line"><span class="comment">//'hello'</span></span><br></pre></td></tr></table></figure></p>
+<p>示例中，fromCharCode方法接受5个Unicode码点作为参数，翻译它们组成的字符串。<br>注意，该方法不支持Unicode码点大于0xFFFF的字符，即传入参数不能大于0xFFFF。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.fromCharCode(<span class="number">0x20BB7</span>);</span><br><span class="line"><span class="comment">//'ஷ'</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码返回字符的编码是0x0BB7,而不是0x20BB7。它的根本原因在于，吗点大于0xFFFF的字符占用四个字节，而javascript只支持两个字符节的字符。这种情况下，必须把0x20BB7拆成两个字符表示。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.fromCharCode(<span class="number">0xD842</span>,<span class="number">0xDFB7</span>);</span><br><span class="line"><span class="comment">//'𠮷'</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，0x20BB7拆成两个字符0xD842和0xDFB7（即两个字节字符，和成一个四字节符），就能得到正确的结果。码点大于0xFFFF的字符的四字节表示法，由UTF-16编码方法决定。</p>
+<h3 id="3-实例对象的属性和方法"><a href="#3-实例对象的属性和方法" class="headerlink" title="3.实例对象的属性和方法"></a>3.实例对象的属性和方法</h3><h4 id="（1）、length属性"><a href="#（1）、length属性" class="headerlink" title="（1）、length属性"></a>（1）、length属性</h4><p>只要记住字符串的length属性是只读的就可以了，它返回字符串中字符的个数。   </p>
+<h4 id="（2）、charAt"><a href="#（2）、charAt" class="headerlink" title="（2）、charAt()"></a>（2）、charAt()</h4><p>该方法返回指定位置的字符，参数是从0开始编码的位置。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s=<span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'abc'</span>);</span><br><span class="line">s.charAt(<span class="number">1</span>);<span class="comment">//'b'</span></span><br><span class="line">s.charAt(s.length<span class="number">-1</span>);<span class="comment">//'c'</span></span><br></pre></td></tr></table></figure></p>
+<p>这个方法完全可以用数组的下标替代。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'abc'</span>.charAt(<span class="number">1</span>);<span class="comment">//'b'</span></span><br><span class="line"><span class="string">'abc'</span>[<span class="number">1</span>];<span class="comment">//'b'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果参数为负数，或者大于等于字符串的长度，charAt返回空字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'abc'</span>.charAt(<span class="number">-1</span>);<span class="comment">//''</span></span><br><span class="line"><span class="string">'abc'</span>.charAt(<span class="number">3</span>);<span class="comment">//''</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="（3）、charCodeAt"><a href="#（3）、charCodeAt" class="headerlink" title="（3）、charCodeAt()"></a>（3）、charCodeAt()</h4><p>charCodeAt方法返回给定位置字符的Unicode码点（十进制表示），相当于String.fromCharCode()的逆操作。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'abc'</span>.charCodeAt(<span class="number">1</span>);<span class="comment">//98</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，abc的1号位置的字符是b，它的Unicode码点是98。<br>如果没有任何参数，charCodeAt返回首字符的Unicode码点。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'abc'</span>.charCodeAt();<span class="comment">//97</span></span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，charCodeAt方法返回的Unicode码点不大于65536（0xFFFF），也就是说，只返回两个字节的字符的码点。如果遇到Unicode码点大于65536的字符，必需连续使用两次charCodeAt，不仅读入charCodeAt(i),还要读入charCodeAt(i+1),将两个16字节放在一起，才能得到准确的字符。<br>如果参数为负数，或大于字符串的长度，charCodeAt返回NaN。    </p>
+<h4 id="（4）、concat"><a href="#（4）、concat" class="headerlink" title="（4）、concat()"></a>（4）、concat()</h4><p>concat方法用于连接两个字符串，返回一个新字符串，不改变原字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s1=<span class="string">'abc'</span>;</span><br><span class="line"><span class="keyword">var</span> s2=<span class="string">'def'</span>;</span><br><span class="line">s1.concat(s2);<span class="comment">//'abcdef'</span></span><br><span class="line">s1;<span class="comment">//'abc'</span></span><br></pre></td></tr></table></figure></p>
+<p>该方法可以接受多个参数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a'</span>.concat(<span class="string">'b'</span>,<span class="string">'c'</span>);<span class="comment">//'abc'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果参数不是字符串，concat方法或将其先转为字符串，然后再连接。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> one=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> two=<span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> three=<span class="string">'3'</span>;</span><br><span class="line"></span><br><span class="line"><span class="string">''</span>.concat(one,two,three);<span class="comment">//'123'</span></span><br><span class="line">one+two+three;<span class="comment">//33</span></span><br></pre></td></tr></table></figure></p>
+<p>示例中，concat方法将参数先转成字符串再连接    </p>
+<h4 id="（5）、slice"><a href="#（5）、slice" class="headerlink" title="（5）、slice()"></a>（5）、slice()</h4><p>slice方法用于从原始字符串取出了子字符串并返回，不改变原来字符串。<br>它的第一个参数是子字符串的开始位置，第二个参数是字符串的结束位置（不含该位置）。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.slice(<span class="number">0</span>,<span class="number">4</span>);<span class="comment">//'java'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果省略第二个参数，则表示子字符串一直到原字符串结束。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.slice(<span class="number">4</span>);<span class="comment">//'script'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果参数是负数，表示从结尾开始倒数计算位置，即该负值加上字符串长度。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.slice(<span class="number">-6</span>);<span class="comment">//'script'</span></span><br><span class="line"><span class="string">'javascript'</span>.slice(<span class="number">0</span>,<span class="number">-6</span>);<span class="comment">//'java'</span></span><br><span class="line"><span class="string">'javascript'</span>.slice(<span class="number">-2</span>,<span class="number">-1</span>);<span class="comment">//'p'</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="（6）、substring"><a href="#（6）、substring" class="headerlink" title="（6）、substring()"></a>（6）、substring()</h4><p>substring方法用于从原字符串取出子字符串并返回，不改变原字符串。它与slice作用相同，但有一些奇怪的规则，因此不建议使用这个方法，优先使用slice。<br>substring方法的第一个参数表示子字符串的开始位置，第二个位置表示结束位置。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.substring(<span class="number">0</span>,<span class="number">4</span>);<span class="comment">//'java'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果省略第二个参数，则表示子字符串一直到原字符串的结束。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.substring(<span class="number">4</span>);<span class="comment">//'script'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果第二个参数大于第一个参数，substring方法会自动更换两个参数位置。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.substring(<span class="number">10</span>,<span class="number">4</span>);<span class="comment">//'script'</span></span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"><span class="string">'javascript'</span>.substring(<span class="number">4</span>,<span class="number">10</span>);<span class="comment">//'script'</span></span><br></pre></td></tr></table></figure></p>
+<p>果参数是负数，substring方法会自动将负数转为0。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.substring(<span class="number">-3</span>);<span class="comment">//'javascript'</span></span><br><span class="line"><span class="string">'javascript'</span>.substring(<span class="number">4</span>,<span class="number">-3</span>);<span class="comment">//'java'</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="（7）、substr"><a href="#（7）、substr" class="headerlink" title="（7）、substr()"></a>（7）、substr()</h4><p>substr方法用于从原始字符串取出子字符串并返回，不改变原字符串。<br>substr方法的第一个参数是一个字符串的开始位置，第二个参数是子字符串的长度。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.substr(<span class="number">4</span>,<span class="number">6</span>);<span class="comment">//'script'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果省略第二个参数，则表示子字符串一直到原字符串的结束。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.substr(<span class="number">4</span>);<span class="comment">//'script'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果第一个参数是负数，表示倒数计算的字符位置。如果第二个参数是负数，将被自动转为0，因此会返回空字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'javascript'</span>.substr(<span class="number">-6</span>);<span class="comment">//'script'</span></span><br><span class="line"><span class="string">'javascript'</span>.substr(<span class="number">4</span>,<span class="number">-1</span>);<span class="comment">//''</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="（8）、indexOf-lastIndexOf"><a href="#（8）、indexOf-lastIndexOf" class="headerlink" title="（8）、indexOf(),lastIndexOf()"></a>（8）、indexOf(),lastIndexOf()</h4><p>这两个方法用于确定一个字符串在另一个字符串中的位置，都返回一个整数，表示匹配开始的位置，如果返回-1，就表示不匹配。两者的区别在于，indexOf从字符串头部开始匹配，lastIndexOf从尾部开始匹配。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'hello world'</span>.indexOf(<span class="string">'o'</span>);<span class="comment">//4</span></span><br><span class="line"><span class="string">'javascript'</span>.indexOf(<span class="string">'Script'</span>);<span class="comment">//-1</span></span><br><span class="line"><span class="string">'hello world'</span>.lastIndexOf(<span class="string">'o'</span>);<span class="comment">//7</span></span><br></pre></td></tr></table></figure></p>
+<p>它们还可以接受第二个参数，对于indexOf方法，第二个参数表示从该位置开始向后匹配；对于lastIndexOf，第二个参数表示从该位置起向前匹配。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'hello world'</span>.indexOf(<span class="string">'o'</span>,<span class="number">6</span>);<span class="comment">//7</span></span><br><span class="line"><span class="string">'hello world'</span>.lastIndexOf(<span class="string">'o'</span>,<span class="number">6</span>);<span class="comment">//4</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="（9）trim"><a href="#（9）trim" class="headerlink" title="（9）trim()"></a>（9）trim()</h4><p>trim方法用于去除字符串两端的空格，返回一个新字符串，不改变原字符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">' hello world '</span>.trim();<span class="comment">//'hello world'</span></span><br></pre></td></tr></table></figure></p>
+<p>该方法去除的不仅仅是空格，还包括制表符（\t,\v）,换行符(\n)和回车符(\r)。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'\r\nabc\t'</span>.trim();<span class="comment">//'abc'</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="（10）、toLowerCase-toUpperCase"><a href="#（10）、toLowerCase-toUpperCase" class="headerlink" title="（10）、toLowerCase(),toUpperCase()"></a>（10）、toLowerCase(),toUpperCase()</h4><p>toLowerCase方法用于将一个字符串全部转为小写，toUpperCase则是全部转为大写。它们都返回一个新字符串，不改变原字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'Hello World'</span>.toLowerCase()</span><br><span class="line"><span class="comment">// "hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="string">'Hello World'</span>.toUpperCase()</span><br><span class="line"><span class="comment">// "HELLO WORLD"</span></span><br></pre></td></tr></table></figure></p>
+<p>这个方法也可以将布尔值或数组转为大写字符串，但是需要通过call方法使用。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.prototype.toLowerCase.call(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">//'TRUE'</span></span><br><span class="line"><span class="built_in">String</span>.prototype.toUpperCase.call([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>]);<span class="comment">//'A,B,C'</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="（11）、localeCompare"><a href="#（11）、localeCompare" class="headerlink" title="（11）、localeCompare()"></a>（11）、localeCompare()</h4><p>localeCompare方法用于比较两个字符串。它返回一个整数，如果小于0，表示第一个字符串小于第二个字符串；如果等于0，表示两者相等；如果大于0；表示第一个字符串大于第二个字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'apple'</span>.localeCompare(<span class="string">'banana'</span>);</span><br><span class="line"><span class="comment">//-1</span></span><br><span class="line"><span class="string">'apple'</span>.localeCompare(<span class="string">'apple'</span>);</span><br><span class="line"><span class="comment">//0</span></span><br></pre></td></tr></table></figure></p>
+<p>该方法的最大特点，就是会考虑自然语言顺序。举例来说，正常情况下，大写的英文字母小于写字母。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'B'</span>&gt;<span class="string">'a'</span>;<span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，字母B小于字母a。这是因为javascript采用的是Unicode码点比较，B的码点是66，而a的码点是97。<br>但是，localeCompare方法会考虑自然语言的排序情况，将B排在a的前面。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'B'</span>.localeCompare(<span class="string">'a'</span>);<span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，localeCompare方法返回整数1（也有可能返回其他正整数），表示B较大。    </p>
+<h4 id="（12）、match"><a href="#（12）、match" class="headerlink" title="（12）、match()"></a>（12）、match()</h4><p>match()方法用于确定原字符串是否匹配某个字符串，返回一个数组，成员为匹配的第一个字符串。如果没有找到匹配，则返回null。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'cat,bat,sat,fat'</span>.match(<span class="string">'at'</span>);<span class="comment">//['at']</span></span><br><span class="line"><span class="string">'cat,bat,sat,fat'</span>.match(<span class="string">'xt'</span>);<span class="comment">//null</span></span><br></pre></td></tr></table></figure></p>
+<p>返回数组还有index属性和input属性，分别表示匹配字符串开始位置和原始字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> matches=<span class="string">'cat,bat,sat,fat'</span>.match(<span class="string">'at'</span>);</span><br><span class="line">matches.index;<span class="comment">//1</span></span><br><span class="line">matched.input;<span class="comment">//'cat,bat,sat,fat';</span></span><br></pre></td></tr></table></figure></p>
+<p>match方法还可以使用正则表达式作为参数。    </p>
+<h4 id="（13）、search"><a href="#（13）、search" class="headerlink" title="（13）、search()"></a>（13）、search()</h4><p>search方法的用法等同于match，但是返回值为匹配的第一个位置。如果没有找到匹配，返回-1。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'cat,bat,sat,fat'</span>.search(<span class="string">'at'</span>);<span class="comment">//1</span></span><br></pre></td></tr></table></figure></p>
+<p>search方法还可以使用正则表达式作为参数。    </p>
+<h4 id="（14）、replace"><a href="#（14）、replace" class="headerlink" title="（14）、replace()"></a>（14）、replace()</h4><p>replace方法用于替换匹配的字符串，一般情况下只替换第一个匹配（除非使用g修饰符的正则表达式）。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'aaa'</span>.replace(<span class="string">'a'</span>,<span class="string">'b'</span>);<span class="comment">//'baa'</span></span><br></pre></td></tr></table></figure></p>
+<p>replace方法还可以使用正则表达式作为参数。</p>
+<h3 id="（15）、split"><a href="#（15）、split" class="headerlink" title="（15）、split()"></a>（15）、split()</h3><p>split方法按照给定规则分割字符串，返回一个由分割出来字符串组成的数组。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a|b|c'</span>.split(<span class="string">'1'</span>);<span class="comment">//['a','b','c']</span></span><br></pre></td></tr></table></figure></p>
+<p>如果分割规则为空字符串，则返回数组的成员是原字符串的每一个字符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a|b|c'</span>.split(<span class="string">''</span>);<span class="comment">//['a','|','b','|','c'];</span></span><br></pre></td></tr></table></figure></p>
+<p>如果省略参数，则返回数组的唯一成员就是原字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a|b|c'</span>.split();<span class="comment">//['a|b|c']</span></span><br></pre></td></tr></table></figure></p>
+<p>如果满足分割规则的两个部分紧邻着（即中间没有其他字符），则返回数组之中会有一个空字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a||b'</span>.split(<span class="string">'|'</span>);<span class="comment">//['a','','b']</span></span><br></pre></td></tr></table></figure></p>
+<p>如果满足分割规则的部分处于字符串的开头或结尾（即它的前面或后面没有其他字符），则返回数组的第一个或最后一个成员是一个空字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'|b|c'</span>.split(<span class="string">'|'</span>);<span class="comment">//['','b','c']</span></span><br><span class="line"><span class="string">'a|b|'</span>.split(<span class="string">'|'</span>);<span class="comment">//['a','b','']</span></span><br></pre></td></tr></table></figure></p>
+<p>split方法还可以接受第二个参数，限定返回数组最大成员数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'a|b|c'</span>.split(<span class="string">'|'</span>,<span class="number">0</span>);<span class="comment">//[]</span></span><br><span class="line"><span class="string">'a|b|c'</span>.split(<span class="string">'|'</span>,<span class="number">1</span>);<span class="comment">//['a']</span></span><br><span class="line"><span class="string">'a|b|c'</span>.split(<span class="string">'|'</span>,<span class="number">2</span>);<span class="comment">//['a','b']</span></span><br><span class="line"><span class="string">'a|b|c'</span>.split(<span class="string">'|'</span>,<span class="number">3</span>);<span class="comment">//['a','b','c']</span></span><br><span class="line"><span class="string">'a|b|c'</span>.split(<span class="string">'|'</span>,<span class="number">4</span>);<span class="comment">//['a','b','c']</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，split方法的第二个参数，决定了返回数组的成员数。<br>split方法还可以使用正则表达式作为参数。   </p>
+<hr>
+<h1 id="ES6中关于字符串的相关扩展"><a href="#ES6中关于字符串的相关扩展" class="headerlink" title="ES6中关于字符串的相关扩展"></a>ES6中关于字符串的相关扩展</h1><p>主要说一下ES6新增的字符串的常用方法。    </p>
+<h3 id="1-for…of遍历"><a href="#1-for…of遍历" class="headerlink" title="1.for…of遍历"></a>1.for…of遍历</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str=<span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> s <span class="keyword">of</span> str)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(s);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//结果：h,e,l,l,o</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-includes-startsWidth-endsWidth"><a href="#2-includes-startsWidth-endsWidth" class="headerlink" title="2.includes(),startsWidth(),endsWidth()"></a>2.includes(),startsWidth(),endsWidth()</h3><p>传统上，javascript只有indexOf方法，可以用来确定一个字符串是否包含在另一个字符串中。ES6又提供了三个新方法。   </p>
+<ul>
+<li>includes():返回布尔值，表示是否找到了参数字符串</li>
+<li>startsWidth():返回布尔值，表示参数字符串是否在原字符串的头部</li>
+<li>endsWidth():返回布尔值，表示参数字符串是否在原字符串的尾部</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s=<span class="string">'hello world!'</span>;</span><br><span class="line">s.startsWidth(<span class="string">'hello'</span>);<span class="comment">//true</span></span><br><span class="line">s.endsWidth(<span class="string">'!'</span>);<span class="comment">//true</span></span><br><span class="line">s.includes(<span class="string">'o'</span>);<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>这三个方法都支持第二个参数，表示开始搜索的位置。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s=<span class="string">'hello world!'</span>;</span><br><span class="line"></span><br><span class="line">s.startsWith(<span class="string">'world'</span>, <span class="number">6</span>) <span class="comment">// true</span></span><br><span class="line">s.endsWith(<span class="string">'Hello'</span>, <span class="number">5</span>) <span class="comment">// true</span></span><br><span class="line">s.includes(<span class="string">'Hello'</span>, <span class="number">6</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码表示，使用第二个参数n时，endsWith的行为与其他两个方法有所不同。它针对前n个字符，而其他两个方法针对从第n个位置直到字符串结束。    </p>
+<h3 id="3-repeat"><a href="#3-repeat" class="headerlink" title="3.repeat"></a>3.repeat</h3><p>string.repeat(num)方法,参数num为重复字符串的次数，各种情况下的返回值见代码。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str=<span class="string">'hello'</span>;</span><br><span class="line">str.repeat(<span class="number">2</span>);<span class="comment">//'hellohello',str被重复了2次返回，str不改变</span></span><br><span class="line"><span class="string">'hi'</span>.repeat(<span class="number">2.6</span>);<span class="comment">//'hihi',浮点类型参数，会取整重复</span></span><br><span class="line"><span class="string">'hi'</span>.repeat(<span class="number">0</span>);<span class="comment">//0的时候返回空字符串</span></span><br><span class="line"><span class="string">'hi'</span>.repeat(<span class="number">-3</span>);<span class="comment">//负数，报错</span></span><br><span class="line"><span class="string">'hi'</span>.repeat(<span class="literal">undefined</span>);<span class="comment">//'' undefined转化为0</span></span><br><span class="line"><span class="string">'hi'</span>.repeat(<span class="literal">null</span>);<span class="comment">//'' null转化为0</span></span><br><span class="line"><span class="string">'hi'</span>.repeat(<span class="literal">NaN</span>);<span class="comment">//'' NaNz转化为0</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="4-’-’"><a href="#4-’-’" class="headerlink" title="4.’${}’"></a>4.’${}’</h3><p>开发过程中,经常用到jq为元素动态添加子元素或动态添加内容，过去我们都是通过字符串拼接进行添加变量。ES6添加的 可以很好的取代jq的老方法，单引号加上’${}’不仅可以嵌入变量，还能保持代码格式，并且{}里面可以进行js代码运行。   </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str=<span class="string">'wbiokr'</span>;</span><br><span class="line">$(<span class="string">'#box'</span>).html(<span class="string">'there is a word $&#123;str&#125;,i know it'</span>);</span><br><span class="line"><span class="comment">//there is a word wbiokr,i know it</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.png" alt="稻香Snowy wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="稻香Snowy 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript初探/" rel="tag"><i class="fa fa-tag"></i> JavaScript初探</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/JavaScript/JS初探七（JS中的数组）/" rel="next" title="JS初探七（JS中的数组）">
+                <i class="fa fa-chevron-left"></i> JS初探七（JS中的数组）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/JavaScript/JS初探九（JS中的函数）/" rel="prev" title="JS初探九（JS中的函数）">
+                JS初探九（JS中的函数） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/toux.jpg"
+                alt="稻香Snowy" />
+            
+              <p class="site-author-name" itemprop="name">稻香Snowy</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry.Stay Foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Asiazdx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/fb5f478b1a94" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59638598f265da6c4523c761" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-spinner"></i>掘金</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/5541828133/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-Weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、概述"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-定义"><span class="nav-number">1.1.</span> <span class="nav-text">1.定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-转义"><span class="nav-number">1.2.</span> <span class="nav-text">2.转义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-、-HHH"><span class="nav-number">1.2.1.</span> <span class="nav-text">(1)、\HHH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）、-xHH"><span class="nav-number">1.2.2.</span> <span class="nav-text">（2）、\xHH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）、-uXXXX"><span class="nav-number">1.2.3.</span> <span class="nav-text">（3）、\uXXXX</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-字符串与数组"><span class="nav-number">1.3.</span> <span class="nav-text">3.字符串与数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-length"><span class="nav-number">1.4.</span> <span class="nav-text">4.length</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、字符集"><span class="nav-number">2.</span> <span class="nav-text">二、字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Base64转码"><span class="nav-number">3.</span> <span class="nav-text">三、Base64转码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、String对象"><span class="nav-number">4.</span> <span class="nav-text">四、String对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概述"><span class="nav-number">4.1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、String-fromCharCode"><span class="nav-number">4.2.</span> <span class="nav-text">2、String.fromCharCode()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-实例对象的属性和方法"><span class="nav-number">4.3.</span> <span class="nav-text">3.实例对象的属性和方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）、length属性"><span class="nav-number">4.3.1.</span> <span class="nav-text">（1）、length属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）、charAt"><span class="nav-number">4.3.2.</span> <span class="nav-text">（2）、charAt()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）、charCodeAt"><span class="nav-number">4.3.3.</span> <span class="nav-text">（3）、charCodeAt()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）、concat"><span class="nav-number">4.3.4.</span> <span class="nav-text">（4）、concat()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（5）、slice"><span class="nav-number">4.3.5.</span> <span class="nav-text">（5）、slice()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（6）、substring"><span class="nav-number">4.3.6.</span> <span class="nav-text">（6）、substring()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（7）、substr"><span class="nav-number">4.3.7.</span> <span class="nav-text">（7）、substr()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（8）、indexOf-lastIndexOf"><span class="nav-number">4.3.8.</span> <span class="nav-text">（8）、indexOf(),lastIndexOf()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（9）trim"><span class="nav-number">4.3.9.</span> <span class="nav-text">（9）trim()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（10）、toLowerCase-toUpperCase"><span class="nav-number">4.3.10.</span> <span class="nav-text">（10）、toLowerCase(),toUpperCase()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（11）、localeCompare"><span class="nav-number">4.3.11.</span> <span class="nav-text">（11）、localeCompare()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（12）、match"><span class="nav-number">4.3.12.</span> <span class="nav-text">（12）、match()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（13）、search"><span class="nav-number">4.3.13.</span> <span class="nav-text">（13）、search()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（14）、replace"><span class="nav-number">4.3.14.</span> <span class="nav-text">（14）、replace()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（15）、split"><span class="nav-number">4.4.</span> <span class="nav-text">（15）、split()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6中关于字符串的相关扩展"><span class="nav-number"></span> <span class="nav-text">ES6中关于字符串的相关扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-for…of遍历"><span class="nav-number">0.1.</span> <span class="nav-text">1.for…of遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-includes-startsWidth-endsWidth"><span class="nav-number">0.2.</span> <span class="nav-text">2.includes(),startsWidth(),endsWidth()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-repeat"><span class="nav-number">0.3.</span> <span class="nav-text">3.repeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-’-’"><span class="nav-number">0.4.</span> <span class="nav-text">4.’${}’</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">稻香Snowy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var cw = canvas.width = window.innerWidth,
+  cx = cw / 2;
+var ch = canvas.height = window.innerHeight,
+  cy = ch / 2;
+
+ctx.fillStyle = "#999";
+var linesNum = 16;
+var linesRy = [];
+var requestId = null;
+
+function Line(flag) {
+  this.flag = flag;
+  this.a = {};
+  this.b = {};
+  if (flag == "v") {
+    this.a.y = 0;
+    this.b.y = ch;
+    this.a.x = randomIntFromInterval(0, ch);
+    this.b.x = randomIntFromInterval(0, ch);
+  } else if (flag == "h") {
+    this.a.x = 0;
+    this.b.x = cw;
+    this.a.y = randomIntFromInterval(0, cw);
+    this.b.y = randomIntFromInterval(0, cw);
+  }
+  this.va = randomIntFromInterval(25, 100) / 100;
+  this.vb = randomIntFromInterval(25, 100) / 100;
+
+  this.draw = function() {
+    ctx.strokeStyle = "#ccc";
+    ctx.beginPath();
+    ctx.moveTo(this.a.x, this.a.y);
+    ctx.lineTo(this.b.x, this.b.y);
+    ctx.stroke();
+  }
+
+  this.update = function() {
+    if (this.flag == "v") {
+      this.a.x += this.va;
+      this.b.x += this.vb;
+    } else if (flag == "h") {
+      this.a.y += this.va;
+      this.b.y += this.vb;
+    }
+
+    this.edges();
+  }
+
+  this.edges = function() {
+    if (this.flag == "v") {
+      if (this.a.x < 0 || this.a.x > cw) {
+        this.va *= -1;
+      }
+      if (this.b.x < 0 || this.b.x > cw) {
+        this.vb *= -1;
+      }
+    } else if (flag == "h") {
+      if (this.a.y < 0 || this.a.y > ch) {
+        this.va *= -1;
+      }
+      if (this.b.y < 0 || this.b.y > ch) {
+        this.vb *= -1;
+      }
+    }
+  }
+
+}
+
+for (var i = 0; i < linesNum; i++) {
+  var flag = i % 2 == 0 ? "h" : "v";
+  var l = new Line(flag);
+  linesRy.push(l);
+}
+
+function Draw() {
+  requestId = window.requestAnimationFrame(Draw);
+  ctx.clearRect(0, 0, cw, ch);
+
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    l.draw();
+    l.update();
+  }
+  for (var i = 0; i < linesRy.length; i++) {
+    var l = linesRy[i];
+    for (var j = i + 1; j < linesRy.length; j++) {
+      var l1 = linesRy[j]
+      Intersect2lines(l, l1);
+    }
+  }
+}
+
+function Init() {
+  linesRy.length = 0;
+  for (var i = 0; i < linesNum; i++) {
+    var flag = i % 2 == 0 ? "h" : "v";
+    var l = new Line(flag);
+    linesRy.push(l);
+  }
+
+  if (requestId) {
+    window.cancelAnimationFrame(requestId);
+    requestId = null;
+  }
+
+  cw = canvas.width = window.innerWidth,
+    cx = cw / 2;
+  ch = canvas.height = window.innerHeight,
+    cy = ch / 2;
+
+  Draw();
+};
+
+setTimeout(function() {
+  Init();
+
+  addEventListener('resize', Init, false);
+}, 15);
+
+function Intersect2lines(l1, l2) {
+  var p1 = l1.a,
+    p2 = l1.b,
+    p3 = l2.a,
+    p4 = l2.b;
+  var denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+  var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+  var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+  var x = p1.x + ua * (p2.x - p1.x);
+  var y = p1.y + ua * (p2.y - p1.y);
+  if (ua > 0 && ub > 0) {
+    markPoint({
+      x: x,
+      y: y
+    })
+  }
+}
+
+function markPoint(p) {
+  ctx.beginPath();
+  ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+function randomIntFromInterval(mn, mx) {
+  return ~~(Math.random() * (mx - mn + 1) + mn);
+}
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</script>
+</html>
